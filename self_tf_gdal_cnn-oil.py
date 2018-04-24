@@ -365,7 +365,7 @@ def test_cnn(test_xs,win_size_X,win_size_Y):
     with tf.Session() as sess:
         # new_saver.restore(sess,tf.train.latest_checkpoint('./model/'))
         # new_saver.restore(sess,"./model/cnn.model-470")
-        saver.restore(sess, "./cnn model/simples2.model-3.ckpt-1000")
+        saver.restore(sess, "./cnn model/simples2.model-3.ckpt-2050")
         # all_vars = tf.trainable_variables()
         # sess.run(tf.global_variables_initializer())
         label_position = tf.argmax(prediction, 1)
@@ -385,8 +385,8 @@ def test_cnn(test_xs,win_size_X,win_size_Y):
 if __name__ == '__main__':
     # image_name = 'C:\hyperspectral\AVIRISReflectanceSubset.dat'
     # image_name = 'F:\遥感相关\墨西哥AVIRIS\\f100709t01p00r11\\f100709t01p00r11rdn_b\\f100709t01p00r11rdn_b_sc01_ort_img_QUAC'
-    train = True
-    test = True
+    train = False
+    test = False
 
     sample_size_X = 46  #训练数据的宽
     sample_size_Y = 80  #训练数据的高
@@ -457,7 +457,7 @@ if __name__ == '__main__':
             plt.show()
 
     else:
-        app_data_path = 'e:\\num1.jpg'
+        app_data_path = 'e:\\num5.jpg'
         app_sample_size_width =46
         app_sample_size_height =80
         app_sample_step_row =95

@@ -12,7 +12,7 @@ def readMat(mat_path,key_w,only_get_key):
         print(mat.items())
         return 0,0,0,0
     im_data = mat.get(key_w)
-    # print(np.max(im_data))
+
     im_data = np.array(im_data, np.float32)
     # print(np.max(im_data))
     # print(im_data.shape)

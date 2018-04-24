@@ -11,6 +11,24 @@ for i in range(10):
 
 while True:
     plt.pause(0.05)
+
+    # fig = plt.figure()
+    # ax = fig.add_subplot(1,1,1)
+    # plt.ion()
+    #
+    # for i in range(x_num*y_num):
+    #     #strechimg(app_sample_size_width, app_sample_size_height,app_xs[i, :, :, 0], app_xs[i, :, :, 1], app_xs[i, :, :, 2])
+    #     try:
+    #         ax.images.remove(img[0])
+    #     except:
+    #         pass
+    #     img = plt.imshow(app_xs[i, :, :, 0])
+    #
+    #     fig.suptitle(str(i))
+    #     plt.pause(0.1)
+    #     ax.images.clear()
+    # plt.ioff()
+
     # x=[[0,0,0],[1,1,1],[2,2,2],[3,3,3]]
 # plt.imshow(x)
 # plt.show()
