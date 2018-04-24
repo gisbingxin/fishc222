@@ -1,0 +1,456 @@
+from osgeo import gdal
+import matplotlib.pyplot as plt
+import numpy as np
+from PIL import Image
+import tensorflow as tf
+from self_strech_img import minmaximg, linearstretching,strechimg
+from self_read_position_excel import read_sample_position
+
+#图像读取与现实，输入文件完整路径名，输出图像的长、宽和波段数
+def read_show_img(image_name,show_img = False):
+
+    #raster = gdal.Open('C:\\test.jpg')
+    #image_name = 'C:\hyperspectral\AVIRISReflectanceSubset.dat'
+    raster = gdal.Open(image_name)
+    #raster = gdal.Open('e:\qwer.img')
+    print('Reading the image named:',image_name)
+    xsize = raster.RasterXSize  # RasterXSize是图像的行数，也就是图的高，即Y
+    ysize = raster.RasterYSize  # RasterYSize是图像的列数，图像的宽度
+    band_num = raster.RasterCount #RasterCount是图像的波段数
+
+
+    # 获取rgb对应波段数值，传递给拉伸显示模块
+
+    raster_array = raster.ReadAsArray() #raster_array.shape=(191,128,155)对应（band_num,Ysize,Xsize),
+                                        # Ysize代表行数，Xsize代表列数
+    r = raster_array[0]
+    g = raster_array[1]
+    b = raster_array[2]
+
+    if show_img:    #判断是否需要显示图像
+        strechimg(xsize,ysize,r,g,b) #调用图像拉伸显示模块
+
+    return raster,raster_array,xsize, ysize,band_num
+
+#获取采样点的数据，输入图像读取后的raster和波段数，输出x_data,y_data。分别是采样点位置及其数据、该点的类别数组
+def get_sample_data(raster,band_num,class_num,num_per_class,sample_num,
+                    sample_size_X,sample_size_Y,
+                    excel_name,sheet_num,start_row,start_col,end_row, end_col):
+    #读取Excel中存储的采样点位置数据，返回值中sample_num代表类别编号
+    sample_pos = read_sample_position(excel_name,sheet_num,start_row,start_col,end_row, end_col)
+                            # 该函数返回所选择的sample的位置点，是一个三维数组shape为[class_num,X_num,Y_num]
+    #print(type(sample))
+
+    #x_data = np.empty([72,191,3,3],dtype = float)
+    # #sample定义为[batch，band,Xsize,Ysize],batch这里是所有类别采样点的数量
+    x_data = np.empty([sample_num, band_num, sample_size_X, sample_size_Y], dtype=float)
+            # 用来存储各类别各采样点的图像灰度值
+    y_data = np.zeros([sample_num,class_num],dtype=int)
+    #print(y_data)
+    for i in range(0,class_num):    #i表示类的序号
+        for x_i in range(0,num_per_class):  #x_i 表示在该类内的序号，即行号
+            #for y_i in range(0,2):
+            x_locate = int(sample_pos[i,x_i,0]) #GDAL中的ReadAsArray传入参数应当为int型
+                                            # 而此处sample是numpy.int32，所以需要进行数据类型转换
+            y_locate = int(sample_pos[i,x_i,1])
+
+            x_left_upper = x_locate - int(sample_size_X/2)  #获取sample窗口的左上角点坐标值。
+                                                    # ReadAsArray中前两个参数是数据读取的起始位置，后两个参数是窗口大小。
+                                                    # 为了让我们选择的点仍然是子窗口的中心点，所以进行该步处理。
+            y_left_upper = y_locate - int(sample_size_Y/2)
+            #print(type(x_locate))
+           # print(x_locate,y_locate,x_left_upper,y_left_upper)
+            data = raster.ReadAsArray(x_left_upper,y_left_upper,sample_size_X,sample_size_Y)
+            x_data[i,:,:,:] = data
+        #y_temp = [1,0,0]
+            y_data[num_per_class*i+x_i,i] = 1             #与x_data对应的batch处，赋值为1，其余位置为0
+
+        #print('y_data is :\n',y_data[i,:],'\n','x_data is :\n',x_data[i,:,:,:])
+    #plt.plot(x_data[1,:,0,0])
+    #plt.show()
+    x_data=x_data.reshape([sample_num,band_num*sample_size_Y*sample_size_X])
+    #print('In get_sample_data', y_data.shape, x_data.shape)
+    return x_data,y_data
+
+
+#在所有采样数据中，随机选择一组数据组成batch，其大小也就是一次学习多少个batch。
+# 输入为采样位置及数据x_data、类别数据y_data，偏移量off_set和一次学习的数据量。
+# 输出是随机产生的batch_size大小的一系列数据及类别（x,y)
+# off_set是指每个类别的batch之间相差的数字，等于每个类别中采样点的数，比如0-9为一类，10-19为一类，那么off_set就是10
+def get_next_batch(x_data, y_data,off_set,sample_num,batch_size = 20):
+    x=[]
+    y=[]
+    idxs=[]
+    for _ in range(batch_size):
+        idx = np.random.randint(0,sample_num)
+            #依次在每一类的sample中随机选择一个，放入x，y数组中，几种类别共同组成一个batch
+        x.append(x_data[idx])
+        y.append(y_data[idx])
+        cl = int(idx/176)
+        idxs.append(cl)
+
+        #
+        # idx = idx + off_set
+        # x.append(x_data[idx])
+        # y.append(y_data[idx])
+        #
+        # idx = idx + off_set
+        # x.append(x_data[idx])
+        # y.append(y_data[idx])
+    #print('get_next_batch y:', y, 'class_num:', idxs)
+    x = np.array(x)
+    y = np.array(y)
+
+    #y_ = np.array(y)
+
+    #x_reshape =x.reshape(batch_size*3,sample_size_X*sample_size_Y*band_num)
+    #print('the shape of x in get_next_batch is:', x_reshape.shape)# y_reshape =y.reshape(60,3)
+    return x,y
+
+#def compute_accuracy(sess,prediction,keep_prob,v_xs, v_ys):
+def compute_accuracy(v_xs, v_ys):
+    global prediction
+    y_pre = sess.run(prediction, feed_dict={xs: v_xs, keep_prob: 1})
+    correct_prediction = tf.equal(tf.argmax(y_pre,1), tf.argmax(v_ys,1))
+    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+    result = sess.run(accuracy, feed_dict={xs: v_xs, ys: v_ys, keep_prob: 1})
+    return result
+
+def weight_variable(shape):
+    initial = tf.truncated_normal(shape, stddev=0.1)
+    return tf.Variable(initial)
+
+def bias_variable(shape):
+    initial = tf.constant(0.1, shape=shape)
+    return tf.Variable(initial)
+
+def conv2d(x, W):
+    # stride [1, x_movement, y_movement, 1]
+    # Must have strides[0] = strides[3] = 1
+    return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding='SAME')
+
+def max_pool_2x2(x):
+    # stride [1, x_movement, y_movement, 1]
+    return tf.nn.max_pool(x, ksize=[1,2,2,1], strides=[1,2,2,1], padding='SAME')
+
+#def create_cnn(xs,keep_prob,class_num,sample_size_X,sample_size_Y,band_num):
+def create_cnn(xs,class_num, sample_size_X, sample_size_Y, band_num,win_size_X,win_size_Y):
+    #pass
+    #print('create_cnn begin')
+    x_image = tf.reshape(xs, [-1, sample_size_Y, sample_size_X, band_num])
+    #print('x_image shape in create_cnn',x_image.shape)  # [n_samples, 28,28,1]
+
+    ## conv1 layer ##
+    W_conv1 = weight_variable([win_size_Y, win_size_X, band_num, 256])  # patch 3x3, in size 199, out size 199*3
+    b_conv1 = bias_variable([256])
+    h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)  # output size 28x28x32
+    h_pool1 = max_pool_2x2(h_conv1)  # output size 14x14x32
+
+    # conv2 layer ##
+    W_conv2 = weight_variable([win_size_Y, win_size_X, 256, 512])  # patch 5x5, in size 32, out size 64
+    b_conv2 = bias_variable([512])
+    h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)  # output size 14x14x64
+    h_pool2 = max_pool_2x2(h_conv2)  # output size 7x7x64
+
+    xx = int(sample_size_X/4)
+    yy = int(sample_size_Y/4)
+    ## fc1 layer ##
+    W_fc1 = weight_variable([xx * yy * 512, 1024])
+    b_fc1 = bias_variable([1024])
+    #h_pool2_flat = tf.reshape(h_pool2, [-1, 1 * 1 * 512])
+    #print(W_fc1.get_shape().as_list()[0]])
+    h_pool2_flat = tf.reshape(h_pool2,[-1,W_fc1.get_shape().as_list()[0]])
+    #print(tf.shape(h_pool2_flat))
+    h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
+
+    h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
+    # [n_samples, 7, 7, 64] ->> [n_samples, 7*7*64]
+
+    # fc2 layer ===out layer##
+    W_fc2 = weight_variable([1024, class_num])
+    b_fc2 = bias_variable([class_num])
+    prediction = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2)
+
+    #print('create_cnn_finished')
+    #print(prediction.get_shape().as_list())
+    return prediction
+
+def train_cnn():
+    pass
+    # image_name = 'C:\hyperspectral\AVIRISReflectanceSubset.dat'
+    # #image_name = 'e:\\timg.jpg'
+    # #image_name = 'C:\Program Files\Exelis\ENVI53\data\qb_boulder_msi'
+    # #image_name = 'C:\\test.jpg'
+    # # raster = gdal.Open('C:\\test.jpg')
+    # #C:\Program Files\Exelis\ENVI53\data\qb_boulder_msi
+    # show_img = True #用于判断是否对图像进行显示
+    # raster, raster_array, xsize, ysize, band_num = read_show_img(image_name,show_img)    #读取遥感影像
+    #
+    # sample_size_X = 3   #训练数据的宽
+    # sample_size_Y = 3   #训练数据的高
+    # class_num = 3       #训练数据的类数
+    # num_per_class = 20  #训练数据中，每一类的采样点个数
+    # sample_num = class_num * num_per_class  #训练数据中，所有类采样点的总数。对应后面的batch
+    #
+    # excel_name = 'samples.xlsx'
+    # start_row = 1  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
+    # end_row = 20
+    # start_col = 0  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
+    # end_col = 1
+    # sheet_num = class_num    #表示Excel中sheet的数目，必须与类别数量一致
+    # #show
+    # x_data,y_data = get_sample_data(raster,band_num,class_num,num_per_class,sample_num,
+    #                                 sample_size_X,sample_size_Y,
+    #                                 excel_name,sheet_num,start_row,start_col,end_row, end_col)
+    #                                         #此处返回值得shape是[batch，band,Xsize,Ysize]
+    #
+    # x_data = x_data.reshape(sample_num,sample_size_Y,sample_size_X,band_num)
+    # #x_data = x_data.reshape(None, 3, 3, 191)
+    #                                         #tensorflow中的数据shape是[batch,height/Ysize,width/Xsize,band_num]
+    # y_data = y_data.reshape(sample_num,class_num)           #[batch,class_num]
+    #
+    #
+    # # plt.plot(x_data[1,:,0,0])
+    # # plt.show()
+    #
+    # xs = tf.placeholder(tf.float32, [None, sample_size_Y,sample_size_X,band_num])   #
+    # ys = tf.placeholder(tf.float32, [None, class_num])
+    # keep_prob = tf.placeholder(tf.float32)
+    #
+    # prediction = create_cnn(xs,keep_prob,class_num,sample_size_X,sample_size_Y,band_num)
+    # # x_image = tf.reshape(xs, [-1, sample_size_Y, sample_size_X, band_num])
+    # # # print(x_image.shape)  # [n_samples, 28,28,1]
+    # #
+    # # ## conv1 layer ##
+    # # W_conv1 = weight_variable([sample_size_Y, sample_size_X, band_num, 256])  # patch 3x3, in size 199, out size 199*3
+    # # b_conv1 = bias_variable([256])
+    # # h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)  # output size 28x28x32
+    # # h_pool1 = max_pool_2x2(h_conv1)  # output size 14x14x32
+    # #
+    # # # conv2 layer ##
+    # # W_conv2 = weight_variable([sample_size_Y, sample_size_X, 256, 512])  # patch 5x5, in size 32, out size 64
+    # # b_conv2 = bias_variable([512])
+    # # h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)  # output size 14x14x64
+    # # h_pool2 = max_pool_2x2(h_conv2)  # output size 7x7x64
+    # #
+    # # ## fc1 layer ##
+    # # W_fc1 = weight_variable([1 * 1 * 512, 1024])
+    # # b_fc1 = bias_variable([1024])
+    # # #h_pool2_flat = tf.reshape(h_pool2, [-1, 1 * 1 * 512])
+    # # h_pool2_flat = tf.reshape(h_pool2,[-1,W_fc1.get_shape().as_list()[0]])
+    # # h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
+    # # h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
+    # # # [n_samples, 7, 7, 64] ->> [n_samples, 7*7*64]
+    # #
+    # # # fc2 layer ===out layer##
+    # # W_fc2 = weight_variable([1024, class_num])
+    # # b_fc2 = bias_variable([class_num])
+    # # prediction = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2)
+    #
+    # # the error between prediction and real data
+    # cross_entropy = tf.reduce_mean(-tf.reduce_sum(ys * tf.log(prediction),
+    #                                               reduction_indices=[1]))  # loss
+    # train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)
+    #
+    # sess = tf.Session()
+    # # important step
+    # # tf.initialize_all_variables() no long valid from
+    # # 2017-03-02 if using tensorflow >= 0.12
+    #
+    # init = tf.global_variables_initializer()
+    # sess.run(init)
+    #
+    # selected_per_class = 60
+    # for i in range(500):  # 学习的次数是300，每次学习量是batch(类数*batch_size)
+    #     #batch_xs, batch_ys = mnist.train.next_batch(60)
+    #     batch_xs, batch_ys = get_next_batch(x_data, y_data, num_per_class, selected_per_class)
+    #                                                 #off_set = num_per_class,batch_size = selected_per_class
+    #                                                 #get_next_batch(x_data, y_data,off_set,batch_size = 20)
+    #                                                 # batch_size是每一个类别用于学习的采样点个数
+    #     sess.run(train_step, feed_dict={xs: batch_xs, ys: batch_ys, keep_prob: 0.5})
+    #     #print(i)
+    #     if i % 30 == 0:
+    #         #pass
+    #         # print(sess.run(x_image,feed_dict={xs: batch_xs}))
+    #     #print(compute_accuracy(sess,prediction,keep_prob,x_data[:],y_data[:]))
+    #         # y_pre = sess.run(prediction, feed_dict={xs: x_data[:], keep_prob: 1})
+    #         # correct_prediction = tf.equal(tf.argmax(y_pre, 1), tf.argmax(y_data[:], 1))
+    #         # accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+    #         # result = sess.run(accuracy, feed_dict={xs: x_data[:], ys: y_data[:], keep_prob: 1})
+    #         # print(i)
+    #         # print(result)
+    #         # print(compute_accuracy(
+    #         #    mnist.test.images[:1000], mnist.test.labels[:1000]))
+
+
+
+if __name__ == '__main__':
+    #train_cnn()
+    # image_name = 'C:\hyperspectral\AVIRISReflectanceSubset.dat'
+    #image_name = 'C:\Program Files\Exelis\ENVI53\data\qb_boulder_msi'
+    image_name = 'e:\\num.jpg'
+    #image_name = 'C:\\test.jpg'
+    # raster = gdal.Open('C:\\test.jpg')
+    #C:\Program Files\Exelis\ENVI53\data\qb_boulder_msi
+    show_img = True #用于判断是否对图像进行显示
+    raster, raster_array, xsize, ysize, band_num = read_show_img(image_name,show_img)    #读取遥感影像
+
+    sample_size_X = 28   #训练数据的宽
+    sample_size_Y = 28   #训练数据的高
+    class_num = 3       #训练数据的类数
+    num_per_class = 64  #训练数据中，每一类的采样点个数
+    sample_num = class_num * num_per_class  #训练数据中，所有类采样点的总数。对应后面的batch
+
+    excel_name = 'samples1.xlsx'
+    start_row = 1  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
+    end_row = 64
+    start_col = 0  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
+    end_col = 1     #如果行列数字错误，可能出现如下错误：
+                        # ERROR 5: Access window out of range in RasterIO().  Requested
+                        # (630,100) of size 10x10 on raster of 634x478.
+    sheet_num = class_num    #表示Excel中sheet的数目，必须与类别数量一致
+    #show
+    #print('before x_data')
+    x_data,y_data = get_sample_data(raster,band_num,class_num,num_per_class,sample_num,
+                                    sample_size_X,sample_size_Y,
+                                    excel_name,sheet_num,start_row,start_col,end_row, end_col)
+                                            #此处返回值得shape是[batch，band,Xsize,Ysize]
+    print('x_data and y_data after get_sample_data',x_data.shape,y_data.shape)
+    x_data = x_data.reshape(sample_num,sample_size_Y*sample_size_X*band_num)
+    #x_data = x_data.reshape(None, 3, 3, 191)
+                                            #tensorflow中的数据shape是[batch,height/Ysize,width/Xsize,band_num]
+    y_data = y_data.reshape(sample_num,class_num)           #[batch,class_num]
+    #print('after y_data')
+
+
+    xs = tf.placeholder(tf.float32, [None, sample_size_Y*sample_size_X*band_num])   #
+    ys = tf.placeholder(tf.float32, [None, class_num])
+    keep_prob = tf.placeholder(tf.float32)
+
+    win_size_X=7
+    win_size_Y=7
+
+    prediction = create_cnn(xs,class_num,sample_size_X,sample_size_Y,band_num,win_size_X,win_size_Y)
+
+
+    #class_num, sample_size_X, sample_size_Y, band_num
+    # x_image = tf.reshape(xs, [-1, sample_size_Y, sample_size_X, band_num])
+    # # print(x_image.shape)  # [n_samples, 28,28,1]
+    #
+    # ## conv1 layer ##
+    # W_conv1 = weight_variable([sample_size_Y, sample_size_X, band_num, 256])  # patch 3x3, in size 199, out size 199*3
+    # b_conv1 = bias_variable([256])
+    # h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)  # output size 28x28x32
+    # h_pool1 = max_pool_2x2(h_conv1)  # output size 14x14x32
+    #
+    # # conv2 layer ##
+    # W_conv2 = weight_variable([sample_size_Y, sample_size_X, 256, 512])  # patch 5x5, in size 32, out size 64
+    # b_conv2 = bias_variable([512])
+    # h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)  # output size 14x14x64
+    # h_pool2 = max_pool_2x2(h_conv2)  # output size 7x7x64
+    #
+    # ## fc1 layer ##
+    # W_fc1 = weight_variable([1 * 1 * 512, 1024])
+    # b_fc1 = bias_variable([1024])
+    # #h_pool2_flat = tf.reshape(h_pool2, [-1, 1 * 1 * 512])
+    # h_pool2_flat = tf.reshape(h_pool2,[-1,W_fc1.get_shape().as_list()[0]])
+    # h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
+    # h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
+    # # [n_samples, 7, 7, 64] ->> [n_samples, 7*7*64]
+    #
+    # # fc2 layer ===out layer##
+    # W_fc2 = weight_variable([1024, class_num])
+    # b_fc2 = bias_variable([class_num])
+    # prediction = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2)
+
+    # the error between prediction and real data
+
+    # cross_entropy = tf.reduce_mean(-tf.reduce_sum(ys * tf.log(prediction),
+    #                                               reduction_indices=[1]))  # loss
+    # train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)
+    # cross_entropy =tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(labels=ys,logits=prediction))
+    # train_step = tf.train.AdadeltaOptimizer(learning_rate=0.001).minimize(cross_entropy)
+    # max_idx_p = tf.argmax(prediction, 1)
+    # max_idx_l = tf.argmax(ys, 1)
+    # correct_pred = tf.equal(max_idx_p, max_idx_l)
+    # accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
+
+    cross_entropy = tf.reduce_mean(-tf.reduce_sum(ys * tf.log(prediction),
+                                                  reduction_indices=[1]))  # loss
+    train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)
+    # loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(labels=y_data,logits=prediction))
+    # optimizer = tf.train.AdadeltaOptimizer(learning_rate=0.001).minimize(loss)
+    # max_idx_p = tf.argmax(prediction, 1)
+    # max_idx_l = tf.argmax(ys, 1)
+    #
+    # correct_pred = tf.equal(max_idx_p, max_idx_l)
+    # accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
+    # with tf.Session() as sess:
+    #     sess.run(tf.global_variables_initializer())
+    #
+    #     # step = 0
+    #     # while True:  # 一直学习，知道精度达到90%以上
+    #     selected_per_class = 30
+    #     for step in range(200):
+    #         batch_x, batch_y = get_next_batch(x_data, y_data, num_per_class, selected_per_class)
+    #         loss_ = sess.run([optimizer, loss], feed_dict={xs: batch_x, ys: batch_y, keep_prob: 0.75})
+    #         acc = sess.run(accuracy, feed_dict={xs:x_data[:],ys:y_data[:], keep_prob: 1.0})
+    #         print(step, acc)
+    #
+    #         #batch_xs, batch_ys = get_next_batch(x_data, y_data, num_per_class, selected_per_class)
+    #                                                         #off_set = num_per_class,batch_size = selected_per_class
+    #                                                         #get_next_batch(x_data, y_data,off_set,batch_size = 20)
+    #                                                         # batch_size是每一个类别用于学习的采样点个数
+    #         #sess.run(train_step, feed_dict={xs: batch_xs, ys: batch_ys, keep_prob: 0.5})
+    #
+    #         # if step % 10 == 0 and step != 0:
+    #         #     batch_x_test, batch_y_test = get_next_batch_2(x_all_data, y_all_data)
+    #         #     acc = sess.run(accuracy, feed_dict={X: batch_x_test, Y: batch_y_test, keep_prob: 1.0})
+    #         #     print(step, acc)
+    #         #     if acc > 0.7:
+    #         #         saver.save(sess, "./model/cnn.model", global_step=step)
+    #         #     if acc > 0.8:
+    #         #         saver.save(sess, "./model/cnn.model", global_step=step)
+    #         #         # break
+    #         #     if acc > 0.9:
+    #         #         saver.save(sess, "./model/cnn.model", global_step=step)
+    #         #         break
+    #         # step += 1
+    #
+    sess = tf.Session()
+    # important step
+    # tf.initialize_all_variables() no long valid from
+    # 2017-03-02 if using tensorflow >= 0.12
+
+    init = tf.global_variables_initializer()
+    sess.run(init)
+
+    selected_per_class = 10
+    for i in range(300):  # 学习的次数是300，每次学习量是batch(类数*batch_size)
+        #batch_xs, batch_ys = mnist.train.next_batch(60)
+        batch_xs, batch_ys= get_next_batch(x_data, y_data, num_per_class, sample_num,selected_per_class)
+                                                    #off_set = num_per_class,batch_size = selected_per_class
+                                                    #get_next_batch(x_data, y_data,off_set,batch_size = 20)
+                                                    # batch_size是每一个类别用于学习的采样点个数
+        #print(prediction.get_shape().as_list())
+        #print('batch_ys shape:',batch_ys.shape)
+
+        sess.run(train_step, feed_dict={xs: batch_xs, ys: batch_ys, keep_prob: 0.5})
+
+        if i % 20 == 0:
+                #pass
+                # print(sess.run(x_image,feed_dict={xs: batch_xs}))
+            print(compute_accuracy(x_data,y_data))
+            #print('prediction:',sess.run(prediction, feed_dict={xs: batch_xs, ys: batch_ys, keep_prob: 1}))
+            #print(prediction.get_shape().as_list())
+            #print(sess.run(prediction))
+            #test_xs, test_ys = get_next_batch(x_data, y_data, num_per_class, sample_num,selected_per_class)
+            #acc = sess.run(accuracy, feed_dict={xs: test_xs, ys:test_ys, keep_prob: 1.0})
+            #acc = sess.run(accuracy, feed_dict={xs: x_data, ys: y_data, keep_prob: 1})
+            #print(sess.run(prediction, feed_dict={xs: batch_xs, ys: batch_ys, keep_prob: 1}))
+            # print(sess.run(max_idx_l,feed_dict={xs: x_data, ys: y_data,keep_prob:1.0}))
+            # print(sess.run(max_idx_p,feed_dict={xs: x_data, ys: y_data,keep_prob:1.0}))
+
+            #print(acc)
+                # print(compute_accuracy(
+                #    mnist.test.images[:1000], mnist.test.labels[:1000]))
