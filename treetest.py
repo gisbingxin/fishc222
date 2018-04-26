@@ -18,11 +18,25 @@ sheet_num = 9  # 表示Excel中sheet的数目，必须与类别数量一致
 
 position=read_sample_position(excel_name,sheet_num,start_row,start_col,end_row, end_col)
 
-test=np.zeros((10,10))
-a=np.where((position==[93,1]).all(1))
-test[a]=1
-print(test)
+test=[]
+test2=np.zeros((700,400))
+for i in range(0,100):
+    for j in range(0,40):
+        a=np.where((position==[i,j]).all(1))[0]
+        if np.size(a) != 0:
+            test.append(a[0])
 
+print(position[test][0][0],position[test][0][1])
+            #print(np.shape(position[a]))
+a=position[test]
+print(np.size(a,0))
+for i in range(0,np.size(a,0)):
+    xx=int(a[i][0])
+    yy=int(a[i][1])
+    test2[xx,yy]=1
+print(test2)
+plt.imshow(test2)
+plt.show()
 #
 # test=np.zeros((200,200))
 # a=[[1,2],[3,4],[3,5]]

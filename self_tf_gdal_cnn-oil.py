@@ -519,14 +519,20 @@ if __name__ == '__main__':
             col_offset = int(sample_size_X / 2)
             row_offset = int(sample_size_Y / 2)
             in_index=[]
-            for i in range(1, 100):#y_num+1):
-                for j in range(1, 100):#x_num+1):
-                    a = np.where((position == [i+row_offset,j+col_offset]).all(1))
-                    if a != []:
-                        print(a)
-            #         in_index.append(a)
+            for i in range(1, y_num+1):
+                for j in range(1, x_num+1):
+                    temp1 = np.where((position == [j, i]).all(1))[0]
+                    if np.size(temp1) != 0:
+                        #print(temp1)
+                        in_index.append(temp1[0])
+            a = position[in_index]
+            for i in range(0, np.size(a, 0)):
+                col = int(a[i][0])-1-col_offset
+                row = int(a[i][1])-1-row_offset
+                ttt[row, col] = label[row,col]
+             #         in_index.append(a)
             # print(in_index)
- #       writeTiff(label,x_num,y_num,1,'f:\\test.tif')
+        writeTiff(ttt,x_num,y_num,1,'f:\\test2.tif')
 
  #       print(np.shape(label))
         plt.imshow(ttt)
