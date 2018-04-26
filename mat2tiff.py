@@ -24,7 +24,7 @@ def readMat(mat_path,key_w,only_get_key):
 
     return im_data,band_num,height,width
 #保存tif文件函数
-def writeTiff(im_data,im_width,im_height,im_bands,im_geotrans,im_proj,save_path):
+def writeTiff(im_data,im_width,im_height,im_bands,save_path,im_geotrans='NONE',im_proj='NONE'):
 
     #print(im_data.dtype)
 

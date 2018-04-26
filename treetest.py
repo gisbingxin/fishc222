@@ -1,16 +1,47 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from self_read_position_excel import read_sample_position
 
-plt.axis([0, 10, 0, 1])
-plt.ion()
+num_per_class = np.array([6631, 18649, 2099, 3064, 1345, 5029, 1330, 3682, 947])  # 训练数据中，每一类的采样点个数
+# num_per_class = np.array([6431, 18449, 1899, 2864, 1145, 4829, 1130, 3482, 747])
+sample_num = np.sum(num_per_class)  # class_num * num_per_class  #训练数据中，所有类采样点的总数。对应后面的batch
 
-for i in range(10):
-    y = np.random.random()
-    plt.scatter(i, y)
-    plt.pause(0.05)
+excel_name = 'F:\Python\workshop\data\hydata\PaviaU.xlsx'
+start_row = 1  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
+end_row = start_row + num_per_class - 1
 
-while True:
-    plt.pause(0.05)
+start_col = 0  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
+end_col = 1  # 如果行列数字错误，可能出现如下错误：
+# ERROR 5: Access window out of range in RasterIO().  Requested
+# (630,100) of size 10x10 on raster of 634x478.
+sheet_num = 9  # 表示Excel中sheet的数目，必须与类别数量一致
+
+position=read_sample_position(excel_name,sheet_num,start_row,start_col,end_row, end_col)
+
+test=np.zeros((10,10))
+a=np.where((position==[93,1]).all(1))
+test[a]=1
+print(test)
+
+#
+# test=np.zeros((200,200))
+# a=[[1,2],[3,4],[3,5]]
+# for i in range(0,10):
+#     for j in range(0,10):
+#         if [i,j] in a:
+#             test[i,j]=1
+#             print(i,j)
+# print(test)
+# plt.axis([0, 10, 0, 1])
+# plt.ion()
+#
+# for i in range(10):
+#     y = np.random.random()
+#     plt.scatter(i, y)
+#     plt.pause(0.05)
+#
+# while True:
+#     plt.pause(0.05)
 
     # fig = plt.figure()
     # ax = fig.add_subplot(1,1,1)

@@ -30,9 +30,9 @@ def excel_save(im_data,height,width,filename):
     # sheet_new1 = wb.add_sheet('new sheet1',cell_overwrite_ok=True)
     # sheet_new2 = wb.add_sheet('new sheet2', cell_overwrite_ok=True)
     # sheet_new3 = wb.add_sheet('new sheet3', cell_overwrite_ok=True)
-    for row_i in range(0,height):#height*width):
+    for row_i in range(0,height):#height*width):--->y
         #row_num= int(row_i/height)
-        for col_i in range(0,width):
+        for col_i in range(0,width):#---->x
             cell_id=row_i*height+col_i
             xx = int(im_data[row_i, col_i])
             sheet_new.cell(cell_id+1,1).value=row_i+1

@@ -5,6 +5,7 @@ from PIL import Image
 import tensorflow as tf
 from self_strech_img import minmaximg, linearstretching,strechimg,strechimg_pan
 from self_read_position_excel import read_sample_position
+from mat2tiff import writeTiff
 #from self_img_read2txt import read_from_img
 
 #图像读取与现实，输入文件完整路径名，输出图像的长、宽和波段数
@@ -14,8 +15,8 @@ def read_show_img(image_name,show_img = False):
     raster = gdal.Open(image_name)
     #raster = gdal.Open('e:\qwer.img')
     print('Reading the image named:',image_name)
-    print('geotrans is ', raster.GetGeoTransform())
-    print('projection is ',raster.GetProjection())
+    # print('geotrans is ', raster.GetGeoTransform())
+    # print('projection is ',raster.GetProjection())
     xsize = raster.RasterXSize  # RasterXSize是图像宽
     ysize = raster.RasterYSize  # RasterYSize是图像的高
     band_num = raster.RasterCount #RasterCount是图像的波段数
@@ -49,7 +50,7 @@ def read_show_img(image_name,show_img = False):
     return raster,raster_array,xsize, ysize,band_num
 
 #获取采样点的数据，输入图像读取后的raster和波段数，输出x_data,y_data。分别是采样点位置及其数据、该点的类别数组
-def get_sample_data(raster,band_num,class_num,num_per_class,sample_num,
+def get_sample_data(raster,band_num,xsize,ysize,class_num,num_per_class,sample_num,
                     sample_size_X,sample_size_Y,
                     excel_name,sheet_num,start_row,start_col,end_row, end_col):
     #读取Excel中存储的采样点位置数据，返回值中sample_num代表类别编号
@@ -59,11 +60,12 @@ def get_sample_data(raster,band_num,class_num,num_per_class,sample_num,
 
     #x_data = np.empty([72,191,3,3],dtype = float)
     # #sample定义为[batch，band,Ysize,Xsize],batch这里是所有类别采样点的数量
-    x_data = np.empty([sample_num, band_num, sample_size_Y, sample_size_X], dtype=float)
+    x_data = np.zeros([sample_num, band_num, sample_size_Y, sample_size_X], dtype=float)
     #x_data = []
             # 用来存储各类别各采样点的图像灰度值
     y_data = np.zeros([sample_num,class_num],dtype=int)
 
+    margin_pixel=[]
     loc_origin = 0
     for i in range(0,class_num):    #i表示类的序号
         for x_i in range(loc_origin,loc_origin + num_per_class[i]):  #x_i 表示在该类内的序号，即行号
@@ -71,27 +73,26 @@ def get_sample_data(raster,band_num,class_num,num_per_class,sample_num,
             x_locate = int(sample_pos[x_i,0]) #GDAL中的ReadAsArray传入参数应当为int型
                                             # 而此处sample是numpy.int32，所以需要进行数据类型转换
             y_locate = int(sample_pos[x_i,1])
-            #print('x,y location:', x_locate,y_locate)
-
-            x_left_upper = x_locate - int(sample_size_X/2)  #获取sample窗口的左上角点坐标值。
-                                                    # ReadAsArray中前两个参数是数据读取的起始位置，后两个参数是窗口大小。
-                                                    # 为了让我们选择的点仍然是子窗口的中心点，所以进行该步处理。
-            y_left_upper = y_locate - int(sample_size_Y/2)
-            #print(type(x_locate))
-
-            data = raster.ReadAsArray(x_left_upper,y_left_upper,sample_size_X,sample_size_Y)
-            #print(x_locate, y_locate, x_left_upper, y_left_upper)
-    # codes of the following lines make the error of size and color
-            #x_data[num_per_class[i]*i+x_i,:,:,:] = data
-            #print('x_i,loc',x_i,loc_origin)
-            x_data[x_i, :, :, :] = data
-            # strechimg(sample_size_X, sample_size_Y,
-            #           x_data[x_i, 0, :, :], x_data[x_i, 1, :, :], x_data[x_i, 2, :,:])
-            #print(x_data)
-            #print(i,x_i,'x_data shape in get sample data',x_data.shape)#,'\n','data shape',data.shape)
-            #y_data[num_per_class[i]*i+x_i,i] = 1             #与x_data对应的batch处，赋值为1，其余位置为0
-            y_data[x_i, i] = 1
+            print('x,y location:', x_locate,y_locate)
+            if x_locate <= int(sample_size_X/2) or y_locate <= int(sample_size_Y/2) or\
+                            x_locate > (xsize-int(sample_size_X/2)) or y_locate > (ysize-int(sample_size_Y/2)):
+                margin_pixel.append(x_i)
+                break
+            else:
+                x_left_upper = x_locate - int(sample_size_X/2)  #获取sample窗口的左上角点坐标值。
+                                                        # ReadAsArray中前两个参数是数据读取的起始位置，后两个参数是窗口大小。
+                                                        # 为了让我们选择的点仍然是子窗口的中心点，所以进行该步处理。
+                y_left_upper = y_locate - int(sample_size_Y/2)
+                #print(type(x_locate))
+                data = raster.ReadAsArray(x_left_upper,y_left_upper,sample_size_X,sample_size_Y)
+                x_data[x_i, :, :, :] = data
+                  #y_data[num_per_class[i]*i+x_i,i] = 1             #与x_data对应的batch处，赋值为1，其余位置为0
+                y_data[x_i, i] = 1
         loc_origin = loc_origin + num_per_class[i]
+    print('x_data shape before delete',np.shape(x_data))
+    x_data=np.delete(x_data,margin_pixel,0)
+    y_data=np.delete(y_data,margin_pixel,0)
+    print('x_data shape in getsampledata',np.shape(x_data))
     return x_data,y_data
 
 
@@ -108,18 +109,6 @@ def get_next_batch(x_data, y_data,off_set,sample_num,batch_size = 20):
             #依次在每一类的sample中随机选择一个，放入x，y数组中，几种类别共同组成一个batch
         x.append(x_data[idx])
         y.append(y_data[idx])
-        # strechimg(sample_size_X, sample_size_Y, x_data[idx, :, :, 0], x_data[idx, :, :, 1], x_data[idx, :, :, 2])
-        # print(y)
-        # print(np.shape(x_data))
-        # cl = int(idx/176)
-        # idxs.append(cl)
-        # idx = idx + off_set
-        # x.append(x_data[idx])
-        # y.append(y_data[idx])
-        #
-        # idx = idx + off_set
-        # x.append(x_data[idx])
-        # y.append(y_data[idx])
     x = np.array(x)
     y = np.array(y)
     #print('x shape in get nextbatch',x.shape)
@@ -134,17 +123,19 @@ def get_next_batch(x_data, y_data,off_set,sample_num,batch_size = 20):
 
 # 用于获取实际应用时的图像数据（非测试数据）
 # 输入实际数据的地址，数据每一个batch的长宽，以及采样间隔（移动步长）
-def get_app_data_batch(app_data_path,sample_height,sample_width,sample_step_row,sample_step_col):
+def get_app_data_batch(app_data_path,sample_height,sample_width,sample_step_row,sample_step_col,x_start,y_start):
     # x表示宽，y表示高
     raster, raster_array, xsize, ysize, band_num = read_show_img(app_data_path)
     #print('xsize,ysize',xsize,ysize)
     img_height = ysize
     img_width = xsize
     #print('img heigth and width:',img_height,img_width)
-    x_start = 46
-    y_start = 50
-    x_margin =round((sample_width+1)/2)
-    y_margin = round((sample_height+1)/2)
+    # x_start = 1
+    # y_start = 1
+    # x_margin =round((sample_width+1)/2)
+    # y_margin = round((sample_height+1)/2)
+    x_margin =int(sample_width/2)
+    y_margin = int(sample_height/2)
     x_end = img_width  - x_margin
     y_end = img_height - y_margin
 
@@ -156,7 +147,7 @@ def get_app_data_batch(app_data_path,sample_height,sample_width,sample_step_row,
         for x_i in range(x_start,x_end,sample_step_col):
             x_left_upper = x_i - int(sample_width / 2)
             y_left_upper = y_i - int(sample_height / 2)
-            print('xlu,ylu',x_left_upper,y_left_upper)
+            #print('xlu,ylu',x_left_upper,y_left_upper)
             data = raster.ReadAsArray(x_left_upper, y_left_upper, sample_width, sample_height)
             app_xs.append(data)
             x_num += 1
@@ -225,22 +216,22 @@ def create_cnn(xs,class_num, sample_size_X, sample_size_Y, band_num,win_size_X,w
     #print('x_image shape in create_cnn',x_image.shape)  # [n_samples, 28,28,1]
 
     ## conv1 layer ##
-    W_conv1 = weight_variable([win_size_Y, win_size_X, band_num, 32])  # patch 3x3, in size 199, out size 199*3
-    b_conv1 = bias_variable([32])
+    W_conv1 = weight_variable([win_size_Y, win_size_X, band_num, 64])  # patch 3x3, in size 199, out size 199*3
+    b_conv1 = bias_variable([64])
     h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)  # output size 28x28x32
     h_pool1 = max_pool_2x2(h_conv1)  # output size 14x14x32
 
     # conv2 layer ##
-    W_conv2 = weight_variable([win_size_Y, win_size_X, 32, 64])  # patch 5x5, in size 32, out size 64
-    b_conv2 = bias_variable([64])
+    W_conv2 = weight_variable([win_size_Y, win_size_X, 64, 128])  # patch 5x5, in size 32, out size 64
+    b_conv2 = bias_variable([128])
     h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)  # output size 14x14x64
     h_pool2 = max_pool_2x2(h_conv2)  # output size 7x7x64
 
     xx = round(sample_size_X/4+0.25)
     yy = round(sample_size_Y/4+0.25)
     ## fc1 layer ##
-    W_fc1 = weight_variable([xx * yy * 64, 128])
-    b_fc1 = bias_variable([128])
+    W_fc1 = weight_variable([xx * yy * 128, 256])
+    b_fc1 = bias_variable([256])
     #h_pool2_flat = tf.reshape(h_pool2, [-1, 1 * 1 * 512])
     #print(W_fc1.get_shape().as_list()[0]])
     h_pool2_flat = tf.reshape(h_pool2,[-1,W_fc1.get_shape().as_list()[0]])
@@ -251,7 +242,7 @@ def create_cnn(xs,class_num, sample_size_X, sample_size_Y, band_num,win_size_X,w
     # [n_samples, 7, 7, 64] ->> [n_samples, 7*7*64]
 
     # fc2 layer ===out layer##
-    W_fc2 = weight_variable([128, class_num])
+    W_fc2 = weight_variable([256, class_num])
     b_fc2 = bias_variable([class_num])
     prediction = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2)
 
@@ -298,7 +289,7 @@ def train_cnn(win_size_X,win_size_Y):
 
     #global prediction
     #prediction = create_cnn(xs,class_num,sample_size_X,sample_size_Y,band_num,win_size_X,win_size_Y)
-    prediction = create_cnn_simple(xs, class_num, sample_size_X, sample_size_Y, band_num, win_size_X, win_size_Y)
+    prediction = create_cnn(xs, class_num, sample_size_X, sample_size_Y, band_num, win_size_X, win_size_Y)
 
     # cross_entropy = tf.reduce_mean(-tf.reduce_sum(ys * tf.log(tf.clip_by_value(prediction,1e-10,1.0))
     #                                               ,reduction_indices=[1]))  # loss
@@ -320,7 +311,10 @@ def train_cnn(win_size_X,win_size_Y):
 
     #开始训练
     high_acc_num = 0
-    selected_per_class = 30 # 每次学习量
+    acc70 = 0
+    acc80 = 0
+    acc90 = 0
+    selected_per_class = 200 # 每次学习量
     for step in range(10000):  # 学习的次数是，每次学习量是batch(类数*batch_size)
         #batch_xs, batch_ys = mnist.train.next_batch(60)
         batch_xs, batch_ys= get_next_batch(x_data, y_data, num_per_class, sample_num,selected_per_class)
@@ -337,13 +331,19 @@ def train_cnn(win_size_X,win_size_Y):
             if high_acc_num >0 and  acc <= 0.9:
                 high_acc_num -= 1
 
-            if 0.8 >= acc > 0.7:
-                saver.save(sess, "./cnn model/simples2.model-1.ckpt", global_step=step)
-            if 0.9 >= acc > 0.8:
-                saver.save(sess, "./cnn model/simples2.model-2.ckpt", global_step=step)
+            # if 0.8 >= acc > 0.7:
+            #     if acc >= acc70:
+            #         acc70=acc
+            #         saver.save(sess, "./Pavia_MNF/MNF_model-1.ckpt", global_step=step)
+            # if 0.9 >= acc > 0.8:
+            #     if acc>= acc80:
+            #         acc80=acc
+            #         saver.save(sess, "./Pavia_MNF/MNF_model-2.ckpt", global_step=step)
                 # break
             if acc > 0.9:
-                saver.save(sess, "./cnn model/simples2.model-3.ckpt", global_step=step)
+                if acc>=acc90:
+                    acc90=acc
+                    saver.save(sess, "./Pavia_MNF/MNF_model-3.ckpt", global_step=step)
                 high_acc_num += 1
                 # if high_acc_num >=5:
                 #      break
@@ -357,7 +357,7 @@ def test_cnn(test_xs,win_size_X,win_size_Y):
 
     #global prediction
     #prediction = create_cnn(xs,class_num,sample_size_X,sample_size_Y,band_num,win_size_X,win_size_Y)
-    prediction = create_cnn_simple(xs, class_num, sample_size_X, sample_size_Y, band_num, win_size_X, win_size_Y)
+    prediction = create_cnn(xs, class_num, sample_size_X, sample_size_Y, band_num, win_size_X, win_size_Y)
     # 2l = []
     saver = tf.train.Saver()
     # new_saver = tf.train.import_meta_graph("./model/cnn.model-470.meta")
@@ -365,7 +365,7 @@ def test_cnn(test_xs,win_size_X,win_size_Y):
     with tf.Session() as sess:
         # new_saver.restore(sess,tf.train.latest_checkpoint('./model/'))
         # new_saver.restore(sess,"./model/cnn.model-470")
-        saver.restore(sess, "./cnn model/simples2.model-3.ckpt-2050")
+        saver.restore(sess, "./Pavia_MNF/MNF_model-3.ckpt-4350")
         # all_vars = tf.trainable_variables()
         # sess.run(tf.global_variables_initializer())
         label_position = tf.argmax(prediction, 1)
@@ -388,9 +388,9 @@ if __name__ == '__main__':
     train = False
     test = False
 
-    sample_size_X = 46  #训练数据的宽
-    sample_size_Y = 80  #训练数据的高
-    class_num = 3       #训练数据的类数
+    sample_size_X = 3  #训练数据的宽
+    sample_size_Y = 3  #训练数据的高
+    class_num = 9       #训练数据的类数
     band_num = 0
     x_data =[]
     y_data =[]
@@ -400,14 +400,30 @@ if __name__ == '__main__':
     ys = tf.placeholder(tf.float32, [None, class_num])
     keep_prob = tf.placeholder(tf.float32)
 
+    image_name = 'F:\Python\workshop\data\hydata\Pavia_MNF'
+    excel_name = 'F:\Python\workshop\data\hydata\PaviaU.xlsx'
+
 
     if train or test:
-        image_name = 'e:\\num5.jpg'
+
         #image_name = 'F:\Python\workshop\\fishc\\aviris_oil\\aviris_subsize_PCA12.img'
         #image_name = 'F:\Python\workshop\\fishc\\aviris_oil\mnf\inverse_MNF data.img'
         #image_name = 'F:\Python\workshop\\fishc\\aviris_oil\mnf\mnf data'
         #raster = gdal.Open('C:\\test.jpg')
         #C:\Program Files\Exelis\ENVI53\data\qb_boulder_msi
+        num_per_class = np.array([200, 200, 200, 200, 200, 200, 200, 200, 200])  # 训练数据中，每一类的采样点个数
+        # num_per_class = np.array([6431, 18449, 1899, 2864, 1145, 4829, 1130, 3482, 747])
+        sample_num = np.sum(num_per_class)  # class_num * num_per_class  #训练数据中，所有类采样点的总数。对应后面的batch
+
+        start_row = 200  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
+        end_row = start_row + num_per_class - 1
+
+        start_col = 0  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
+        end_col = 1  # 如果行列数字错误，可能出现如下错误：
+        # ERROR 5: Access window out of range in RasterIO().  Requested
+        # (630,100) of size 10x10 on raster of 634x478.
+        sheet_num = class_num  # 表示Excel中sheet的数目，必须与类别数量一致
+
         show_img = False #用于判断是否对图像进行显示
         raster, raster_array, xsize, ysize, band_num = read_show_img(image_name,show_img)    #读取遥感影像
 
@@ -416,25 +432,18 @@ if __name__ == '__main__':
         # class_num = 3       #训练数据的类数
         xs = tf.placeholder(tf.float32, [None, sample_size_Y, sample_size_X, band_num])  #
 
-        num_per_class = np.array([64,64,64]) #训练数据中，每一类的采样点个数
-        sample_num = np.sum(num_per_class) #class_num * num_per_class  #训练数据中，所有类采样点的总数。对应后面的batch
 
-        excel_name = 'samples1.xlsx'
-        start_row = 1  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
-        end_row = start_row + num_per_class -1
-
-        start_col = 0  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
-        end_col = 1     #如果行列数字错误，可能出现如下错误：
-                            # ERROR 5: Access window out of range in RasterIO().  Requested
-                            # (630,100) of size 10x10 on raster of 634x478.
-        sheet_num = class_num    #表示Excel中sheet的数目，必须与类别数量一致
         #show
         #print('before x_data')
 
-        x_data,y_data = get_sample_data(raster,band_num,class_num,num_per_class,sample_num,
+        x_data,y_data = get_sample_data(raster,band_num,xsize,ysize,class_num,num_per_class,sample_num,
                                         sample_size_X,sample_size_Y,
                                         excel_name,sheet_num,start_row,start_col,end_row, end_col)
                                                 #此处返回值得shape是[batch，band,Xsize,Ysize]
+        s=list(np.shape(x_data))#去除掉图像的边缘之后的数据形状，取形状参数的第一个数，即数据batch个数
+        #print('s shape',np.shape(s),s[0])
+        sample_num=s[0]
+        # print(x_data.shape(0))
         x_data = x_data.swapaxes(1,3)   #将两个轴的数据对换，使[batch,band,xsize/height,ysize/width],
                                         # 变为[bantch,xsize/height,ysize/width,band]
         x_data = x_data.swapaxes(1,2)
@@ -443,103 +452,82 @@ if __name__ == '__main__':
             test = False
             train_cnn(win_size_X, win_size_Y)
         elif test:
-            # test_xs, test_ys = get_next_batch(x_data, y_data, num_per_class, sample_num, 120)
-            # print(test_xs.shape)
-            # strechimg(sample_size_X,sample_size_Y,test_xs[0,:,:,0],test_xs[0,:,:,1],test_xs[0,:,:,2])
-            test_xs = x_data
-            predicted_label = test_cnn(test_xs, win_size_X, win_size_Y)
+            test_xs, test_ys = get_next_batch(x_data, y_data, num_per_class, sample_num, 1200)
+                    # print(test_xs.shape)
+                    # strechimg(sample_size_X,sample_size_Y,test_xs[0,:,:,0],test_xs[0,:,:,1],test_xs[0,:,:,2])
+            #test_xs = x_data
+            predicted_label = test_cnn(test_xs,win_size_X,win_size_Y)
 
-            # predicted_label = np.array(predicted_label)
-            print('predicted_label:', predicted_label)
+                    #predicted_label = np.array(predicted_label)
+                #print('predicted_label:',predicted_label)
             label_test = np.array(predicted_label)
-            label_test = np.reshape(label_test, (12, 16))
-            plt.imshow(label_test)
-            plt.show()
+            # label_test = np.reshape(label_test,(12,16))
+            # plt.imshow(label_test)
+            # plt.show()
+            # fig = plt.figure()
+            # ax = fig.add_subplot(1,1,1)
+            # plt.ion()
+            # for i in range(0,np.size(x_data,0)):
+            #     try:
+            #         ax.images.remove(img[0])
+            #     except:
+            #         pass
+            #     fig.suptitle(str(i))
+            #     img = ax.imshow(x_data[i,:,:,0])
+            #     plt.pause(0.05)
+            #     #fig.images.remove(img[i])
+            # plt.ioff()
+            print('real label:',test_ys.argmax(1))
+            real_label = test_ys.argmax(1)
+                # real_label =[2,3]
+            result = (predicted_label == real_label) #判断两个数组的对应元素是否相同
+            result =np.array(result)
+            print( result, np.sum(result==True))    #打印对应元素相等的数量
 
     else:
-        app_data_path = 'e:\\num5.jpg'
-        app_sample_size_width =46
-        app_sample_size_height =80
-        app_sample_step_row =95
-        app_sample_step_col =92
+        part_data=True
+        app_data_path = image_name#'F:\Python\workshop\data\hydata\Pavia_MNF'
+        app_sample_size_width =sample_size_X
+        app_sample_size_height =sample_size_Y
+        app_sample_step_row =1
+        app_sample_step_col =1
+        x_start =1
+        y_start=1
         app_xs,x_num,y_num,band_num=get_app_data_batch(app_data_path, app_sample_size_height, app_sample_size_width,
-                                              app_sample_step_row, app_sample_step_col)
+                                              app_sample_step_row, app_sample_step_col,x_start,y_start)
 
-        # xs = tf.placeholder(tf.float32, [None, app_sample_size_width, app_sample_size_height, band_num])  #
-        # #ys = tf.placeholder(tf.float32, [None, class_num])
-        # keep_prob = tf.placeholder(tf.float32)
         xs = tf.placeholder(tf.float32, [None, sample_size_Y, sample_size_X, band_num])  #
 
         predicted_label = test_cnn(app_xs,win_size_X,win_size_Y)
-        print('predicted_label:',predicted_label)
-        # print('shape of label',x_num,y_num)
-        #print(tf.size(predicted_label))
-        print(type(predicted_label),np.size(predicted_label),x_num,y_num)
-        # label=tf.reshape(predicted_label,(y_num,x_num))
         label = np.reshape(predicted_label,(y_num,x_num))
-        plt.imshow(label)
+        label = label + 1
+        ttt=np.zeros((y_num,x_num))
+        if part_data:
+            num_per_class = np.array([6631, 18649, 2099, 3064, 1345, 5029, 1330, 3682, 947])  # 训练数据中，每一类的采样点个数
+            # num_per_class = np.array([6431, 18449, 1899, 2864, 1145, 4829, 1130, 3482, 747])
+            sample_num = np.sum(num_per_class)  # class_num * num_per_class  #训练数据中，所有类采样点的总数。对应后面的batch
+            start_row = 1  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
+            end_row = start_row + num_per_class - 1
+
+            start_col = 0  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
+            end_col = 1  # 如果行列数字错误，可能出现如下错误：
+            # ERROR 5: Access window out of range in RasterIO().  Requested
+            # (630,100) of size 10x10 on raster of 634x478.
+            sheet_num = class_num  # 表示Excel中sheet的数目，必须与类别数量一致
+            position = read_sample_position(excel_name, sheet_num, start_row, start_col, end_row, end_col)
+
+            col_offset = int(sample_size_X / 2)
+            row_offset = int(sample_size_Y / 2)
+            in_index=[]
+            for i in range(1, 100):#y_num+1):
+                for j in range(1, 100):#x_num+1):
+                    a = np.where((position == [i+row_offset,j+col_offset]).all(1))
+                    if a != []:
+                        print(a)
+            #         in_index.append(a)
+            # print(in_index)
+ #       writeTiff(label,x_num,y_num,1,'f:\\test.tif')
+
+ #       print(np.shape(label))
+        plt.imshow(ttt)
         plt.show()
-
-
-
-
-
-    # if train:
-    #     test=False
-    #     train_cnn(win_size_X,win_size_Y)
-    # elif test:
-    #     #test_xs, test_ys = get_next_batch(x_data, y_data, num_per_class, sample_num, 120)
-    #         # print(test_xs.shape)
-    #         # strechimg(sample_size_X,sample_size_Y,test_xs[0,:,:,0],test_xs[0,:,:,1],test_xs[0,:,:,2])
-    #     test_xs = x_data
-    #     predicted_label = test_cnn(test_xs,win_size_X,win_size_Y)
-    #
-    #         #predicted_label = np.array(predicted_label)
-    #     print('predicted_label:',predicted_label)
-    #     label_test = np.array(predicted_label)
-    #     label_test = np.reshape(label_test,(12,16))
-    #     plt.imshow(label_test)
-    #     plt.show()
-        # fig = plt.figure()
-        # ax = fig.add_subplot(1,1,1)
-        # plt.ion()
-        # for i in range(0,np.size(x_data,0)):
-        #     try:
-        #         ax.images.remove(img[0])
-        #     except:
-        #         pass
-        #     fig.suptitle(str(i))
-        #     img = ax.imshow(x_data[i,:,:,0])
-        #     plt.pause(0.05)
-        #     #fig.images.remove(img[i])
-        # plt.ioff()
-        # print('real label:',test_ys.argmax(1))
-        # real_label = test_ys.argmax(1)
-        #     # real_label =[2,3]
-        # result = (predicted_label == real_label) #判断两个数组的对应元素是否相同
-            #result =np.array(result)
-            #print( result, np.sum(result==True))    #打印对应元素相等的数量
-    # else:
-        # app_data_path = 'e:\\num.jpg'
-        # class_num = 3
-        # app_sample_size_width =46
-        # app_sample_size_height =80
-        # app_sample_step_row =95
-        # app_sample_step_col =92
-        # app_xs,x_num,y_num,band_num=get_app_data_batch(app_data_path, app_sample_size_height, app_sample_size_width,
-        #                                       app_sample_step_row, app_sample_step_col)
-        #
-        # # xs = tf.placeholder(tf.float32, [None, app_sample_size_width, app_sample_size_height, band_num])  #
-        # # #ys = tf.placeholder(tf.float32, [None, class_num])
-        # # keep_prob = tf.placeholder(tf.float32)
-        # predicted_label = test_cnn(app_xs,win_size_X,win_size_Y)
-        # print('predicted_label:',predicted_label)
-        # # print('shape of label',x_num,y_num)
-        # #print(tf.size(predicted_label))
-        # print(type(predicted_label),np.size(predicted_label),x_num,y_num)
-        # # label=tf.reshape(predicted_label,(y_num,x_num))
-        # label = np.reshape(predicted_label,(y_num,x_num))
-        # plt.imshow(label)
-        # plt.show()
-
-
