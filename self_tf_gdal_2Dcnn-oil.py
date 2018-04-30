@@ -212,7 +212,7 @@ def max_pool_2x2(x):
 def create_cnn(xs,class_num, sample_size_X, sample_size_Y, band_num,win_size_X,win_size_Y):
 
     #print('create_cnn begin')
-    x_image = tf.reshape(xs, [-1, sample_size_Y, sample_size_X, band_num])
+    x_image = xs#tf.reshape(xs, [-1, sample_size_Y, sample_size_X, band_num])
     #print('x_image shape in create_cnn',x_image.shape)  # [n_samples, 28,28,1]
 
     ## conv1 layer ##
@@ -385,7 +385,7 @@ def test_cnn(test_xs,win_size_X,win_size_Y):
 if __name__ == '__main__':
     # image_name = 'C:\hyperspectral\AVIRISReflectanceSubset.dat'
     # image_name = 'F:\遥感相关\墨西哥AVIRIS\\f100709t01p00r11\\f100709t01p00r11rdn_b\\f100709t01p00r11rdn_b_sc01_ort_img_QUAC'
-    train = False
+    train = True
     test = False
 
     sample_size_X = 3  #训练数据的宽
@@ -532,8 +532,9 @@ if __name__ == '__main__':
                 ttt[row, col] = label[row,col]
              #         in_index.append(a)
             # print(in_index)
-        writeTiff(ttt,x_num,y_num,1,'f:\\test2.tif')
-
+            writeTiff(ttt,x_num,y_num,1,'f:\\test2.tif')
+        else:
+            ttt=label
  #       print(np.shape(label))
         plt.imshow(ttt)
         plt.show()

@@ -3,13 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="6f4d8cb8-9d5e-44c2-b646-569bb6f7972f" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mat2excel.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/green.txt" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/bare.txt" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/road.txt" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/black.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/green.txt" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/self_tf_gdal_cnn-oil.py" afterPath="$PROJECT_DIR$/self_tf_gdal_cnn-oil.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mat2tiff.py" afterPath="$PROJECT_DIR$/mat2tiff.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/treetest.py" afterPath="$PROJECT_DIR$/treetest.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/self_tf_gdal_cnn-oil.py" afterPath="$PROJECT_DIR$/self_tf_gdal_cnn-oil.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -51,47 +51,69 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="self_strech_img.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/self_strech_img.py">
+      <file leaf-file-name="self_tf_gdal_2Dcnn-oil.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/self_tf_gdal_2Dcnn-oil.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1625">
-              <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+            <state relative-caret-position="2850">
+              <caret line="308" column="9" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="309" selection-end-column="18" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
-                <element signature="e#2193#2263#0" expanded="false" />
-                <element signature="e#2388#2400#0" expanded="false" />
-                <element signature="e#3468#3538#0" expanded="false" />
-                <element signature="e#3658#3670#0" expanded="false" />
+                <element signature="e#419#1902#0" expanded="false" />
+                <element signature="e#2187#4417#0" expanded="false" />
+                <element signature="e#4703#5365#0" expanded="false" />
+                <element signature="e#4970#5012#0" expanded="false" />
+                <element signature="e#5548#7551#0" expanded="false" />
+                <element signature="e#6908#6928#0" expanded="false" />
+                <element signature="e#7552#7592#0" expanded="false" />
+                <element signature="e#10524#11720#0" expanded="false" />
+                <element signature="e#10524#10529#0" expanded="false" />
+                <element signature="e#13935#14358#0" expanded="false" />
+                <element signature="e#14915#16097#0" expanded="false" />
+                <element signature="e#14915#14933#0" expanded="false" />
+                <element signature="e#15190#15260#0" expanded="false" />
+                <element signature="e#15355#15419#0" expanded="false" />
+                <element signature="e#15551#15588#0" expanded="false" />
+                <element signature="e#15815#16080#1" expanded="false" />
+                <element signature="e#16864#16943#0" expanded="false" />
+                <element signature="e#19681#19726#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="self_tf_gdal_cnn-oil.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/self_tf_gdal_cnn-oil.py">
+      <file leaf-file-name="self_tf_1DCNN.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/self_tf_1DCNN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="523" column="68" lean-forward="true" selection-start-line="523" selection-start-column="68" selection-end-line="523" selection-end-column="68" />
+            <state relative-caret-position="-1330">
+              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding>
-                <element signature="e#0#22#0" expanded="true" />
-                <element signature="e#4703#5365#0" expanded="false" />
-                <element signature="e#4970#5012#0" expanded="false" />
-                <element signature="e#6908#6928#0" expanded="false" />
-                <element signature="e#7552#7592#0" expanded="false" />
-                <element signature="e#8757#10399#0" expanded="false" />
-                <element signature="e#10521#11717#0" expanded="false" />
-                <element signature="e#10521#10526#0" expanded="false" />
-                <element signature="e#11763#14858#0" expanded="false" />
-                <element signature="e#13932#14355#0" expanded="false" />
-                <element signature="e#14912#16094#0" expanded="false" />
-                <element signature="e#14912#14930#0" expanded="false" />
-                <element signature="e#15187#15257#0" expanded="false" />
-                <element signature="e#15352#15416#0" expanded="false" />
-                <element signature="e#15548#15585#0" expanded="false" />
-                <element signature="e#15812#16077#1" expanded="false" />
-                <element signature="e#16862#16941#0" expanded="false" />
-                <element signature="e#19679#19724#0" expanded="false" />
+                <element signature="n#!!doc" expanded="false" />
+                <element signature="e#741#763#0" expanded="true" />
+                <element signature="e#1876#3518#0" expanded="false" />
+                <element signature="e#3622#4818#0" expanded="false" />
+                <element signature="e#3622#3627#0" expanded="false" />
+                <element signature="e#4864#7959#0" expanded="false" />
+                <element signature="e#7033#7456#0" expanded="false" />
+                <element signature="e#8013#9195#0" expanded="false" />
+                <element signature="e#8013#8031#0" expanded="false" />
+                <element signature="e#8288#8358#0" expanded="false" />
+                <element signature="e#8453#8517#0" expanded="false" />
+                <element signature="e#8649#8686#0" expanded="false" />
+                <element signature="e#8913#9178#1" expanded="false" />
+                <element signature="e#9280#10763#0" expanded="false" />
+                <element signature="e#13564#14290#0" expanded="false" />
+                <element signature="e#13831#13873#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="nn_ops.py" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Python363/Lib/site-packages/tensorflow/python/ops/nn_ops.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51825">
+              <caret line="2098" column="4" lean-forward="false" selection-start-line="2098" selection-start-column="4" selection-end-line="2098" selection-end-column="4" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -100,7 +122,7 @@
         <entry file="file://$PROJECT_DIR$/treetest.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="24" column="29" lean-forward="false" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
+              <caret line="6" column="8" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="18" selection-end-column="40" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -108,10 +130,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="array_ops.py" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Python363/Lib/site-packages/tensorflow/python/ops/array_ops.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2950">
+              <caret line="142" column="4" lean-forward="false" selection-start-line="142" selection-start-column="4" selection-end-line="142" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="CNNmodel2-1.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CNNmodel2-1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="516">
+            <state relative-caret-position="7275">
               <caret line="296" column="25" lean-forward="false" selection-start-line="296" selection-start-column="25" selection-end-line="296" selection-end-column="25" />
               <folding />
             </state>
@@ -121,31 +153,9 @@
       <file leaf-file-name="read_CNN_data.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/read_CNN_data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
+            <state relative-caret-position="2625">
               <caret line="108" column="4" lean-forward="false" selection-start-line="108" selection-start-column="4" selection-end-line="108" selection-end-column="4" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tf_firstNet.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tf_firstNet.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1550">
-              <caret line="65" column="27" lean-forward="false" selection-start-line="65" selection-start-column="27" selection-end-line="65" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tf_test.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tf_test.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -153,7 +163,7 @@
       <file leaf-file-name="mat2tiff.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mat2tiff.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="50">
+            <state relative-caret-position="525">
               <caret line="26" column="60" lean-forward="false" selection-start-line="26" selection-start-column="60" selection-end-line="26" selection-end-column="60" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
@@ -167,7 +177,7 @@
       <file leaf-file-name="mat2excel.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mat2excel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="409">
+            <state relative-caret-position="750">
               <caret line="34" column="43" lean-forward="false" selection-start-line="34" selection-start-column="43" selection-end-line="34" selection-end-column="43" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
@@ -193,8 +203,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/course002.py" />
-        <option value="$PROJECT_DIR$/course004.py" />
         <option value="$PROJECT_DIR$/course008.py" />
         <option value="$PROJECT_DIR$/course010.py" />
         <option value="$PROJECT_DIR$/course15.py" />
@@ -242,8 +250,10 @@
         <option value="$PROJECT_DIR$/mat2txt.py" />
         <option value="$PROJECT_DIR$/mat2excel.py" />
         <option value="$PROJECT_DIR$/mat2tiff.py" />
-        <option value="$PROJECT_DIR$/treetest.py" />
         <option value="$PROJECT_DIR$/self_tf_gdal_cnn-oil.py" />
+        <option value="$PROJECT_DIR$/self_tf_gdal_2Dcnn-oil.py" />
+        <option value="$PROJECT_DIR$/treetest.py" />
+        <option value="$PROJECT_DIR$/self_tf_1DCNN.py" />
       </list>
     </option>
   </component>
@@ -253,9 +263,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="2013" />
+    <option name="y" value="-16" />
     <option name="width" value="1296" />
     <option name="height" value="744" />
   </component>
@@ -294,7 +304,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -317,6 +326,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -341,24 +351,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.self_tf_gdal_cnn-oil">
-    <configuration name="digitalnumber" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="fishc" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/digitalnumber.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
+  <component name="RunManager" selected="Python.treetest">
     <configuration name="mat2excel" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -376,7 +369,7 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="mat2tiff" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="self_tf_1DCNN" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -388,7 +381,24 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="fishc" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mat2tiff.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/self_tf_1DCNN.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration name="self_tf_gdal_2Dcnn-oil" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="fishc" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/self_tf_gdal_2Dcnn-oil.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -405,7 +415,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="fishc" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/self_tf_gdal_cnn-oil.py" />
+      <option name="SCRIPT_NAME" value="F:\Python\workshop\fishc\self_tf_gdal_2Dcnn-oil.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -430,17 +440,17 @@
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.self_tf_gdal_cnn-oil" />
       <item index="1" class="java.lang.String" itemvalue="Python.treetest" />
-      <item index="2" class="java.lang.String" itemvalue="Python.mat2tiff" />
-      <item index="3" class="java.lang.String" itemvalue="Python.digitalnumber" />
-      <item index="4" class="java.lang.String" itemvalue="Python.mat2excel" />
+      <item index="2" class="java.lang.String" itemvalue="Python.mat2excel" />
+      <item index="3" class="java.lang.String" itemvalue="Python.self_tf_1DCNN" />
+      <item index="4" class="java.lang.String" itemvalue="Python.self_tf_gdal_2Dcnn-oil" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.self_tf_gdal_cnn-oil" />
-        <item index="1" class="java.lang.String" itemvalue="Python.treetest" />
-        <item index="2" class="java.lang.String" itemvalue="Python.mat2excel" />
-        <item index="3" class="java.lang.String" itemvalue="Python.mat2tiff" />
-        <item index="4" class="java.lang.String" itemvalue="Python.digitalnumber" />
+        <item index="0" class="java.lang.String" itemvalue="Python.treetest" />
+        <item index="1" class="java.lang.String" itemvalue="Python.self_tf_gdal_2Dcnn-oil" />
+        <item index="2" class="java.lang.String" itemvalue="Python.self_tf_1DCNN" />
+        <item index="3" class="java.lang.String" itemvalue="Python.self_tf_gdal_cnn-oil" />
+        <item index="4" class="java.lang.String" itemvalue="Python.mat2excel" />
       </list>
     </recent_temporary>
   </component>
@@ -492,19 +502,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="744" extended-state="7" />
-    <editor active="true" />
+    <frame x="1352" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15048544" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16577825" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32826087" sideWeight="0.4978678" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21653971" sideWeight="0.5154584" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29605263" sideWeight="0.771855" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.21653971" sideWeight="0.48454157" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3206522" sideWeight="0.4978678" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37664473" sideWeight="0.771855" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15031983" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32208923" sideWeight="0.4969605" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11304348" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32173914" sideWeight="0.4969605" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11304348" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1704142" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -569,14 +578,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/psw.py" />
-    <entry file="file://C:/Python34/Lib/site-packages/matplotlib/pyplot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="3080" column="4" lean-forward="false" selection-start-line="3080" selection-start-column="4" selection-end-line="3080" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python34/Lib/site-packages/scipy/optimize/minpack.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -664,13 +665,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/tensorflow/python/ops/nn_ops.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51825">
-          <caret line="2098" column="4" lean-forward="false" selection-start-line="2098" selection-start-column="4" selection-end-line="2098" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/linear_stretch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1075">
@@ -755,7 +749,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/self_tf_gdal_cnn-digitalnumber.py">
+    <entry file="file://$PROJECT_DIR$/self_tf_gdal_2Dcnn-digitalnumber.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6275">
           <caret line="334" column="71" lean-forward="false" selection-start-line="334" selection-start-column="71" selection-end-line="334" selection-end-column="71" />
@@ -808,13 +802,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1625">
           <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-            <element signature="e#2193#2263#0" expanded="false" />
-            <element signature="e#2388#2400#0" expanded="false" />
-            <element signature="e#3468#3538#0" expanded="false" />
-            <element signature="e#3658#3670#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -836,7 +823,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1550">
           <caret line="65" column="27" lean-forward="false" selection-start-line="65" selection-start-column="27" selection-end-line="65" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -844,9 +830,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -854,7 +837,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="27025">
           <caret line="1087" column="0" lean-forward="false" selection-start-line="1087" selection-start-column="0" selection-end-line="1087" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -862,13 +844,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="700">
           <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mat2excel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
+        <state relative-caret-position="750">
           <caret line="34" column="43" lean-forward="false" selection-start-line="34" selection-start-column="43" selection-end-line="34" selection-end-column="43" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
@@ -878,7 +859,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CNNmodel2-1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="516">
+        <state relative-caret-position="7275">
           <caret line="296" column="25" lean-forward="false" selection-start-line="296" selection-start-column="25" selection-end-line="296" selection-end-column="25" />
           <folding />
         </state>
@@ -886,7 +867,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/read_CNN_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
+        <state relative-caret-position="2625">
           <caret line="108" column="4" lean-forward="false" selection-start-line="108" selection-start-column="4" selection-end-line="108" selection-end-column="4" />
           <folding />
         </state>
@@ -894,7 +875,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mat2tiff.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
+        <state relative-caret-position="525">
           <caret line="26" column="60" lean-forward="false" selection-start-line="26" selection-start-column="60" selection-end-line="26" selection-end-column="60" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
@@ -912,39 +893,81 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://C:/Python363/Lib/site-packages/tensorflow/python/ops/nn_ops.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51825">
+          <caret line="2098" column="4" lean-forward="false" selection-start-line="2098" selection-start-column="4" selection-end-line="2098" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/self_tf_gdal_2Dcnn-oil.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2850">
+          <caret line="308" column="9" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="309" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#419#1902#0" expanded="false" />
+            <element signature="e#2187#4417#0" expanded="false" />
+            <element signature="e#4703#5365#0" expanded="false" />
+            <element signature="e#4970#5012#0" expanded="false" />
+            <element signature="e#5548#7551#0" expanded="false" />
+            <element signature="e#6908#6928#0" expanded="false" />
+            <element signature="e#7552#7592#0" expanded="false" />
+            <element signature="e#10524#11720#0" expanded="false" />
+            <element signature="e#10524#10529#0" expanded="false" />
+            <element signature="e#13935#14358#0" expanded="false" />
+            <element signature="e#14915#16097#0" expanded="false" />
+            <element signature="e#14915#14933#0" expanded="false" />
+            <element signature="e#15190#15260#0" expanded="false" />
+            <element signature="e#15355#15419#0" expanded="false" />
+            <element signature="e#15551#15588#0" expanded="false" />
+            <element signature="e#15815#16080#1" expanded="false" />
+            <element signature="e#16864#16943#0" expanded="false" />
+            <element signature="e#19681#19726#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Python363/Lib/site-packages/tensorflow/python/ops/array_ops.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2950">
+          <caret line="142" column="4" lean-forward="false" selection-start-line="142" selection-start-column="4" selection-end-line="142" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/treetest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
-          <caret line="24" column="29" lean-forward="false" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
+          <caret line="6" column="8" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="18" selection-end-column="40" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/self_tf_gdal_cnn-oil.py">
+    <entry file="file://$PROJECT_DIR$/self_tf_1DCNN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="523" column="68" lean-forward="true" selection-start-line="523" selection-start-column="68" selection-end-line="523" selection-end-column="68" />
+        <state relative-caret-position="-1330">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
-            <element signature="e#0#22#0" expanded="true" />
-            <element signature="e#4703#5365#0" expanded="false" />
-            <element signature="e#4970#5012#0" expanded="false" />
-            <element signature="e#6908#6928#0" expanded="false" />
-            <element signature="e#7552#7592#0" expanded="false" />
-            <element signature="e#8757#10399#0" expanded="false" />
-            <element signature="e#10521#11717#0" expanded="false" />
-            <element signature="e#10521#10526#0" expanded="false" />
-            <element signature="e#11763#14858#0" expanded="false" />
-            <element signature="e#13932#14355#0" expanded="false" />
-            <element signature="e#14912#16094#0" expanded="false" />
-            <element signature="e#14912#14930#0" expanded="false" />
-            <element signature="e#15187#15257#0" expanded="false" />
-            <element signature="e#15352#15416#0" expanded="false" />
-            <element signature="e#15548#15585#0" expanded="false" />
-            <element signature="e#15812#16077#1" expanded="false" />
-            <element signature="e#16862#16941#0" expanded="false" />
-            <element signature="e#19679#19724#0" expanded="false" />
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#741#763#0" expanded="true" />
+            <element signature="e#1876#3518#0" expanded="false" />
+            <element signature="e#3622#4818#0" expanded="false" />
+            <element signature="e#3622#3627#0" expanded="false" />
+            <element signature="e#4864#7959#0" expanded="false" />
+            <element signature="e#7033#7456#0" expanded="false" />
+            <element signature="e#8013#9195#0" expanded="false" />
+            <element signature="e#8013#8031#0" expanded="false" />
+            <element signature="e#8288#8358#0" expanded="false" />
+            <element signature="e#8453#8517#0" expanded="false" />
+            <element signature="e#8649#8686#0" expanded="false" />
+            <element signature="e#8913#9178#1" expanded="false" />
+            <element signature="e#9280#10763#0" expanded="false" />
+            <element signature="e#13564#14290#0" expanded="false" />
+            <element signature="e#13831#13873#0" expanded="false" />
           </folding>
         </state>
       </provider>
