@@ -2,176 +2,196 @@ import numpy as np
 import matplotlib.pyplot as plt
 from self_read_position_excel import read_sample_position
 import tensorflow as tf
+from osgeo import gdal
+# Implementing Different Layers
+# ---------------------------------------
+#
+# We will illustrate how to use different types
+# of layers in TensorFlow
+#
+# The layers of interest are:
+#  (1) Convolutional Layer卷积层
+#  (2) Activation Layer激活层
+#  (3) Max-Pool Layer池化层
+#  (4) Fully Connected Layer 全连接层
+#
+# We will generate two different data sets for this
+#  script, a 1-D data set (row of data) and
+#  a 2-D data set (similar to picture)
 
-input_1d=[11,11,11,11]
-print(np.shape(input_1d))
-input_2d = tf.expand_dims(input_1d, 0)
+import tensorflow as tf
+import matplotlib.pyplot as plt
+import csv
+import os
+import random
+import numpy as np
+import random
+from tensorflow.python.framework import ops
 
-input_3d = tf.expand_dims(input_2d, 0)
-input_4d = tf.expand_dims(input_3d, 3)
+ops.reset_default_graph()
 
-sess=tf.Session()
+# ---------------------------------------------------|
+# -------------------1D-data-------------------------|
+# ---------------------------------------------------|
+
+# Create graph session 创建初始图结构
+ops.reset_default_graph()
+sess = tf.Session()
+
+# parameters for the run运行参数
+data_size = 25
+conv_size = 5  # 卷积核宽度方向的大小
+maxpool_size = 5  # 池化层核宽度方向上的大小
+stride_size = 1  # 卷积核宽度方向上的步长
+
+# ensure reproducibility 确保复现性
+seed = 13
+np.random.seed(seed)
+tf.set_random_seed(seed)
+
+# Generate 1D data 生成一维数据
+data_1d = np.random.normal(size=data_size)
+
+# Placeholder
+x_input_1d = tf.placeholder(dtype=tf.float32, shape=[data_size])
+
+
+# --------Convolution--------
+def conv_layer_1d(input_1d, my_filter, stride):
+    # TensorFlow's 'conv2d()' function only works with 4D arrays:
+    # [batch, height, width, channels], we have 1 batch, and
+    # width = 1, but height = the length of the input, and 1 channel.
+    # So next we create the 4D array by inserting dimension 1's.
+    # 关于数据维度的处理十分关键，因为tensorflow中卷积操作只支持四维的张量，
+    # 所以要人为的把数据补充为4维数据[1,1,25,1]
+    input_2d = tf.expand_dims(input_1d, 0)
+    input_3d = tf.expand_dims(input_2d, 0)
+    input_4d = tf.expand_dims(input_3d, 3)
+    # Perform convolution with stride = 1, if we wanted to increase the stride,
+    # to say '2', then strides=[1,1,2,1]
+    convolution_output = tf.nn.conv2d(input_4d, filter=my_filter, strides=[1, 1, stride, 1], padding="VALID")
+    # Get rid of extra dimensions 去掉多余的层数，只保留数字
+    conv_output_1d = tf.squeeze(convolution_output)
+    return (conv_output_1d)
+
+
+# Create filter for convolution.
+my_filter = tf.Variable(tf.random_normal(shape=[1, conv_size, 1, 1]))
+# Create convolution layer
+my_convolution_output = conv_layer_1d(x_input_1d, my_filter, stride=stride_size)
+
+
+# --------Activation--------
+def activation(input_1d):
+    return (tf.nn.relu(input_1d))
+
+
+# Create activation layer
+my_activation_output = activation(my_convolution_output)
+
+
+# --------Max Pool--------
+def max_pool(input_1d, width, stride):
+    # Just like 'conv2d()' above, max_pool() works with 4D arrays.
+    # [batch_size=1, width=1, height=num_input, channels=1]
+    # 因为在处理卷积层的结果时，使用squeeze函数对结果输出进行降维，所以此处要将最大池化层的维度提升为4维
+    input_2d = tf.expand_dims(input_1d, 0)
+    input_3d = tf.expand_dims(input_2d, 0)
+    input_4d = tf.expand_dims(input_3d, 3)
+    # Perform the max pooling with strides = [1,1,1,1]
+    # If we wanted to increase the stride on our data dimension, say by
+    # a factor of '2', we put strides = [1, 1, 2, 1]
+    # We will also need to specify the width of the max-window ('width')
+    pool_output = tf.nn.max_pool(input_4d, ksize=[1, 1, width, 1],
+                                 strides=[1, 1, stride, 1],
+                                 padding='VALID')
+    # Get rid of extra dimensions
+    pool_output_1d = tf.squeeze(pool_output)
+    return (pool_output_1d)
+
+
+my_maxpool_output = max_pool(my_activation_output, width=maxpool_size, stride=stride_size)
+
+
+# --------Fully Connected--------
+def fully_connected(input_layer, num_outputs):
+    # First we find the needed shape of the multiplication weight matrix:
+    # The dimension will be (length of input) by (num_outputs)
+    weight_shape = tf.squeeze(tf.stack([tf.shape(input_layer), [num_outputs]]))
+    # squeeze函数用于去掉维度为1的维度。保留数据。
+
+    # Initialize such weight
+    # 初始化weight
+    weight = tf.random_normal(weight_shape, stddev=0.1)
+    # Initialize the bias
+    # 初始化bias
+    bias = tf.random_normal(shape=[num_outputs])
+    # Make the 1D input array into a 2D array for matrix multiplication
+    # 将一维的数组添加一维成为2维数组
+    input_layer_2d = tf.expand_dims(input_layer, 0)
+    # Perform the matrix multiplication and add the bias
+    full_output = tf.add(tf.matmul(input_layer_2d, weight), bias)
+    # Get rid of extra dimensions
+    # 去掉多余的维度只保留数据
+    full_output_1d = tf.squeeze(full_output)
+    return (full_output_1d)
+
+
+my_full_output = fully_connected(my_maxpool_output, 5)
+
+# Run graph
+# Initialize Variables
 init = tf.global_variables_initializer()
 sess.run(init)
 
-print('2d',sess.run(tf.shape(input_2d)))
-print('3d',sess.run(tf.shape(input_3d)))
-print('4d',sess.run(tf.shape(input_4d)))
-# num_per_class = np.array([6631, 18649, 2099, 3064, 1345, 5029, 1330, 3682, 947])  # 训练数据中，每一类的采样点个数
-# # num_per_class = np.array([6431, 18449, 1899, 2864, 1145, 4829, 1130, 3482, 747])
-# sample_num = np.sum(num_per_class)  # class_num * num_per_class  #训练数据中，所有类采样点的总数。对应后面的batch
-#
-# excel_name = 'F:\Python\workshop\data\hydata\PaviaU.xlsx'
-# start_row = 1  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
-# end_row = start_row + num_per_class - 1
-#
-# start_col = 0  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
-# end_col = 1  # 如果行列数字错误，可能出现如下错误：
-# # ERROR 5: Access window out of range in RasterIO().  Requested
-# # (630,100) of size 10x10 on raster of 634x478.
-# sheet_num = 9  # 表示Excel中sheet的数目，必须与类别数量一致
-#
-# position=read_sample_position(excel_name,sheet_num,start_row,start_col,end_row, end_col)
-#
-# test=[]
-# test2=np.zeros((700,400))
-# for i in range(0,100):
-#     for j in range(0,40):
-#         a=np.where((position==[i,j]).all(1))[0]
-#         if np.size(a) != 0:
-#             test.append(a[0])
-#
-# print(position[test][0][0],position[test][0][1])
-#             #print(np.shape(position[a]))
-# a=position[test]
-# print(np.size(a,0))
-# for i in range(0,np.size(a,0)):
-#     xx=int(a[i][0])
-#     yy=int(a[i][1])
-#     test2[xx,yy]=1
-# print(test2)
-# plt.imshow(test2)
-# plt.show()
-#
-# test=np.zeros((200,200))
-# a=[[1,2],[3,4],[3,5]]
-# for i in range(0,10):
-#     for j in range(0,10):
-#         if [i,j] in a:
-#             test[i,j]=1
-#             print(i,j)
-# print(test)
-# plt.axis([0, 10, 0, 1])
-# plt.ion()
-#
-# for i in range(10):
-#     y = np.random.random()
-#     plt.scatter(i, y)
-#     plt.pause(0.05)
-#
-# while True:
-#     plt.pause(0.05)
+feed_dict = {x_input_1d: data_1d}
 
-    # fig = plt.figure()
-    # ax = fig.add_subplot(1,1,1)
-    # plt.ion()
-    #
-    # for i in range(x_num*y_num):
-    #     #strechimg(app_sample_size_width, app_sample_size_height,app_xs[i, :, :, 0], app_xs[i, :, :, 1], app_xs[i, :, :, 2])
-    #     try:
-    #         ax.images.remove(img[0])
-    #     except:
-    #         pass
-    #     img = plt.imshow(app_xs[i, :, :, 0])
-    #
-    #     fig.suptitle(str(i))
-    #     plt.pause(0.1)
-    #     ax.images.clear()
-    # plt.ioff()
+print('>>>> 1D Data <<<<')
 
-    # x=[[0,0,0],[1,1,1],[2,2,2],[3,3,3]]
-# plt.imshow(x)
-# plt.show()
-# x=np.array(x)
-# xr = x.reshape(3,4)
-# plt.imshow(xr)
-# plt.show()
-# xrr =x.swapaxes(0,1)
-# plt.imshow(xrr)
-# plt.show()
+# Convolution Output
+print('Input = array of length ',(x_input_1d.shape.as_list()))  # 25
+print('Convolution w/ filter, length = %d, stride size = %d, results in an array of length %d:'%
+      (conv_size, stride_size, my_convolution_output.shape.as_list()[0]))  # 21
+print(sess.run(my_convolution_output, feed_dict=feed_dict))
+
+# Activation Output
+print('\nInput = above array of length %d'%(my_convolution_output.shape.as_list()[0]))  # 21
+print('ReLU element wise returns an array of length %d:'%(my_activation_output.shape.as_list()[0]))  # 21
+print(sess.run(my_activation_output, feed_dict=feed_dict))
+
+# Max Pool Output
+print('\nInput = above array of length %d'%(my_activation_output.shape.as_list()[0]))  # 21
+print('MaxPool, window length = %d, stride size = %d, results in the array of length %d'%
+      (maxpool_size, stride_size, my_maxpool_output.shape.as_list()[0]))  # 17
+print(sess.run(my_maxpool_output, feed_dict=feed_dict))
+
+# Fully Connected Output
+print('\nInput = above array of length %d'%(my_maxpool_output.shape.as_list()[0]))  # 17
+print('Fully connected layer on all 4 rows with %d outputs:'%
+      (my_full_output.shape.as_list()[0]))  # 5
+print(sess.run(my_full_output, feed_dict=feed_dict))
+
+# >>>> 1D Data <<<<
+# Input = array of length 25
+# Convolution w/ filter, length = 5, stride size = 1, results in an array of length 21:
+# [-2.63576341 -1.11550486 -0.95571411 -1.69670296 -0.35699379  0.62266493
+#   4.43316031  2.01364899  1.33044648 -2.30629659 -0.82916248 -2.63594174
+#   0.76669347 -2.46465087 -2.2855041   1.49780679  1.6960566   1.48557389
+#  -2.79799461  1.18149185  1.42146575]
 #
-# # print(x.shape)
-# # print(x)
-# # print(xr)
+# Input = above array of length 21
+# ReLU element wise returns an array of length 21:
+# [ 0.          0.          0.          0.          0.          0.62266493
+#   4.43316031  2.01364899  1.33044648  0.          0.          0.
+#   0.76669347  0.          0.          1.49780679  1.6960566   1.48557389
+#   0.          1.18149185  1.42146575]
 #
+# Input = above array of length 21
+# MaxPool, window length = 5, stride size = 1, results in the array of length 17
+# [ 0.          0.62266493  4.43316031  4.43316031  4.43316031  4.43316031
+#   4.43316031  2.01364899  1.33044648  0.76669347  0.76669347  1.49780679
+#   1.6960566   1.6960566   1.6960566   1.6960566   1.6960566 ]
 #
-# # raster = gdal.Open('e:\\qwer.img')
-# # raster = gdal.Open('e:\qwer.img')
-# # print('Reading the image named:',image_name)
-# # print('geotrans is ', raster.GetGeoTransform())
-# # print('projection is ',raster.GetProjection())
-# # xsize = raster.RasterXSize  # RasterXSize是图像的行数，也就是图的高，即Y
-# # ysize = raster.RasterYSize  # RasterYSize是图像的列数，图像的宽度
-# # band_num = raster.RasterCount #RasterCount是图像的波段数
-# # # 获取rgb对应波段数值，传递给拉伸显示模块
-# #
-# # raster_array = raster.ReadAsArray() #raster_array.shape=(191,128,155)对应（band_num,Ysize,Xsize),
-# # print(np.shape(raster_array),xsize,ysize)
-# # writeTiff(raster_array,xsize,ysize,band_num,'','','./hydata/t.tif')
-# # mat_img = np.empty((610,340,3))#.astype(np.float32))
-# # mat_img[:,:,0] = r
-# # mat_img[:,:,1] = g
-# # mat_img[:,:,2] = b
-# # plt.imshow(mat_img)
-# # plt.show()
-#
-# # print(mat.get('paviaU'))
-#
-#
-#
-#
-#
-# # import tensorflow as tf
-# import numpy as np
-#
-# import xlrd
-#
-# workbook = xlrd.open_workbook('samples.xlsx')
-#
-# sheet_names= workbook.sheet_names()
-# sample = np.empty([3,14,2],dtype=int)
-# sample_temp = np.empty([14,2],dtype=int)
-# x = np.empty(14,dtype=int)
-# y = np.empty(2,dtype=int)
-# sheet_num = 0
-# for sheet_name in sheet_names:
-#     sheet2 = workbook.sheet_by_name(sheet_name)
-#     for i in range(1,15):
-#         for j in range(3,5):
-#             #print(i,j)
-#             #sample_temp[i-1,j] = sheet2.cell(i, j).value
-#             sample[sheet_num, i-1, j-3] = sheet2.cell(i, j).value
-#         #sample[sheet_num,:,:] = sample_temp
-#     sheet_num += 1
-# print(sample)
-#
-#     # rows = sheet2.row_values(3) # 获取第四行内容
-#     # cols = sheet2.col_values(1) # 获取第二列内容
-#
-#
-# # b=tf.reshape(a,[2,3,4])
-# # w_c1 = tf.Variable(tf.random_normal([24]))
-# # w_c2 = tf.reshape(w_c1,[2,1,2,6])
-# # w_c3 = tf.reshape(w_c1,[1,2,2,6])
-# # sess = tf.Session()
-# # sess.run(tf.global_variables_initializer())
-# #
-# # print('wc2',sess.run(w_c2))
-# # print('wc3',sess.run(w_c3))
-# #a=[0,1,2,3,3,3,3]
-# # a=np.arange(1,10)
-# # b=np.unique(a)
-# # print(a)
-# # print(b[2])
-# # c =np.sum(a ==b[2])
-# # print(c)
+# Input = above array of length 17
+# Fully connected layer on all 4 rows with 5 outputs:
+# [ 1.71536088 -0.72340977 -1.22485089 -2.5412786  -0.16338299]

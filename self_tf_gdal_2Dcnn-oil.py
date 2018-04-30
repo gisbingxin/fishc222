@@ -220,7 +220,8 @@ def create_cnn(xs,class_num, sample_size_X, sample_size_Y, band_num,win_size_X,w
     b_conv1 = bias_variable([64])
     h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)  # output size 28x28x32
     h_pool1 = max_pool_2x2(h_conv1)  # output size 14x14x32
-
+    print('h_conv1 shape:', h_conv1.shape.as_list())
+    print('h_pool1 shape,',h_pool1.shape.as_list())
     # conv2 layer ##
     W_conv2 = weight_variable([win_size_Y, win_size_X, 64, 128])  # patch 5x5, in size 32, out size 64
     b_conv2 = bias_variable([128])
@@ -233,7 +234,7 @@ def create_cnn(xs,class_num, sample_size_X, sample_size_Y, band_num,win_size_X,w
     W_fc1 = weight_variable([xx * yy * 128, 256])
     b_fc1 = bias_variable([256])
     #h_pool2_flat = tf.reshape(h_pool2, [-1, 1 * 1 * 512])
-    #print(W_fc1.get_shape().as_list()[0]])
+    print('hpool2 shape, w_fc1 shape:', np.shape(h_pool2), np.shape(W_fc1))
     h_pool2_flat = tf.reshape(h_pool2,[-1,W_fc1.get_shape().as_list()[0]])
     #print(tf.shape(h_pool2_flat))
     h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
