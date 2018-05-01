@@ -84,30 +84,31 @@
       <file leaf-file-name="self_tf_1DCNN.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/self_tf_1DCNN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4300">
-              <caret line="469" column="90" lean-forward="true" selection-start-line="469" selection-start-column="90" selection-end-line="469" selection-end-column="90" />
+            <state relative-caret-position="200">
+              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding>
-                <element signature="n#!!doc" expanded="false" />
-                <element signature="e#741#763#0" expanded="true" />
-                <element signature="e#2040#3523#0" expanded="false" />
-                <element signature="e#2040#2075#0" expanded="false" />
-                <element signature="e#3816#5388#0" expanded="false" />
-                <element signature="e#5655#6317#0" expanded="false" />
-                <element signature="e#5922#5964#0" expanded="false" />
-                <element signature="e#6386#8027#0" expanded="false" />
-                <element signature="e#6878#6927#0" expanded="false" />
-                <element signature="e#7691#7738#0" expanded="false" />
-                <element signature="e#8106#8111#0" expanded="false" />
-                <element signature="e#10389#13731#0" expanded="false" />
-                <element signature="e#12805#13228#0" expanded="false" />
-                <element signature="e#13802#13820#0" expanded="false" />
-                <element signature="e#14302#14372#0" expanded="false" />
-                <element signature="e#14467#14531#0" expanded="false" />
-                <element signature="e#14664#14701#0" expanded="false" />
-                <element signature="e#14928#15193#1" expanded="false" />
-                <element signature="e#16045#19451#0" expanded="false" />
-                <element signature="e#16045#16124#0" expanded="false" />
-                <element signature="e#18543#18588#0" expanded="false" />
+                <element signature="e#357#437#0" expanded="false" />
+                <element signature="e#469#540#0" expanded="false" />
+                <element signature="e#1333#2816#0" expanded="false" />
+                <element signature="e#1333#1368#0" expanded="false" />
+                <element signature="e#4950#5612#0" expanded="false" />
+                <element signature="e#5217#5259#0" expanded="false" />
+                <element signature="e#5681#7322#0" expanded="false" />
+                <element signature="e#6173#6222#0" expanded="false" />
+                <element signature="e#6986#7033#0" expanded="false" />
+                <element signature="e#7401#8664#0" expanded="false" />
+                <element signature="e#7401#7406#0" expanded="false" />
+                <element signature="e#8743#9622#0" expanded="false" />
+                <element signature="e#9684#13026#0" expanded="false" />
+                <element signature="e#12100#12523#0" expanded="false" />
+                <element signature="e#13097#14505#0" expanded="false" />
+                <element signature="e#13097#13115#0" expanded="false" />
+                <element signature="e#13597#13667#0" expanded="false" />
+                <element signature="e#13762#13826#0" expanded="false" />
+                <element signature="e#13959#13996#0" expanded="false" />
+                <element signature="e#14223#14488#1" expanded="false" />
+                <element signature="e#15340#15419#0" expanded="false" />
+                <element signature="e#17838#17883#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -219,8 +220,8 @@
         <option value="$PROJECT_DIR$/mat2tiff.py" />
         <option value="$PROJECT_DIR$/self_tf_gdal_cnn-oil.py" />
         <option value="$PROJECT_DIR$/self_tf_gdal_2Dcnn-oil.py" />
-        <option value="$PROJECT_DIR$/self_tf_1DCNN.py" />
         <option value="$PROJECT_DIR$/treetest.py" />
+        <option value="$PROJECT_DIR$/self_tf_1DCNN.py" />
       </list>
     </option>
   </component>
@@ -318,7 +319,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.treetest">
+  <component name="RunManager" selected="Python.self_tf_1DCNN">
     <configuration name="mat2excel" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -413,8 +414,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.treetest" />
-        <item index="1" class="java.lang.String" itemvalue="Python.self_tf_1DCNN" />
+        <item index="0" class="java.lang.String" itemvalue="Python.self_tf_1DCNN" />
+        <item index="1" class="java.lang.String" itemvalue="Python.treetest" />
         <item index="2" class="java.lang.String" itemvalue="Python.self_tf_gdal_2Dcnn-oil" />
         <item index="3" class="java.lang.String" itemvalue="Python.self_tf_gdal_cnn-oil" />
         <item index="4" class="java.lang.String" itemvalue="Python.mat2excel" />
@@ -470,14 +471,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1352" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.118336886" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32826087" sideWeight="0.4978678" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21653971" sideWeight="0.5154584" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.21653971" sideWeight="0.48454157" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3206522" sideWeight="0.4978678" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29673913" sideWeight="0.771855" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.48586956" sideWeight="0.771855" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15031983" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32173914" sideWeight="0.4969605" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -903,7 +903,7 @@
         <state relative-caret-position="-125">
           <caret line="16" column="11" lean-forward="true" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
           <folding>
-            <element signature="e#102#146#0" expanded="true" />
+            <element signature="e#102#146#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -918,30 +918,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/self_tf_1DCNN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4300">
-          <caret line="469" column="90" lean-forward="true" selection-start-line="469" selection-start-column="90" selection-end-line="469" selection-end-column="90" />
+        <state relative-caret-position="200">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#741#763#0" expanded="true" />
-            <element signature="e#2040#3523#0" expanded="false" />
-            <element signature="e#2040#2075#0" expanded="false" />
-            <element signature="e#3816#5388#0" expanded="false" />
-            <element signature="e#5655#6317#0" expanded="false" />
-            <element signature="e#5922#5964#0" expanded="false" />
-            <element signature="e#6386#8027#0" expanded="false" />
-            <element signature="e#6878#6927#0" expanded="false" />
-            <element signature="e#7691#7738#0" expanded="false" />
-            <element signature="e#8106#8111#0" expanded="false" />
-            <element signature="e#10389#13731#0" expanded="false" />
-            <element signature="e#12805#13228#0" expanded="false" />
-            <element signature="e#13802#13820#0" expanded="false" />
-            <element signature="e#14302#14372#0" expanded="false" />
-            <element signature="e#14467#14531#0" expanded="false" />
-            <element signature="e#14664#14701#0" expanded="false" />
-            <element signature="e#14928#15193#1" expanded="false" />
-            <element signature="e#16045#19451#0" expanded="false" />
-            <element signature="e#16045#16124#0" expanded="false" />
-            <element signature="e#18543#18588#0" expanded="false" />
+            <element signature="e#357#437#0" expanded="false" />
+            <element signature="e#469#540#0" expanded="false" />
+            <element signature="e#1333#2816#0" expanded="false" />
+            <element signature="e#1333#1368#0" expanded="false" />
+            <element signature="e#4950#5612#0" expanded="false" />
+            <element signature="e#5217#5259#0" expanded="false" />
+            <element signature="e#5681#7322#0" expanded="false" />
+            <element signature="e#6173#6222#0" expanded="false" />
+            <element signature="e#6986#7033#0" expanded="false" />
+            <element signature="e#7401#8664#0" expanded="false" />
+            <element signature="e#7401#7406#0" expanded="false" />
+            <element signature="e#8743#9622#0" expanded="false" />
+            <element signature="e#9684#13026#0" expanded="false" />
+            <element signature="e#12100#12523#0" expanded="false" />
+            <element signature="e#13097#14505#0" expanded="false" />
+            <element signature="e#13097#13115#0" expanded="false" />
+            <element signature="e#13597#13667#0" expanded="false" />
+            <element signature="e#13762#13826#0" expanded="false" />
+            <element signature="e#13959#13996#0" expanded="false" />
+            <element signature="e#14223#14488#1" expanded="false" />
+            <element signature="e#15340#15419#0" expanded="false" />
+            <element signature="e#17838#17883#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -1,23 +1,3 @@
-#for 1D-CNN conv(conv1d), the input tensor should be 3D tensor,whose shape is [batch,width, channel],
-#  Acturally, in the function of Conv1D, the 3d tensor will be extended to 4D tensor,
-# in order to be used in the Conv2D function.
-# According to the test, the input of Conv1D for hyperspectral images is [batch num, band_num, 1].
-#test code is :
-# input_1d=[11,11,11,11]
-# print(np.shape(input_1d))
-# input_2d = tf.expand_dims(input_1d, 0)
-#
-# input_3d = tf.expand_dims(input_2d, 0)
-# input_4d = tf.expand_dims(input_3d, 3)
-#
-# sess=tf.Session()
-# init = tf.global_variables_initializer()
-# sess.run(init)
-#
-# print('2d',sess.run(tf.shape(input_2d)))
-# print('3d',sess.run(tf.shape(input_3d)))
-# print('4d',sess.run(tf.shape(input_4d)))
-
 from osgeo import gdal
 import matplotlib.pyplot as plt
 import numpy as np
@@ -26,6 +6,8 @@ import tensorflow as tf
 from self_strech_img import minmaximg, linearstretching,strechimg,strechimg_pan
 from self_read_position_excel import read_sample_position
 from mat2tiff import writeTiff
+import sklearn.metrics as skmetr
+
 
 
 def weight_variable(shape):
@@ -116,13 +98,13 @@ def get_1D_sample_data(raster,band_num,class_num,num_per_class,sample_num,
             y_offset = int(sample_pos[x_i,1])-1
             #print('x,y location:', x_locate,y_locate)
             data_from_raster = raster.ReadAsArray(x_offset,y_offset,sample_size_X,sample_size_Y)
-            print('shape of data_from_raster',np.shape(data_from_raster))
+            #print('shape of data_from_raster',np.shape(data_from_raster))
             data= np.swapaxes(data_from_raster,0,1)
             x_data[x_i, :, :] = data
                   #y_data[num_per_class[i]*i+x_i,i] = 1             #与x_data对应的batch处，赋值为1，其余位置为0
             y_data[x_i, i] = 1
         loc_origin = loc_origin + num_per_class[i]
-        print('shape of x_data in get next batch',np.shape(x_data),np.shape(y_data))
+        #print('shape of x_data in get next batch',np.shape(x_data),np.shape(y_data))
     return x_data,y_data
 
 
@@ -451,9 +433,23 @@ if __name__ == '__main__':
             print('real label:',test_ys.argmax(1))
             real_label = test_ys.argmax(1)
                 # real_label =[2,3]
-            result = (predicted_label == real_label) #判断两个数组的对应元素是否相同
-            result =np.array(result)
-            print( result, np.sum(result==True),(np.sum(result==True))/1200*100)    #打印对应元素相等的数量
+            # result = (predicted_label == real_label) #判断两个数组的对应元素是否相同
+            # result =np.array(result)
+            # print( result, np.sum(result==True),(np.sum(result==True))/1200*100)    #打印对应元素相等的数量
+            conf_mtrx= skmetr.confusion_matrix(real_label,label_test)
+            overall_acc=skmetr.accuracy_score(real_label,label_test)
+            acc_for_each_class=skmetr.precision_score(real_label,label_test,average=None)
+            aver_acc=np.mean(acc_for_each_class)
+            aver_acc_score=skmetr.accuracy_score(real_label,label_test)
+            kappa_co=skmetr.cohen_kappa_score(real_label,label_test)
+            # plt.imshow(conf_mtrx)
+            # plt.show()
+            print('confusion metrics',conf_mtrx)
+            print('overall accuracy:',overall_acc)
+            print('accuracy for each class:',acc_for_each_class)
+            print('average accuracy:',aver_acc)
+            print('average accuracy score:',aver_acc_score)
+            print('kappa coefficient:',kappa_co)
 
     else:
         part_data=True
