@@ -70,21 +70,21 @@ def get_sample_data(raster,band_num,xsize,ysize,class_num,num_per_class,sample_n
     for i in range(0,class_num):    #i表示类的序号
         for x_i in range(loc_origin,loc_origin + num_per_class[i]):  #x_i 表示在该类内的序号，即行号
             #for y_i in range(0,2):
-            x_locate = int(sample_pos[x_i,0]) #GDAL中的ReadAsArray传入参数应当为int型
+            x_offset = int(sample_pos[x_i,0])-1 #GDAL中的ReadAsArray传入参数应当为int型
                                             # 而此处sample是numpy.int32，所以需要进行数据类型转换
-            y_locate = int(sample_pos[x_i,1])
-            print('x,y location:', x_locate,y_locate)
-            if x_locate <= int(sample_size_X/2) or y_locate <= int(sample_size_Y/2) or\
-                            x_locate > (xsize-int(sample_size_X/2)) or y_locate > (ysize-int(sample_size_Y/2)):
+            y_offset = int(sample_pos[x_i,1])-1
+            print('x,y location:', x_offset,y_offset)
+            if x_offset <= int(sample_size_X/2) or y_offset <= int(sample_size_Y/2) or\
+                            x_offset > (xsize-int(sample_size_X/2)) or y_offset > (ysize-int(sample_size_Y/2)):
                 margin_pixel.append(x_i)
                 break
             else:
-                x_left_upper = x_locate - int(sample_size_X/2)  #获取sample窗口的左上角点坐标值。
+                x_left_upper_offset = x_offset - int(sample_size_X/2)  #获取sample窗口的左上角点坐标值。
                                                         # ReadAsArray中前两个参数是数据读取的起始位置，后两个参数是窗口大小。
                                                         # 为了让我们选择的点仍然是子窗口的中心点，所以进行该步处理。
-                y_left_upper = y_locate - int(sample_size_Y/2)
+                y_left_upper_offset = y_offset - int(sample_size_Y/2)
                 #print(type(x_locate))
-                data = raster.ReadAsArray(x_left_upper,y_left_upper,sample_size_X,sample_size_Y)
+                data = raster.ReadAsArray(x_left_upper_offset,y_left_upper_offset,sample_size_X,sample_size_Y)
                 x_data[x_i, :, :, :] = data
                   #y_data[num_per_class[i]*i+x_i,i] = 1             #与x_data对应的batch处，赋值为1，其余位置为0
                 y_data[x_i, i] = 1
@@ -412,8 +412,8 @@ if __name__ == '__main__':
         #image_name = 'F:\Python\workshop\\fishc\\aviris_oil\mnf\mnf data'
         #raster = gdal.Open('C:\\test.jpg')
         #C:\Program Files\Exelis\ENVI53\data\qb_boulder_msi
-        num_per_class = np.array([200, 200, 200, 200, 200, 200, 200, 200, 200])  # 训练数据中，每一类的采样点个数
-        # num_per_class = np.array([6431, 18449, 1899, 2864, 1145, 4829, 1130, 3482, 747])
+        #num_per_class = np.array([200, 200, 200, 200, 200, 200, 200, 200, 200])  # 训练数据中，每一类的采样点个数
+        num_per_class = np.array([6431, 18449, 1899, 2864, 1145, 4829, 1130, 3482, 747])
         sample_num = np.sum(num_per_class)  # class_num * num_per_class  #训练数据中，所有类采样点的总数。对应后面的batch
 
         start_row = 200  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行

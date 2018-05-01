@@ -36,16 +36,16 @@ def bias_variable(shape):
     initial = tf.constant(0.1, shape=shape)
     return tf.Variable(initial)
 
-def conv1d(x, W):
+def conv1d(x, W,stride=1,padding='VALID'):
     # stride [1, x_movement, y_movement, 1]
     # Must have strides[0] = strides[3] = 1
     #return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding='SAME')
-    return tf.nn.conv1d(x,W,stride=1,padding='VALID',data_format='NWC')
+    return tf.nn.conv1d(x,W,stride,padding,data_format='NWC')
 
-def max_pool_nx1(x):
+def max_pool_nx1(x,pool_size=3,stride=1,padding='valid'):
     # stride [1, x_movement, y_movement, 1]
     #return tf.nn.max_pool(x, ksize=[1,2,2,1], strides=[1,2,2,1], padding='SAME')
-    return tf.layers.max_pooling1d(x,pool_size=3,strides=1,padding='valid') #padding=same时，输入输出的channel一样，
+    return tf.layers.max_pooling1d(x,pool_size,stride,padding) #padding=same时，输入输出的channel一样，
                                     # 当padding=valid时，输出=输入-（filter_size-1+strides-1)
 
 #def create_cnn(xs,keep_prob,class_num,sample_size_X,sample_size_Y,band_num):
@@ -111,11 +111,12 @@ def get_1D_sample_data(raster,band_num,class_num,num_per_class,sample_num,
     for i in range(0,class_num):    #i表示类的序号
         for x_i in range(loc_origin,loc_origin + num_per_class[i]):  #x_i 表示在该类内的序号，即行号
             #for y_i in range(0,2):
-            x_locate = int(sample_pos[x_i,0]) #GDAL中的ReadAsArray传入参数应当为int型
+            x_offset = int(sample_pos[x_i,0])-1 #GDAL中的ReadAsArray传入参数应当为int型
                                             # 而此处sample是numpy.int32，所以需要进行数据类型转换
-            y_locate = int(sample_pos[x_i,1])
+            y_offset = int(sample_pos[x_i,1])-1
             #print('x,y location:', x_locate,y_locate)
-            data_from_raster = raster.ReadAsArray(x_locate,y_locate,sample_size_X,sample_size_Y)
+            data_from_raster = raster.ReadAsArray(x_offset,y_offset,sample_size_X,sample_size_Y)
+            print('shape of data_from_raster',np.shape(data_from_raster))
             data= np.swapaxes(data_from_raster,0,1)
             x_data[x_i, :, :] = data
                   #y_data[num_per_class[i]*i+x_i,i] = 1             #与x_data对应的batch处，赋值为1，其余位置为0
@@ -150,7 +151,7 @@ def get_next_batch(x_data, y_data,batch_size = 20):
     # print(y)
     return x,y
 
-def create_cnn(xs,class_num, band_num,win_size_X,channel_1D=1):
+def create_1D_cnn(xs,class_num, band_num,win_size_X,channel_1D=1):
 #此处band_num 相当于2D中的width
     sample_size_X=band_num
     x_image=xs  #width=band_num=15
@@ -192,25 +193,27 @@ def create_cnn(xs,class_num, band_num,win_size_X,channel_1D=1):
     # print('create_cnn_finished')
     # print(prediction.get_shape().as_list())
     return prediction
-def create_cnn_simple(xs,class_num, sample_size_X, band_num,ch):
+def create_1D_cnn_simple(xs,class_num, band_num,win_size_X,channel_1D=1):
     #pass
     #print('create_cnn_simple begin')
-    x_image = tf.reshape(xs, [-1, sample_size_Y, sample_size_X, band_num])
+    x_image = xs
+    sample_size_X=band_num
 
-    W_conv1 = weight_variable([win_size_Y, win_size_X, band_num, 32])  # patch 3x3, in size 199, out size 199*3
+    W_conv1 = weight_variable([win_size_X, channel_1D, 32])  #
     b_conv1 = bias_variable([32])
-    h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)  # output size
+    h_conv1 = tf.nn.relu(conv1d(x_image, W_conv1) + b_conv1)  # in_size:15 output size:13
 
-    h_pool1 = max_pool_2x2(h_conv1)
+    #h_pool1 = max_pool_nx1(h_conv1)# in_size:13 output size:11
 
-    W_conv3 = weight_variable([win_size_Y, win_size_X, 32, 64])
+    W_conv3 = weight_variable([win_size_X, 32, 64])
     b_conv3 = bias_variable([64])
-    h_conv3 = tf.nn.relu(conv2d(h_pool1,W_conv3) + b_conv3)
+    #h_conv3 = tf.nn.relu(conv1d(h_pool1,W_conv3) + b_conv3)# in_size:11 output size:9
+    h_conv3 = tf.nn.relu(conv1d(h_conv1, W_conv3) + b_conv3)  # in_size:13 output size:11
 
-    h_pool2 = max_pool_2x2(h_conv3) #24
+    h_pool2 = max_pool_nx1(h_conv3) # in_size:11 output size:9
 
-    xx = round(sample_size_X/4+0.25)
-    yy = round(sample_size_Y/4+0.25)
+    xx = sample_size_X-(win_size_X-1)*3
+    yy = 1
 
     W_fc = weight_variable([xx * yy * 64, 128])
     b_fc = bias_variable([128])
@@ -224,11 +227,41 @@ def create_cnn_simple(xs,class_num, sample_size_X, band_num,ch):
     prediction = tf.nn.softmax(tf.matmul(h_fc_drop, W_fc2) + b_fc2)
 
     return prediction
+def create_1D_cnn_HU(xs, class_num, band_num, win_size_X, channel_1D=1):
 
-def train_cnn(win_size_X,win_size_Y):
+    x_image = xs
+    sample_size_X=band_num
+
+    W_conv1 = weight_variable([win_size_X, channel_1D, 20])  #
+    b_conv1 = bias_variable([20])
+    h_conv1 = tf.nn.relu(conv1d(x_image, W_conv1) + b_conv1)  # in_size:15 output size:13
+
+    h_pool1 = max_pool_nx1(h_conv1,pool_size=4,stride=3)# in_size:13 output size:11
+
+    xx = 30
+    yy = 1
+
+    W_fc = weight_variable([xx * yy * 20, 100])
+    b_fc = bias_variable([100])
+    h_pool2_flat = tf.reshape(h_pool1, [-1, W_fc.get_shape().as_list()[0]])
+    h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc) + b_fc)
+    #prediction = tf.nn.softmax(tf.matmul(h_pool2_flat, W_fc) + b_fc)
+    h_fc_drop = tf.nn.dropout(h_fc1, keep_prob)
+    # fc2 layer ===out layer##
+    W_fc2 = weight_variable([100, class_num])
+    b_fc2 = bias_variable([class_num])
+    prediction = tf.nn.softmax(tf.matmul(h_fc_drop, W_fc2) + b_fc2)
+    return  prediction
+def train_cnn(win_size_X,win_size_Y,cnn_model='simple'):
     #global prediction
+    if cnn_model=='simple':
+        prediction = create_1D_cnn_simple(xs, class_num, band_num, win_size_X, channel_1D=1)
+    elif cnn_model=='HU':
+        prediction = create_1D_cnn_HU(xs, class_num, band_num, win_size_X, channel_1D=1)
+    else:
+        prediction = create_1D_cnn(xs, class_num, band_num, win_size_X, channel_1D=1)
     #prediction = create_cnn(xs,class_num,sample_size_X,sample_size_Y,band_num,win_size_X,win_size_Y)
-    prediction = create_cnn(xs, class_num, band_num, win_size_X, channel_1D = 1)
+
 
     # cross_entropy = tf.reduce_mean(-tf.reduce_sum(ys * tf.log(tf.clip_by_value(prediction,1e-10,1.0))
     #                                               ,reduction_indices=[1]))  # loss
@@ -253,8 +286,8 @@ def train_cnn(win_size_X,win_size_Y):
     acc70 = 0
     acc80 = 0
     acc90 = 0
-    selected_class = 100 # 每次学习量
-    for step in range(10000):  # 学习的次数是，每次学习量是batch(类数*batch_size)
+    selected_class = 200 # 每次学习量
+    for step in range(15000):  # 学习的次数是，每次学习量是batch(类数*batch_size)
         #batch_xs, batch_ys = mnist.train.next_batch(60)
         batch_xs, batch_ys= get_next_batch(x_data, y_data, selected_class)
                                                     #off_set = num_per_class,batch_size = selected_per_class
@@ -292,12 +325,15 @@ def train_cnn(win_size_X,win_size_Y):
             #print(i,'cross_entropy/loss',sess.run(cross_entropy,feed_dict={xs: batch_xs, ys: batch_ys,keep_prob:1}))
 
 
-def test_cnn(test_xs,win_size_X,win_size_Y):
-
-
+def test_cnn(test_xs,win_size_X,win_size_Y,cnn_model='simple'):
     #global prediction
     #prediction = create_cnn(xs,class_num,sample_size_X,sample_size_Y,band_num,win_size_X,win_size_Y)
-    prediction = create_cnn(xs, class_num, sample_size_X, sample_size_Y, band_num, win_size_X, win_size_Y)
+    if cnn_model=='simple':
+        prediction = create_1D_cnn_simple(xs, class_num, band_num, win_size_X, channel_1D=1)
+    elif cnn_model=='HU':
+        prediction = create_1D_cnn_HU(xs, class_num, band_num, win_size_X, channel_1D=1)
+    else:
+        prediction = create_1D_cnn(xs, class_num, band_num, win_size_X, channel_1D=1)
     # 2l = []
     saver = tf.train.Saver()
     # new_saver = tf.train.import_meta_graph("./model/cnn.model-470.meta")
@@ -305,7 +341,7 @@ def test_cnn(test_xs,win_size_X,win_size_Y):
     with tf.Session() as sess:
         # new_saver.restore(sess,tf.train.latest_checkpoint('./model/'))
         # new_saver.restore(sess,"./model/cnn.model-470")
-        saver.restore(sess, "./Pavia_MNF/MNF_model-3.ckpt-4350")
+        saver.restore(sess, "./Pavia_MNF/MNF_model-3.ckpt-13650")
         # all_vars = tf.trainable_variables()
         # sess.run(tf.global_variables_initializer())
         label_position = tf.argmax(prediction, 1)
@@ -324,8 +360,11 @@ def test_cnn(test_xs,win_size_X,win_size_Y):
 if __name__ == '__main__':
     # image_name = 'C:\hyperspectral\AVIRISReflectanceSubset.dat'
     # image_name = 'F:\遥感相关\墨西哥AVIRIS\\f100709t01p00r11\\f100709t01p00r11rdn_b\\f100709t01p00r11rdn_b_sc01_ort_img_QUAC'
-    train = True
-    test = False
+    train = False
+    test = True
+    cnn_model='HU'
+    # cnn_model='simple'
+    # cnn_model='Let4'
 
     sample_size_X = 1  #训练数据的宽
     sample_size_Y = 1  #训练数据的高
@@ -334,13 +373,13 @@ if __name__ == '__main__':
     channel_1D=1
     x_data =[]
     y_data =[]
-    win_size_X=3
+    win_size_X=11
     win_size_Y=1
     xs = tf.placeholder(tf.float32, [None, band_num,channel_1D])   #
     ys = tf.placeholder(tf.float32, [None, class_num])
     keep_prob = tf.placeholder(tf.float32)
 
-    image_name = 'F:\Python\workshop\data\hydata\Pavia_MNF'
+    image_name = 'F:\Python\workshop\data\hydata\PaviaU.tif'
     excel_name = 'F:\Python\workshop\data\hydata\PaviaU.xlsx'
 
 
@@ -351,11 +390,11 @@ if __name__ == '__main__':
         #image_name = 'F:\Python\workshop\\fishc\\aviris_oil\mnf\mnf data'
         #raster = gdal.Open('C:\\test.jpg')
         #C:\Program Files\Exelis\ENVI53\data\qb_boulder_msi
-        num_per_class = np.array([200, 200, 200, 200, 200, 200, 200, 200, 200])  # 训练数据中，每一类的采样点个数
-        # num_per_class = np.array([6431, 18449, 1899, 2864, 1145, 4829, 1130, 3482, 747])
+        #num_per_class = np.array([200, 200, 200, 200, 200, 200, 200, 200, 200])  # 训练数据中，每一类的采样点个数
+        num_per_class = np.array([6431, 18449, 1899, 2864, 1145, 4829, 1130, 3482, 747])
         sample_num = np.sum(num_per_class)  # class_num * num_per_class  #训练数据中，所有类采样点的总数。对应后面的batch
 
-        start_row = 1  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
+        start_row = 200  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
         end_row = start_row + num_per_class - 1
 
         start_col = 0  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
@@ -382,13 +421,13 @@ if __name__ == '__main__':
 
         if train:
             test = False
-            train_cnn(win_size_X, win_size_Y)
+            train_cnn(win_size_X, win_size_Y,cnn_model)
         elif test:
             test_xs, test_ys = get_next_batch(x_data, y_data, 1200)
                     # print(test_xs.shape)
                     # strechimg(sample_size_X,sample_size_Y,test_xs[0,:,:,0],test_xs[0,:,:,1],test_xs[0,:,:,2])
             #test_xs = x_data
-            predicted_label = test_cnn(test_xs,win_size_X,win_size_Y)
+            predicted_label = test_cnn(test_xs,win_size_X,win_size_Y,cnn_model)
 
                     #predicted_label = np.array(predicted_label)
                 #print('predicted_label:',predicted_label)
@@ -414,7 +453,7 @@ if __name__ == '__main__':
                 # real_label =[2,3]
             result = (predicted_label == real_label) #判断两个数组的对应元素是否相同
             result =np.array(result)
-            print( result, np.sum(result==True))    #打印对应元素相等的数量
+            print( result, np.sum(result==True),(np.sum(result==True))/1200*100)    #打印对应元素相等的数量
 
     else:
         part_data=True
