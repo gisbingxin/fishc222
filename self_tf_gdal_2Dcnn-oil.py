@@ -140,7 +140,7 @@ def get_app_data_batch(app_data_path,sample_height,sample_width,sample_step_row,
     y_end = img_height - y_margin
 
     app_xs = [] #分别用于存储每一个batch的数据，及其行、列数
-    #x_num = 0#int((x_end - x_start)/sample_step_col)
+    x_num = 0#int((x_end - x_start)/sample_step_col)
     y_num = 0#int((y_end - y_start)/sample_step_row)
     for y_i in range(y_start,y_end,sample_step_row):
         x_num=0
@@ -315,7 +315,7 @@ def train_cnn(win_size_X,win_size_Y):
     acc70 = 0
     acc80 = 0
     acc90 = 0
-    selected_per_class = 200 # 每次学习量
+    selected_per_class = 10 # 每次学习量
     for step in range(10000):  # 学习的次数是，每次学习量是batch(类数*batch_size)
         #batch_xs, batch_ys = mnist.train.next_batch(60)
         batch_xs, batch_ys= get_next_batch(x_data, y_data, num_per_class, sample_num,selected_per_class)
@@ -366,7 +366,7 @@ def test_cnn(test_xs,win_size_X,win_size_Y):
     with tf.Session() as sess:
         # new_saver.restore(sess,tf.train.latest_checkpoint('./model/'))
         # new_saver.restore(sess,"./model/cnn.model-470")
-        saver.restore(sess, "./Pavia_MNF/MNF_model-3.ckpt-4350")
+        saver.restore(sess, "./Pavia_MNF/MNF_model-3.ckpt-500")
         # all_vars = tf.trainable_variables()
         # sess.run(tf.global_variables_initializer())
         label_position = tf.argmax(prediction, 1)
@@ -386,7 +386,7 @@ def test_cnn(test_xs,win_size_X,win_size_Y):
 if __name__ == '__main__':
     # image_name = 'C:\hyperspectral\AVIRISReflectanceSubset.dat'
     # image_name = 'F:\遥感相关\墨西哥AVIRIS\\f100709t01p00r11\\f100709t01p00r11rdn_b\\f100709t01p00r11rdn_b_sc01_ort_img_QUAC'
-    train = True
+    train = False
     test = False
 
     sample_size_X = 3  #训练数据的宽
@@ -412,11 +412,11 @@ if __name__ == '__main__':
         #image_name = 'F:\Python\workshop\\fishc\\aviris_oil\mnf\mnf data'
         #raster = gdal.Open('C:\\test.jpg')
         #C:\Program Files\Exelis\ENVI53\data\qb_boulder_msi
-        #num_per_class = np.array([200, 200, 200, 200, 200, 200, 200, 200, 200])  # 训练数据中，每一类的采样点个数
-        num_per_class = np.array([6431, 18449, 1899, 2864, 1145, 4829, 1130, 3482, 747])
+        num_per_class = np.array([200, 200, 200, 200, 200, 200, 200, 200, 200])  # 训练数据中，每一类的采样点个数
+        #num_per_class = np.array([6431, 18449, 1899, 2864, 1145, 4829, 1130, 3482, 747])
         sample_num = np.sum(num_per_class)  # class_num * num_per_class  #训练数据中，所有类采样点的总数。对应后面的batch
 
-        start_row = 200  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
+        start_row = 1  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
         end_row = start_row + num_per_class - 1
 
         start_col = 0  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
@@ -496,7 +496,7 @@ if __name__ == '__main__':
         y_start=1
         app_xs,x_num,y_num,band_num=get_app_data_batch(app_data_path, app_sample_size_height, app_sample_size_width,
                                               app_sample_step_row, app_sample_step_col,x_start,y_start)
-
+        print('x_num,y_num',x_num,y_num)
         xs = tf.placeholder(tf.float32, [None, sample_size_Y, sample_size_X, band_num])  #
 
         predicted_label = test_cnn(app_xs,win_size_X,win_size_Y)
@@ -524,7 +524,7 @@ if __name__ == '__main__':
                 for j in range(1, x_num+1):
                     temp1 = np.where((position == [j, i]).all(1))[0]
                     if np.size(temp1) != 0:
-                        #print(temp1)
+                        print(temp1)
                         in_index.append(temp1[0])
             a = position[in_index]
             for i in range(0, np.size(a, 0)):
@@ -533,7 +533,7 @@ if __name__ == '__main__':
                 ttt[row, col] = label[row,col]
              #         in_index.append(a)
             # print(in_index)
-            writeTiff(ttt,x_num,y_num,1,'f:\\test2.tif')
+            writeTiff(ttt,x_num,y_num,1,'f:\\test3.tif')
         else:
             ttt=label
  #       print(np.shape(label))

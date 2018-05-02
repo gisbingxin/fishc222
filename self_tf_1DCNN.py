@@ -4,7 +4,7 @@ import numpy as np
 from PIL import Image
 import tensorflow as tf
 from self_strech_img import minmaximg, linearstretching,strechimg,strechimg_pan
-from self_read_position_excel import read_sample_position
+from self_read_position_excel import read_sample_position,read_sample_position_random
 from mat2tiff import writeTiff
 import sklearn.metrics as skmetr
 
@@ -74,11 +74,16 @@ def read_show_img(image_name,show_img = False):
     return raster,raster_array,xsize, ysize,band_num
 
 #获取采样点的数据，输入图像读取后的raster和波段数，输出x_data,y_data。分别是采样点位置及其数据、该点的类别数组
-def get_1D_sample_data(raster,band_num,class_num,num_per_class,sample_num,
+def get_1D_sample_data(raster,band_num,class_num,num_per_class,total_per_class,sample_num,
                     excel_name,sheet_num,start_row,start_col,end_row, end_col,
-                    sample_size_X=1,sample_size_Y=1,channel_1D=1):
+                    sample_size_X=1,sample_size_Y=1,channel_1D=1,random=False):
     #读取Excel中存储的采样点位置数据，返回值中sample_num代表类别编号
-    sample_pos = read_sample_position(excel_name,sheet_num,start_row,start_col,end_row, end_col)
+    if random:
+        sample_pos = read_sample_position_random(excel_name, sheet_num, num_per_class, total_per_class, start_col,
+                                             start_row)
+    else:
+        sample_pos = read_sample_position(excel_name,sheet_num,start_row,start_col,end_row, end_col)
+
                             # 该函数返回所选择的sample的位置点，是一个三维数组shape为[class_num,X_num,Y_num]
 
     # #sample定义为[batch，band,Ysize,Xsize],batch这里是所有类别采样点的数量
@@ -116,6 +121,7 @@ def get_next_batch(x_data, y_data,batch_size = 20):
     x=[]
     y=[]
     idxs=[]
+
     for _ in range(batch_size):
         idx = np.random.randint(0,sample_num)
             #依次在每一类的sample中随机选择一个，放入x，y数组中，几种类别共同组成一个batch
@@ -131,7 +137,31 @@ def get_next_batch(x_data, y_data,batch_size = 20):
     # 如果不对x形状进行变换，数组会将输入的x的band参数误以为是width，造成显示错误。
     # strechimg(sample_size_X,sample_size_Y,x[0,:,:,0],x[0,:,:,1],x[0,:,:,2])
     # print(y)
+    #print('x shape in get_next_batch',np.shape(x))
     return x,y
+def get_1D_app_data_batch(app_data_path):
+    # x表示宽，y表示高
+    raster, raster_array, xsize, ysize, band_num = read_show_img(app_data_path)
+    #print('xsize,ysize',xsize,ysize)
+    img_height = ysize
+    img_width = xsize
+    sample_num_all = img_height * img_width
+    channel_1D = 1
+    app_xs = np.zeros([sample_num_all, band_num, channel_1D], dtype=float) #分别用于存储每一个batch的数据，及其行、列数
+    x_num = 0#int((x_end - x_start)/sample_step_col)
+    y_num = 0#int((y_end - y_start)/sample_step_row)
+    for y_i in range(0,img_height):
+        x_num=0
+        for x_i in range(0,img_width):
+            data_from_raster = raster.ReadAsArray(x_i,y_i, 1, 1)
+            data = np.swapaxes(data_from_raster, 0, 1)
+            index=y_i*img_width+x_i
+            #print('y_i,x_i,index:',y_i,x_i,index)
+            app_xs[index, :, :] = data
+            x_num += 1
+        y_num+=1
+    #print('app_xs shape in get 1D app data',np.shape(app_xs))
+    return app_xs,img_width,img_height,band_num
 
 def create_1D_cnn(xs,class_num, band_num,win_size_X,channel_1D=1):
 #此处band_num 相当于2D中的width
@@ -175,6 +205,7 @@ def create_1D_cnn(xs,class_num, band_num,win_size_X,channel_1D=1):
     # print('create_cnn_finished')
     # print(prediction.get_shape().as_list())
     return prediction
+
 def create_1D_cnn_simple(xs,class_num, band_num,win_size_X,channel_1D=1):
     #pass
     #print('create_cnn_simple begin')
@@ -209,10 +240,12 @@ def create_1D_cnn_simple(xs,class_num, band_num,win_size_X,channel_1D=1):
     prediction = tf.nn.softmax(tf.matmul(h_fc_drop, W_fc2) + b_fc2)
 
     return prediction
+
 def create_1D_cnn_HU(xs, class_num, band_num, win_size_X, channel_1D=1):
 
     x_image = xs
     sample_size_X=band_num
+    win_size_X=11
 
     W_conv1 = weight_variable([win_size_X, channel_1D, 20])  #
     b_conv1 = bias_variable([20])
@@ -234,6 +267,7 @@ def create_1D_cnn_HU(xs, class_num, band_num, win_size_X, channel_1D=1):
     b_fc2 = bias_variable([class_num])
     prediction = tf.nn.softmax(tf.matmul(h_fc_drop, W_fc2) + b_fc2)
     return  prediction
+
 def train_cnn(win_size_X,win_size_Y,cnn_model='simple'):
     #global prediction
     if cnn_model=='simple':
@@ -268,8 +302,8 @@ def train_cnn(win_size_X,win_size_Y,cnn_model='simple'):
     acc70 = 0
     acc80 = 0
     acc90 = 0
-    selected_class = 200 # 每次学习量
-    for step in range(15000):  # 学习的次数是，每次学习量是batch(类数*batch_size)
+    selected_class = 300 # 每次学习量
+    for step in range(50000):  # 学习的次数是，每次学习量是batch(类数*batch_size)
         #batch_xs, batch_ys = mnist.train.next_batch(60)
         batch_xs, batch_ys= get_next_batch(x_data, y_data, selected_class)
                                                     #off_set = num_per_class,batch_size = selected_per_class
@@ -290,15 +324,15 @@ def train_cnn(win_size_X,win_size_Y,cnn_model='simple'):
             #     if acc >= acc70:
             #         acc70=acc
             #         saver.save(sess, "./Pavia_MNF/MNF_model-1.ckpt", global_step=step)
-            # if 0.9 >= acc > 0.8:
-            #     if acc>= acc80:
-            #         acc80=acc
-            #         saver.save(sess, "./Pavia_MNF/MNF_model-2.ckpt", global_step=step)
-                # break
+            if 0.9 >= acc > 0.8:
+                if acc>= acc80:
+                    acc80=acc
+                    saver.save(sess, "./Pavia_MNF_1D/PaviaU_model-5-1.ckpt", global_step=step)
+                #break
             if acc > 0.9:
                 if acc>=acc90:
                     acc90=acc
-                    saver.save(sess, "./Pavia_MNF/MNF_model-3.ckpt", global_step=step)
+                    saver.save(sess, "./Pavia_MNF_1D/PaviaU_model-5-2.ckpt", global_step=step)
                 high_acc_num += 1
                 # if high_acc_num >=5:
                 #      break
@@ -310,6 +344,7 @@ def train_cnn(win_size_X,win_size_Y,cnn_model='simple'):
 def test_cnn(test_xs,win_size_X,win_size_Y,cnn_model='simple'):
     #global prediction
     #prediction = create_cnn(xs,class_num,sample_size_X,sample_size_Y,band_num,win_size_X,win_size_Y)
+    print('test_xs shape in test cnn:',np.shape(test_xs))
     if cnn_model=='simple':
         prediction = create_1D_cnn_simple(xs, class_num, band_num, win_size_X, channel_1D=1)
     elif cnn_model=='HU':
@@ -323,7 +358,7 @@ def test_cnn(test_xs,win_size_X,win_size_Y,cnn_model='simple'):
     with tf.Session() as sess:
         # new_saver.restore(sess,tf.train.latest_checkpoint('./model/'))
         # new_saver.restore(sess,"./model/cnn.model-470")
-        saver.restore(sess, "./Pavia_MNF/MNF_model-3.ckpt-13650")
+        saver.restore(sess, "./Pavia_MNF_1D/PaviaU_model-5-2.ckpt-28250")
         # all_vars = tf.trainable_variables()
         # sess.run(tf.global_variables_initializer())
         label_position = tf.argmax(prediction, 1)
@@ -343,7 +378,9 @@ if __name__ == '__main__':
     # image_name = 'C:\hyperspectral\AVIRISReflectanceSubset.dat'
     # image_name = 'F:\遥感相关\墨西哥AVIRIS\\f100709t01p00r11\\f100709t01p00r11rdn_b\\f100709t01p00r11rdn_b_sc01_ort_img_QUAC'
     train = False
-    test = True
+    test = False
+    random_sample = True  # 用于flag是否随机采样
+    test_all = True  # 用于flag是否利用所有数据进行验证，如果是FALSE，则只对采样数据进行验证。
     cnn_model='HU'
     # cnn_model='simple'
     # cnn_model='Let4'
@@ -355,7 +392,7 @@ if __name__ == '__main__':
     channel_1D=1
     x_data =[]
     y_data =[]
-    win_size_X=11
+    win_size_X=3
     win_size_Y=1
     xs = tf.placeholder(tf.float32, [None, band_num,channel_1D])   #
     ys = tf.placeholder(tf.float32, [None, class_num])
@@ -372,11 +409,13 @@ if __name__ == '__main__':
         #image_name = 'F:\Python\workshop\\fishc\\aviris_oil\mnf\mnf data'
         #raster = gdal.Open('C:\\test.jpg')
         #C:\Program Files\Exelis\ENVI53\data\qb_boulder_msi
-        #num_per_class = np.array([200, 200, 200, 200, 200, 200, 200, 200, 200])  # 训练数据中，每一类的采样点个数
-        num_per_class = np.array([6431, 18449, 1899, 2864, 1145, 4829, 1130, 3482, 747])
+        num_per_class = np.array([200, 200, 200, 200, 200, 200, 200, 200, 200])  # 训练数据中，每一类的采样点个数
+        #num_per_class = np.array([6431, 18449, 1899, 2864, 1145, 4829, 1130, 3482, 747])
+        total_per_class = np.array([6631, 18649, 2099, 3064, 1345, 5029, 1330, 3682, 947])
+
         sample_num = np.sum(num_per_class)  # class_num * num_per_class  #训练数据中，所有类采样点的总数。对应后面的batch
 
-        start_row = 200  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
+        start_row = 1  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
         end_row = start_row + num_per_class - 1
 
         start_col = 0  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
@@ -392,27 +431,37 @@ if __name__ == '__main__':
         # sample_size_Y = 80  #训练数据的高
         # class_num = 3       #训练数据的类数
         xs = tf.placeholder(tf.float32, [None, band_num,channel_1D])  #
-
-        x_data,y_data = get_1D_sample_data(raster,band_num,class_num,num_per_class,sample_num,
-                                        excel_name,sheet_num,start_row,start_col,end_row, end_col,
-                                           sample_size_X,sample_size_Y,channel_1D)
-                                                #此处返回值得shape是[batch，band,channel]
-        s=list(np.shape(x_data))#去除掉图像的边缘之后的数据形状，取形状参数的第一个数，即数据batch个数
-        #print('s shape',np.shape(s),s[0])
-        sample_num=s[0]
-
         if train:
+            x_data,y_data = get_1D_sample_data(raster,band_num,class_num,num_per_class,total_per_class,sample_num,
+                                            excel_name,sheet_num,start_row,start_col,end_row, end_col,
+                                               sample_size_X,sample_size_Y,channel_1D,random_sample)
+                                                      #此处返回值得shape是[batch，band,channel]
+            s=list(np.shape(x_data))#去除掉图像的边缘之后的数据形状，取形状参数的第一个数，即数据batch个数
+            #print('s shape',np.shape(s),s[0])
+            sample_num=s[0]
+
+
             test = False
             train_cnn(win_size_X, win_size_Y,cnn_model)
         elif test:
-            test_xs, test_ys = get_next_batch(x_data, y_data, 1200)
-                    # print(test_xs.shape)
-                    # strechimg(sample_size_X,sample_size_Y,test_xs[0,:,:,0],test_xs[0,:,:,1],test_xs[0,:,:,2])
-            #test_xs = x_data
-            predicted_label = test_cnn(test_xs,win_size_X,win_size_Y,cnn_model)
+            if test_all: #如果选择利用所有数据进行精度评价
+                random_sample = False
+                num_per_class = total_per_class
+                sample_num = np.sum(num_per_class)
+                start_row = 1  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
+                end_row = start_row + num_per_class - 1
 
-                    #predicted_label = np.array(predicted_label)
-                #print('predicted_label:',predicted_label)
+                start_col = 0  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
+                end_col = 1
+                test_xs, test_ys = get_1D_sample_data(raster, band_num, class_num, num_per_class, total_per_class,
+                                                    sample_num,
+                                                    excel_name, sheet_num, start_row, start_col, end_row, end_col,
+                                                    sample_size_X, sample_size_Y, channel_1D, random_sample)
+
+            else:
+                test_xs, test_ys = get_next_batch(x_data, y_data, 1200)
+
+            predicted_label = test_cnn(test_xs,win_size_X,win_size_Y,cnn_model)
             label_test = np.array(predicted_label)
             # label_test = np.reshape(label_test,(12,16))
             # plt.imshow(label_test)
@@ -454,18 +503,11 @@ if __name__ == '__main__':
     else:
         part_data=True
         app_data_path = image_name#'F:\Python\workshop\data\hydata\Pavia_MNF'
-        app_sample_size_width =sample_size_X
-        app_sample_size_height =sample_size_Y
-        app_sample_step_row =1
-        app_sample_step_col =1
-        x_start =1
-        y_start=1
-        app_xs,x_num,y_num,band_num=get_app_data_batch(app_data_path, app_sample_size_height, app_sample_size_width,
-                                              app_sample_step_row, app_sample_step_col,x_start,y_start)
+        app_xs,x_num,y_num,band_num=get_1D_app_data_batch(app_data_path)
 
-        xs = tf.placeholder(tf.float32, [None, sample_size_Y, sample_size_X, band_num])  #
+        xs = tf.placeholder(tf.float32, [None, band_num, channel_1D])  #
 
-        predicted_label = test_cnn(app_xs,win_size_X,win_size_Y)
+        predicted_label = test_cnn(app_xs,win_size_X,win_size_Y,cnn_model)
         label = np.reshape(predicted_label,(y_num,x_num))
         label = label + 1
         ttt=np.zeros((y_num,x_num))
@@ -490,7 +532,7 @@ if __name__ == '__main__':
                 for j in range(1, x_num+1):
                     temp1 = np.where((position == [j, i]).all(1))[0]
                     if np.size(temp1) != 0:
-                        #print(temp1)
+                        print(temp1)
                         in_index.append(temp1[0])
             a = position[in_index]
             for i in range(0, np.size(a, 0)):
@@ -499,7 +541,7 @@ if __name__ == '__main__':
                 ttt[row, col] = label[row,col]
              #         in_index.append(a)
             # print(in_index)
-            writeTiff(ttt,x_num,y_num,1,'f:\\test2.tif')
+            writeTiff(ttt,x_num,y_num,1,'f:\\test5.tif')
         else:
             ttt=label
  #       print(np.shape(label))

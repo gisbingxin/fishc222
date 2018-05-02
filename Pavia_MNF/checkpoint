@@ -1,4 +1,2 @@
-model_checkpoint_path: "MNF_model-3.ckpt-13650"
-all_model_checkpoint_paths: "MNF_model-3.ckpt-9950"
-all_model_checkpoint_paths: "MNF_model-3.ckpt-13200"
-all_model_checkpoint_paths: "MNF_model-3.ckpt-13650"
+model_checkpoint_path: "MNF_model-3.ckpt-500"
+all_model_checkpoint_paths: "MNF_model-3.ckpt-500"
