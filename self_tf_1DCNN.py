@@ -353,6 +353,8 @@ def train_cnn(win_size_X, win_size_Y, cnn_model='simple'):
 def test_cnn(test_xs, win_size_X, win_size_Y, cnn_model='simple', batch_i=0):
     # global prediction
     # prediction = create_cnn(xs,class_num,sample_size_X,sample_size_Y,band_num,win_size_X,win_size_Y)
+    total_size=np.shape(test_xs)[0]
+    label=[]
     print('test_xs shape in test cnn:', np.shape(test_xs))
     if cnn_model == 'simple':
         prediction = create_1D_cnn_simple(xs, class_num, band_num, win_size_X, channel_1D=1)
@@ -360,22 +362,28 @@ def test_cnn(test_xs, win_size_X, win_size_Y, cnn_model='simple', batch_i=0):
         prediction = create_1D_cnn_HU(xs, class_num, band_num, win_size_X, channel_1D=1)
     else:
         prediction = create_1D_cnn(xs, class_num, band_num, win_size_X, channel_1D=1)
-    # 2l = []
 
     saver = tf.train.Saver()
-    # new_saver = tf.train.import_meta_graph("./model/cnn.model-470.meta")
-    # saver = tf.train.Saver(tf.trainable_variables())
-    with tf.Session() as sess:
-        # new_saver.restore(sess,tf.train.latest_checkpoint('./model/'))
-        # new_saver.restore(sess,"./model/cnn.model-470")
 
+    with tf.Session() as sess:
         saver.restore(sess, "F:/Python/workshop/data/hydata/Pavia_org_1D2/simp-2.ckpt-49600")
-        # all_vars = tf.trainable_variables()
-        # sess.run(tf.global_variables_initializer())
         label_position = tf.argmax(prediction, 1)
 
-        # x_in = np.array(x_data)
-        label = sess.run(label_position, feed_dict={xs: test_xs, keep_prob: 1})
+        if total_size >1000:
+            start = 0
+            n = int(total_size / 1000)
+            for batch_i in range(0, n):
+                #predicted_label.append(test_cnn(app_xs[start:start + 1000], win_size_X, win_size_Y, cnn_model, batch_i))
+                predicted_label = sess.run(label_position, feed_dict={xs: test_xs[start:start + 1000], keep_prob: 1})
+                label.extend(predicted_label)
+                start += 1000
+                print(start,'shape of label', np.shape(label))
+                #print('shape of predicted_label', np.shape(predicted_label))
+            predicted_label = sess.run(label_position, feed_dict={xs: test_xs[n * 1000:total_size], keep_prob: 1})
+            label.extend(predicted_label)
+            print('shape of predicted_label', np.shape(label))
+        else:
+            label = sess.run(label_position, feed_dict={xs: test_xs, keep_prob: 1})
 
     return label
 
@@ -384,7 +392,7 @@ if __name__ == '__main__':
     # image_name = 'C:\hyperspectral\AVIRISReflectanceSubset.dat'
     # image_name = 'F:\遥感相关\墨西哥AVIRIS\\f100709t01p00r11\\f100709t01p00r11rdn_b\\f100709t01p00r11rdn_b_sc01_ort_img_QUAC'
     train = False
-    test = False
+    test = True
     random_sample = True  # 用于flag是否随机采样
     test_all = True  # 用于flag是否利用所有数据进行验证，如果是FALSE，则只对采样数据进行验证。
     # cnn_model='HU'
@@ -510,41 +518,39 @@ if __name__ == '__main__':
         app_xs, x_num, y_num, band_num = get_1D_app_data_batch(app_data_path)
         print('shape of app_xs:', np.shape(app_xs)[0])
         xs = tf.placeholder(tf.float32, [None, band_num, channel_1D])  #
-
-
-        # 2l = []
-
-
-        total_size = np.shape(app_xs)[0]
-        predicted_label = []
-        if total_size > 1000:
-            if cnn_model == 'simple':
-                prediction = create_1D_cnn_simple(xs, class_num, band_num, win_size_X, channel_1D=1)
-            elif cnn_model == 'HU':
-                prediction = create_1D_cnn_HU(xs, class_num, band_num, win_size_X, channel_1D=1)
-            else:
-                prediction = create_1D_cnn(xs, class_num, band_num, win_size_X, channel_1D=1)
-            saver = tf.train.Saver()
-            sess = tf.Session()
-            saver.restore(sess, "F:/Python/workshop/data/hydata/Pavia_org_1D2/simp-2.ckpt-49600")
-            label_position = tf.argmax(prediction, 1)
-
-
-            start = 0
-            n = int(total_size / 1000)
-            for batch_i in range(0, n):
-                #predicted_label.append(test_cnn(app_xs[start:start + 1000], win_size_X, win_size_Y, cnn_model, batch_i))
-                label = sess.run(label_position, feed_dict={xs: app_xs[start:start + 1000], keep_prob: 1})
-                predicted_label.extend(label)
-                start += 1000
-                print(start,'shape of predicted_label', np.shape(predicted_label))
-                #print('shape of predicted_label', np.shape(predicted_label))
-            label = sess.run(label_position, feed_dict={xs: app_xs[n * 1000:total_size], keep_prob: 1})
-            predicted_label.extend(label)
-            print('shape of predicted_label', np.shape(predicted_label))
-            #predicted_label.append(test_cnn(app_xs[n * 1000:total_size], win_size_X, win_size_Y, cnn_model, batch_i=n))
-        else:
-            predicted_label = test_cnn(app_xs, win_size_X, win_size_Y, cnn_model)
+        # # 2l = []
+        #
+        #
+        # total_size = np.shape(app_xs)[0]
+        # predicted_label = []
+        # if total_size > 1000:
+        #     if cnn_model == 'simple':
+        #         prediction = create_1D_cnn_simple(xs, class_num, band_num, win_size_X, channel_1D=1)
+        #     elif cnn_model == 'HU':
+        #         prediction = create_1D_cnn_HU(xs, class_num, band_num, win_size_X, channel_1D=1)
+        #     else:
+        #         prediction = create_1D_cnn(xs, class_num, band_num, win_size_X, channel_1D=1)
+        #     saver = tf.train.Saver()
+        #     sess = tf.Session()
+        #     saver.restore(sess, "F:/Python/workshop/data/hydata/Pavia_org_1D2/simp-2.ckpt-49600")
+        #     label_position = tf.argmax(prediction, 1)
+        #
+        #
+        #     start = 0
+        #     n = int(total_size / 1000)
+        #     for batch_i in range(0, n):
+        #         #predicted_label.append(test_cnn(app_xs[start:start + 1000], win_size_X, win_size_Y, cnn_model, batch_i))
+        #         label = sess.run(label_position, feed_dict={xs: app_xs[start:start + 1000], keep_prob: 1})
+        #         predicted_label.extend(label)
+        #         start += 1000
+        #         print(start,'shape of predicted_label', np.shape(predicted_label))
+        #         #print('shape of predicted_label', np.shape(predicted_label))
+        #     label = sess.run(label_position, feed_dict={xs: app_xs[n * 1000:total_size], keep_prob: 1})
+        #     predicted_label.extend(label)
+        #     print('shape of predicted_label', np.shape(predicted_label))
+        #     #predicted_label.append(test_cnn(app_xs[n * 1000:total_size], win_size_X, win_size_Y, cnn_model, batch_i=n))
+        # else:
+        predicted_label = test_cnn(app_xs, win_size_X, win_size_Y, cnn_model)
 
 
         label = np.reshape(predicted_label, (y_num, x_num))
