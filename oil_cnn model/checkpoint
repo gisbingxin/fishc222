@@ -1,4 +1,0 @@
-model_checkpoint_path: "fivecls_simple.model-3.ckpt-2150"
-all_model_checkpoint_paths: "fivecls_simple.model-3.ckpt-2050"
-all_model_checkpoint_paths: "fivecls_simple.model-3.ckpt-2100"
-all_model_checkpoint_paths: "fivecls_simple.model-3.ckpt-2150"
