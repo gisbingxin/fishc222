@@ -1,12 +1,23 @@
-# from osgeo import gdal
-# import matplotlib.pyplot as plt
-# import numpy as np
-# from PIL import Image
-# import tensorflow as tf
-# from self_strech_img import minmaximg, linearstretching, strechimg, strechimg_pan
-# from self_read_position_excel import read_sample_position, read_sample_position_random
-# from mat2tiff import writeTiff
-# import sklearn.metrics as skmetr
+from osgeo import gdal
+import matplotlib.pyplot as plt
+import numpy as np
+from PIL import Image
+import tensorflow as tf
+from self_strech_img import minmaximg, linearstretching, strechimg, strechimg_pan
+from self_read_position_excel import read_sample_position, read_sample_position_random
+from mat2tiff import writeTiff
+import sklearn.metrics as skmetr
+
+a=[1,2,3,4,5,6,7,8,9,0,-1]
+a=np.array(a)
+b=[1,4,7]
+b=np.array(b)
+c=np.array(list(set(range(len(a))) - set(b)))
+#c=set(range(len(a))) - set(b)
+print(c)
+
+
+
 #
 #
 # def weight_variable(shape):

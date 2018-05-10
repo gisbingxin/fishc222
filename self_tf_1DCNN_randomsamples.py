@@ -368,7 +368,7 @@ def test_cnn(test_xs, win_size_X, win_size_Y, cnn_model='simple', batch_i=0):
     saver = tf.train.Saver()
 
     with tf.Session() as sess:
-        saver.restore(sess, "F:/Python/workshop/data/hydata/Pavia_MNF_1D2/simp2.ckpt-14000")
+        saver.restore(sess, "F:/Python/workshop/data/hydata/Pavia_PCA_1D_manu/simp2.ckpt-26000")
         label_position = tf.argmax(prediction, 1)
 
         if total_size >1000:
@@ -393,8 +393,8 @@ def test_cnn(test_xs, win_size_X, win_size_Y, cnn_model='simple', batch_i=0):
 if __name__ == '__main__':
     # image_name = 'C:\hyperspectral\AVIRISReflectanceSubset.dat'
     # image_name = 'F:\遥感相关\墨西哥AVIRIS\\f100709t01p00r11\\f100709t01p00r11rdn_b\\f100709t01p00r11rdn_b_sc01_ort_img_QUAC'
-    train = False
-    test = True
+    train = True
+    test = False
     random_sample = False  # 用于flag是否随机采样
     test_all = True  # 用于flag是否利用所有数据进行验证，如果是FALSE，则只对采样数据进行验证。
     # cnn_model='HU'
@@ -416,12 +416,9 @@ if __name__ == '__main__':
 
     image_name = 'F:\Python\workshop\data\hydata\Pavia_MNF'
     excel_name = 'F:\Python\workshop\data\hydata\PaviaU.xlsx'
-    #train_excel_name = 'F:\Python\workshop\data\hydata\mannual_samp\Pavia_sample_manual.xlsx'
+    train_excel_name = 'F:\Python\workshop\data\hydata\mannual_samp\Pavia_sample_manual.xlsx'
 
     if train or test:
-        #训练样本位置和测试样本位置存在同一个Excel中，前num_per_class是training samples
-        #  从第num_per_class + 1之后的数据是test samples
-        # 通常样本选择不是随机的，而是人工选择
         num_per_class = np.array([200, 200, 200, 200, 200, 200, 200, 200, 200])  # 训练数据中，每一类的采样点个数
         # num_per_class = np.array([6431, 18449, 1899, 2864, 1145, 4829, 1130, 3482, 747])
         total_per_class = np.array([6631, 18649, 2099, 3064, 1345, 5029, 1330, 3682, 947])
@@ -449,7 +446,7 @@ if __name__ == '__main__':
             #                                     excel_name, sheet_num, start_row, start_col, end_row, end_col,
             #                                     sample_size_X, sample_size_Y, channel_1D, random_sample)
             x_data, y_data = get_1D_sample_data(raster, band_num, class_num, num_per_class, total_per_class, sample_num,
-                                                excel_name, sheet_num, start_row, start_col, end_row, end_col,
+                                                train_excel_name, sheet_num, start_row, start_col, end_row, end_col,
                                                 sample_size_X, sample_size_Y, channel_1D, random_sample)
             # 此处返回值得shape是[batch，band,channel]
             s = list(np.shape(x_data))  # 去除掉图像的边缘之后的数据形状，取形状参数的第一个数，即数据batch个数
@@ -461,14 +458,14 @@ if __name__ == '__main__':
         elif test:
             if test_all:  # 如果选择利用所有数据进行精度评价
                 random_sample = False
-                test_num_per_class = total_per_class -num_per_class
-                sample_num = np.sum(test_num_per_class)
-                start_row = 1 + num_per_class  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
-                end_row = start_row + test_num_per_class - 1
-                print('test_num_per,start_row,end_row',test_num_per_class,start_row,end_row)
+                num_per_class = total_per_class
+                sample_num = np.sum(num_per_class)
+                start_row = 1  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
+                end_row = start_row + num_per_class - 1
+
                 start_col = 0  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
                 end_col = 1
-                test_xs, test_ys = get_1D_sample_data(raster, band_num, class_num, test_num_per_class, total_per_class,
+                test_xs, test_ys = get_1D_sample_data(raster, band_num, class_num, num_per_class, total_per_class,
                                                       sample_num,
                                                       excel_name, sheet_num, start_row, start_col, end_row, end_col,
                                                       sample_size_X, sample_size_Y, channel_1D, random_sample)

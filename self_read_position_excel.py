@@ -25,7 +25,7 @@ def read_sample_position(excel_name,sheet_num,start_row,start_col,end_row,end_co
             for j in range(0,col_num):
                 #print(i,j)
                 #sample_temp[i-1,j] = sheet2.cell(i, j).value
-                sample_temp[i, j] = sheet2.cell(i + start_row, j + start_col).value
+                sample_temp[i, j] = sheet2.cell(i + start_row[sheet_id], j + start_col).value
             #sample[sheet_num,:,:] = sample_temp
         sheet_id += 1
         sample_temp2 = np.concatenate((sample_temp2,sample_temp),axis=0)
