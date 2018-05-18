@@ -250,18 +250,21 @@ def create_1D_cnn_simple(xs, class_num, band_num, win_size_X, channel_1D=1):
     return prediction
 
 
-def create_1D_cnn_HU(xs, class_num, band_num, win_size_X, channel_1D=1):
+def create_1D_cnn_HU(xs, class_num, band_num, win_size_X=11, channel_1D=1):
     x_image = xs
     sample_size_X = band_num
-    win_size_X = 11
+    #win_size_X = 3 ## for MNF PCA 15 bands
+    win_size_X=11
 
     W_conv1 = weight_variable([win_size_X, channel_1D, 20])  #
     b_conv1 = bias_variable([20])
     h_conv1 = tf.nn.relu(conv1d(x_image, W_conv1) + b_conv1)  # in_size:15 output size:13
 
-    h_pool1 = max_pool_nx1(h_conv1, pool_size=4, stride=3)  # in_size:13 output size:11
-
-    xx = 30
+    h_pool1 = max_pool_nx1(h_conv1, pool_size=4, stride=2)  #  for MNF PCA 15 bands
+    #h_pool1 = max_pool_nx1(h_conv1, pool_size=4, stride=3)  # in_size:13 output size:11
+    #xx = 30
+    #xx=5 # for MNF PCA 15 bands
+    xx=89 #for AVIRIS 191bands
     yy = 1
 
     W_fc = weight_variable([xx * yy * 20, 100])
@@ -313,7 +316,7 @@ def train_cnn(win_size_X, win_size_Y, cnn_model='simple'):
     acc90 = 0
     eighty=True
     selected_class = 300  # 每次学习量
-    for step in range(50000):  # 学习的次数是，每次学习量是batch(类数*batch_size)
+    for step in range(25000):  # 学习的次数是，每次学习量是batch(类数*batch_size)
         # batch_xs, batch_ys = mnist.train.next_batch(60)
         batch_xs, batch_ys = get_next_batch(x_data, y_data, selected_class)
         # off_set = num_per_class,batch_size = selected_per_class
@@ -337,13 +340,13 @@ def train_cnn(win_size_X, win_size_Y, cnn_model='simple'):
             if 0.9 >= acc > 0.8 and eighty:
                 if acc >= acc80:
                     acc80 = acc
-                    saver.save(sess, "F:/Python/workshop/data/hydata/Pavia_MNF_1D_manu/simp1.ckpt", global_step=step)
+                    saver.save(sess, "G:\data for manuscripts\\aviris_oil\org\HU\simp1.ckpt", global_step=step)
                     # break
             if acc > 0.9:
                 eighty=False
                 if acc >= acc90:
                     acc90 = acc
-                    saver.save(sess, "F:/Python/workshop/data/hydata/Pavia_MNF_1D_manu/simp2.ckpt", global_step=step)
+                    saver.save(sess, "G:\data for manuscripts\\aviris_oil\org\HU\simp2.ckpt", global_step=step)
                 high_acc_num += 1
                 # if high_acc_num >=5:
                 #      break
@@ -368,7 +371,7 @@ def test_cnn(test_xs, win_size_X, win_size_Y, cnn_model='simple', batch_i=0):
     saver = tf.train.Saver()
 
     with tf.Session() as sess:
-        saver.restore(sess, "F:/Python/workshop/data/hydata/Pavia_MNF_1D2/simp2.ckpt-14000")
+        saver.restore(sess, "G:\\data for manuscripts\\aviris_oil\\org\\HU\\simp2.ckpt-24000")
         label_position = tf.argmax(prediction, 1)
 
         if total_size >1000:
@@ -393,17 +396,17 @@ def test_cnn(test_xs, win_size_X, win_size_Y, cnn_model='simple', batch_i=0):
 if __name__ == '__main__':
     # image_name = 'C:\hyperspectral\AVIRISReflectanceSubset.dat'
     # image_name = 'F:\遥感相关\墨西哥AVIRIS\\f100709t01p00r11\\f100709t01p00r11rdn_b\\f100709t01p00r11rdn_b_sc01_ort_img_QUAC'
-    train = False
-    test = True
-    random_sample = False  # 用于flag是否随机采样
+    train = False#True
+    test = False#True
+    random_sample = True  # 用于flag是否随机采样
     test_all = True  # 用于flag是否利用所有数据进行验证，如果是FALSE，则只对采样数据进行验证。
-    # cnn_model='HU'
-    cnn_model = 'simple'
+    cnn_model='HU'
+    #cnn_model = 'simple'
     # cnn_model='Let4'
 
     sample_size_X = 1  # 训练数据的宽
     sample_size_Y = 1  # 训练数据的高
-    class_num = 9  # 训练数据的类数
+    class_num = 7  # 训练数据的类数
     band_num = 0
     channel_1D = 1
     x_data = []
@@ -414,25 +417,25 @@ if __name__ == '__main__':
     ys = tf.placeholder(tf.float32, [None, class_num])
     keep_prob = tf.placeholder(tf.float32)
 
-    image_name = 'F:\Python\workshop\data\hydata\Pavia_MNF'
-    excel_name = 'F:\Python\workshop\data\hydata\PaviaU.xlsx'
+    image_name = 'G:\data for manuscripts\\aviris_oil\org\\aviris_subsize.img'
+    excel_name = 'G:\data for manuscripts\\aviris_oil\oil samples.xlsx'
     #train_excel_name = 'F:\Python\workshop\data\hydata\mannual_samp\Pavia_sample_manual.xlsx'
 
     if train or test:
         #训练样本位置和测试样本位置存在同一个Excel中，前num_per_class是training samples
         #  从第num_per_class + 1之后的数据是test samples
         # 通常样本选择不是随机的，而是人工选择
-        num_per_class = np.array([200, 200, 200, 200, 200, 200, 200, 200, 200])  # 训练数据中，每一类的采样点个数
+        num_per_class = np.array([400, 200, 400, 400, 400, 400, 400])  # 训练数据中，每一类的采样点个数
         # num_per_class = np.array([6431, 18449, 1899, 2864, 1145, 4829, 1130, 3482, 747])
-        total_per_class = np.array([6631, 18649, 2099, 3064, 1345, 5029, 1330, 3682, 947])
+        total_per_class = np.array([3691, 427, 3905, 3942, 4035, 3788, 3504])
 
         sample_num = np.sum(num_per_class)  # class_num * num_per_class  #训练数据中，所有类采样点的总数。对应后面的batch
 
         start_row = 1  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
         end_row = start_row + num_per_class - 1
 
-        start_col = 0  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
-        end_col = 1  # 如果行列数字错误，可能出现如下错误：
+        start_col = 1  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
+        end_col = 2  # 如果行列数字错误，可能出现如下错误：
         # ERROR 5: Access window out of range in RasterIO().  Requested
         # (630,100) of size 10x10 on raster of 634x478.
         sheet_num = class_num  # 表示Excel中sheet的数目，必须与类别数量一致
@@ -461,13 +464,13 @@ if __name__ == '__main__':
         elif test:
             if test_all:  # 如果选择利用所有数据进行精度评价
                 random_sample = False
-                test_num_per_class = total_per_class -num_per_class
+                test_num_per_class = total_per_class# -num_per_class
                 sample_num = np.sum(test_num_per_class)
-                start_row = 1 + num_per_class  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
+                start_row = [1,1,1,1,1,1,1]#1# + num_per_class  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
                 end_row = start_row + test_num_per_class - 1
                 print('test_num_per,start_row,end_row',test_num_per_class,start_row,end_row)
-                start_col = 0  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
-                end_col = 1
+                start_col = 1  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
+                end_col = 2
                 test_xs, test_ys = get_1D_sample_data(raster, band_num, class_num, test_num_per_class, total_per_class,
                                                       sample_num,
                                                       excel_name, sheet_num, start_row, start_col, end_row, end_col,
@@ -516,7 +519,7 @@ if __name__ == '__main__':
             print('kappa coefficient:', kappa_co)
 
     else:
-        part_data = True
+        part_data = False
         app_data_path = image_name  # 'F:\Python\workshop\data\hydata\Pavia_MNF'
         app_xs, x_num, y_num, band_num = get_1D_app_data_batch(app_data_path)
         print('shape of app_xs:', np.shape(app_xs)[0])
@@ -559,12 +562,13 @@ if __name__ == '__main__':
         label = np.reshape(predicted_label, (y_num, x_num))
         label = label + 1
         ttt = np.zeros((y_num, x_num))
+        out_tif='G:\\data for manuscripts\\aviris_oil\\org\\HU\\org_HU.tif'
         if part_data:
-            num_per_class = np.array([6631, 18649, 2099, 3064, 1345, 5029, 1330, 3682, 947])  # 训练数据中，每一类的采样点个数
+            num_per_class = np.array([3691, 427, 3905, 3942, 4035, 3788, 3504])  # 训练数据中，每一类的采样点个数
             # num_per_class = np.array([6431, 18449, 1899, 2864, 1145, 4829, 1130, 3482, 747])
             print("if part_data")
             sample_num = np.sum(num_per_class)  # class_num * num_per_class  #训练数据中，所有类采样点的总数。对应后面的batch
-            start_row = 1  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
+            start_row = np.array([1, 1, 1, 1,1, 1, 1])  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
             end_row = start_row + num_per_class - 1
 
             start_col = 0  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
@@ -590,9 +594,10 @@ if __name__ == '__main__':
                 ttt[row, col] = label[row, col]
                 #         in_index.append(a)
             # print(in_index)
-            writeTiff(ttt, x_num, y_num, 1, 'F:/Python/workshop/data/hydata/Pavia_PCA_1D_manu/Pavia_PCA_1Dsimp_manu.tif')
+            writeTiff(ttt, x_num, y_num, 1, out_tif)
         else:
             ttt = label
             #       print(np.shape(label))
+            writeTiff(ttt, x_num, y_num, 1, out_tif)
         plt.imshow(ttt)
         plt.show()

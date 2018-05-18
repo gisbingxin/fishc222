@@ -94,8 +94,11 @@ def strechimg(xsize,ysize,r, g, b):
     g_minvalue, g_maxvalue = minmaximg(ysize, xsize, temp1[:, :, 1])
     b_minvalue, b_maxvalue = minmaximg(ysize, xsize, temp1[:, :, 2])
     temp1[:, :, 0] = linearstretching(temp1[:, :, 0], r_minvalue, r_maxvalue)  # 三个波段分别将最大最小值之间的灰度值拉伸到0-255
+    print('band1 end')
     temp1[:, :, 1] = linearstretching(temp1[:, :, 1], g_minvalue, g_maxvalue)
+    print('band2 end')
     temp1[:, :, 2] = linearstretching(temp1[:, :, 2], b_minvalue, b_maxvalue)
+    print('band3 end')
 
     # temp1[0:46,0:92,0] = 255
     # temp1[46:92,0:92,1] =255
