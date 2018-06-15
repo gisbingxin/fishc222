@@ -22,155 +22,91 @@ import numpy as np
 import tensorflow as tf
 from sklearn import datasets
 from tensorflow.python.framework import ops
-
-ops.reset_default_graph()
-
-# Create graph
-sess = tf.Session()
-
-# Load the data
-# 加载iris数据集并为每类分离目标值。
-# 因为我们想绘制结果图，所以只使用花萼长度和花瓣宽度两个特征。
-# 为了便于绘图，也会分离x值和y值
-# iris.data = [(Sepal Length, Sepal Width, Petal Length, Petal Width)]
-iris = datasets.load_iris()
-x_vals = np.array([[x[0], x[3]] for x in iris.data])
-y_vals1 = np.array([1 if y == 0 else -1 for y in iris.target])
-y_vals2 = np.array([1 if y == 1 else -1 for y in iris.target])
-y_vals3 = np.array([1 if y == 2 else -1 for y in iris.target])
-y_vals = np.array([y_vals1, y_vals2, y_vals3])
-class1_x = [x[0] for i, x in enumerate(x_vals) if iris.target[i] == 0]
-class1_y = [x[1] for i, x in enumerate(x_vals) if iris.target[i] == 0]
-class2_x = [x[0] for i, x in enumerate(x_vals) if iris.target[i] == 1]
-class2_y = [x[1] for i, x in enumerate(x_vals) if iris.target[i] == 1]
-class3_x = [x[0] for i, x in enumerate(x_vals) if iris.target[i] == 2]
-class3_y = [x[1] for i, x in enumerate(x_vals) if iris.target[i] == 2]
-
-# Declare batch size
-batch_size = 50
-
-# Initialize placeholders
-# 数据集的维度在变化，从单类目标分类到三类目标分类。
-# 我们将利用矩阵传播和reshape技术一次性计算所有的三类SVM。
-# 注意，由于一次性计算所有分类，
-# y_target占位符的维度是[3，None]，模型变量b初始化大小为[3，batch_size]
-x_data = tf.placeholder(shape=[None, 2], dtype=tf.float32)
-y_target = tf.placeholder(shape=[3, None], dtype=tf.float32)
-prediction_grid = tf.placeholder(shape=[None, 2], dtype=tf.float32)
-
-# Create variables for svm
-b = tf.Variable(tf.random_normal(shape=[3, batch_size]))
-
-# Gaussian (RBF) kernel 核函数只依赖x_data
-gamma = tf.constant(-10.0)
-dist = tf.reduce_sum(tf.square(x_data), 1)
-dist = tf.reshape(dist, [-1, 1])
-sq_dists = tf.multiply(2., tf.matmul(x_data, tf.transpose(x_data)))
-my_kernel = tf.exp(tf.multiply(gamma, tf.abs(sq_dists)))
+from self_strech_img import minmaximg, linearstretching, strechimg, strechimg_pan
+from self_read_position_excel import read_sample_position, read_sample_position_random
 
 
-# Declare function to do reshape/batch multiplication
-# 最大的变化是批量矩阵乘法。
-# 最终的结果是三维矩阵，并且需要传播矩阵乘法。
-# 所以数据矩阵和目标矩阵需要预处理，比如xT·x操作需额外增加一个维度。
-# 这里创建一个函数来扩展矩阵维度，然后进行矩阵转置，
-# 接着调用TensorFlow的tf.batch_matmul（）函数
-def reshape_matmul(mat):
-    v1 = tf.expand_dims(mat, 1)
-    v2 = tf.reshape(v1, [3, batch_size, 1])
-    return (tf.matmul(v2, v1))
+'''
+def get_1D_sample_data(raster, band_num, class_num, num_per_class, total_per_class, sample_num,
+                       excel_name, sheet_num, start_row, start_col, end_row, end_col,
+                       sample_size_X=1, sample_size_Y=1, channel_1D=1, random=False):
+    # 读取Excel中存储的采样点位置数据，返回值中sample_num代表类别编号
+    if random:
+        sample_pos = read_sample_position_random(excel_name, sheet_num, num_per_class, total_per_class, start_col,
+                                                 start_row)
+    else:
+        sample_pos = read_sample_position(excel_name, sheet_num, start_row, start_col, end_row, end_col)
+
+        # 该函数返回所选择的sample的位置点，是一个三维数组shape为[class_num,X_num,Y_num]
+
+    # #sample定义为[batch，band,Ysize,Xsize],batch这里是所有类别采样点的数量
+    # x_data = np.zeros([sample_num, band_num, sample_size_Y, sample_size_X], dtype=float)
+    x_data = np.zeros([sample_num, band_num, channel_1D], dtype=float)
+    # x_data = []
+    # 用来存储各类别各采样点的图像灰度值
+    y_data = np.zeros([sample_num, class_num], dtype=int)
+
+    margin_pixel = []
+    loc_origin = 0
+    for i in range(0, class_num):  # i表示类的序号
+        for x_i in range(loc_origin, loc_origin + num_per_class[i]):  # x_i 表示在该类内的序号，即行号
+            # for y_i in range(0,2):
+            x_offset = int(sample_pos[x_i, 0]) - 1  # GDAL中的ReadAsArray传入参数应当为int型
+            # 而此处sample是numpy.int32，所以需要进行数据类型转换
+            y_offset = int(sample_pos[x_i, 1]) - 1
+            # print('x,y location:', x_locate,y_locate)
+            data_from_raster = raster.ReadAsArray(x_offset, y_offset, sample_size_X, sample_size_Y)
+            # print('shape of data_from_raster',np.shape(data_from_raster))
+            data = np.swapaxes(data_from_raster, 0, 1)
+            x_data[x_i, :, :] = data
+            # y_data[num_per_class[i]*i+x_i,i] = 1             #与x_data对应的batch处，赋值为1，其余位置为0
+            y_data[x_i, i] = 1
+        loc_origin = loc_origin + num_per_class[i]
+        # print('shape of x_data in get next batch',np.shape(x_data),np.shape(y_data))
+    return x_data, y_data
 
 
-# Compute SVM Model 计算对偶损失函数
-first_term = tf.reduce_sum(b)
-b_vec_cross = tf.matmul(tf.transpose(b), b)
-y_target_cross = reshape_matmul(y_target)
 
-second_term = tf.reduce_sum(tf.multiply(my_kernel, tf.multiply(b_vec_cross, y_target_cross)), [1, 2])
-loss = tf.reduce_sum(tf.negative(tf.subtract(first_term, second_term)))
+if __name__ == '__main__':
 
-# Gaussian (RBF) prediction kernel
-# 现在创建预测核函数。
-# 要当心reduce_sum（）函数，这里我们并不想聚合三个SVM预测，
-# 所以需要通过第二个参数告诉TensorFlow求和哪几个
-rA = tf.reshape(tf.reduce_sum(tf.square(x_data), 1), [-1, 1])
-rB = tf.reshape(tf.reduce_sum(tf.square(prediction_grid), 1), [-1, 1])
-pred_sq_dist = tf.add(tf.subtract(rA, tf.multiply(2., tf.matmul(x_data, tf.transpose(prediction_grid)))),
-                      tf.transpose(rB))
-pred_kernel = tf.exp(tf.multiply(gamma, tf.abs(pred_sq_dist)))
 
-# 实现预测核函数后，我们创建预测函数。
-# 与二类不同的是，不再对模型输出进行sign（）运算。
-# 因为这里实现的是一对多方法，所以预测值是分类器有最大返回值的类别。
-# 使用TensorFlow的内建函数argmax（）来实现该功能
-prediction_output = tf.matmul(tf.multiply(y_target, b), pred_kernel)
-prediction = tf.arg_max(prediction_output - tf.expand_dims(tf.reduce_mean(prediction_output, 1), 1), 0)
-accuracy = tf.reduce_mean(tf.cast(tf.equal(prediction, tf.argmax(y_target, 0)), tf.float32))
+    image_name = 'G:\data for manuscripts\\aviris_oil\org\\aviris_subsize.img'
+    excel_name = 'G:\data for manuscripts\\aviris_oil\oil samples.xlsx'
+    # train_excel_name = 'F:\Python\workshop\data\hydata\mannual_samp\Pavia_sample_manual.xlsx'
 
-# Declare optimizer
-my_opt = tf.train.GradientDescentOptimizer(0.01)
-train_step = my_opt.minimize(loss)
+    if train or test:
+        # 训练样本位置和测试样本位置存在同一个Excel中，前num_per_class是training samples
+        #  从第num_per_class + 1之后的数据是test samples
+        # 通常样本选择不是随机的，而是人工选择
+        num_per_class = np.array([400, 200, 400, 400, 400, 400, 400])  # 训练数据中，每一类的采样点个数
+        # num_per_class = np.array([6431, 18449, 1899, 2864, 1145, 4829, 1130, 3482, 747])
+        total_per_class = np.array([3691, 427, 3905, 3942, 4035, 3788, 3504])
 
-# Initialize variables
-init = tf.global_variables_initializer()
-sess.run(init)
+        sample_num = np.sum(num_per_class)  # class_num * num_per_class  #训练数据中，所有类采样点的总数。对应后面的batch
 
-# Training loop
-loss_vec = []
-batch_accuracy = []
-for i in range(100):
-    rand_index = np.random.choice(len(x_vals), size=batch_size)
-    rand_x = x_vals[rand_index]
-    rand_y = y_vals[:, rand_index]
-    sess.run(train_step, feed_dict={x_data: rand_x, y_target: rand_y})
+        start_row = 1  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
+        end_row = start_row + num_per_class - 1
 
-    temp_loss = sess.run(loss, feed_dict={x_data: rand_x, y_target: rand_y})
-    loss_vec.append(temp_loss)
+        start_col = 1  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
+        end_col = 2  # 如果行列数字错误，可能出现如下错误：
+        # ERROR 5: Access window out of range in RasterIO().  Requested
+        # (630,100) of size 10x10 on raster of 634x478.
+        sheet_num = class_num  # 表示Excel中sheet的数目，必须与类别数量一致
 
-    acc_temp = sess.run(accuracy, feed_dict={x_data: rand_x,
-                                             y_target: rand_y,
-                                             prediction_grid: rand_x})
-    batch_accuracy.append(acc_temp)
+        show_img = False  # 用于判断是否对图像进行显示
+        raster, raster_array, xsize, ysize, band_num = read_show_img(image_name, show_img)  # 读取遥感影像
 
-    if (i + 1) % 25 == 0:
-        print('Step #' + str(i + 1))
-        print('Loss = ' + str(temp_loss))
+        # sample_size_X = 46  #训练数据的宽
+        # sample_size_Y = 80  #训练数据的高
+        # class_num = 3       #训练数据的类数
+        xs = tf.placeholder(tf.float32, [None, band_num, channel_1D])  #
+        if train:
+            # x_data, y_data = get_1D_sample_data(raster, band_num, class_num, num_per_class, total_per_class, sample_num,
+            #                                     excel_name, sheet_num, start_row, start_col, end_row, end_col,
+            #                                     sample_size_X, sample_size_Y, channel_1D, random_sample)
+            x_data, y_data = get_1D_sample_data(raster, band_num, class_num, num_per_class, total_per_class, sample_num,
+                                                excel_name, sheet_num, start_row, start_col, end_row, end_col,
+                                                sample_size_X, sample_size_Y, channel_1D, random_sample)
 
-# 创建数据点的预测网格，运行预测函数
-x_min, x_max = x_vals[:, 0].min() - 1, x_vals[:, 0].max() + 1
-y_min, y_max = x_vals[:, 1].min() - 1, x_vals[:, 1].max() + 1
-xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.02),
-                     np.arange(y_min, y_max, 0.02))
-grid_points = np.c_[xx.ravel(), yy.ravel()]
-grid_predictions = sess.run(prediction, feed_dict={x_data: rand_x,
-                                                   y_target: rand_y,
-                                                   prediction_grid: grid_points})
-grid_predictions = grid_predictions.reshape(xx.shape)
 
-# Plot points and grid
-plt.contourf(xx, yy, grid_predictions, cmap=plt.cm.Paired, alpha=0.8)
-plt.plot(class1_x, class1_y, 'ro', label='I. setosa')
-plt.plot(class2_x, class2_y, 'kx', label='I. versicolor')
-plt.plot(class3_x, class3_y, 'gv', label='I. virginica')
-plt.title('Gaussian SVM Results on Iris Data')
-plt.xlabel('Pedal Length')
-plt.ylabel('Sepal Width')
-plt.legend(loc='lower right')
-plt.ylim([-0.5, 3.0])
-plt.xlim([3.5, 8.5])
-plt.show()
-
-# Plot batch accuracy
-plt.plot(batch_accuracy, 'k-', label='Accuracy')
-plt.title('Batch Accuracy')
-plt.xlabel('Generation')
-plt.ylabel('Accuracy')
-plt.legend(loc='lower right')
-plt.show()
-
-# Plot loss over time
-plt.plot(loss_vec, 'k-')
-plt.title('Loss per Generation')
-plt.xlabel('Generation')
-plt.ylabel('Loss')
-plt.show()
+'''

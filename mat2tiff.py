@@ -51,7 +51,7 @@ def writeTiff(im_data,im_width,im_height,im_bands,save_path,im_geotrans='NONE',i
             pass
     if im_bands > 1:
         for i in range(im_bands):
-             dataset.GetRasterBand(i+1).WriteArray(im_data[:,:,i])
+             dataset.GetRasterBand(i+1).WriteArray(im_data[i,:,:]) #注意im_data的数据形状，此时形状为[band,height,width]
     else:
         dataset.GetRasterBand(1).WriteArray(im_data)
     del dataset

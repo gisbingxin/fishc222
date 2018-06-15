@@ -3,13 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="6f4d8cb8-9d5e-44c2-b646-569bb6f7972f" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mat2excel.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bare.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/black.txt" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/road.txt" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/green.txt" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/self_tf_gdal_cnn-oil.py" afterPath="$PROJECT_DIR$/self_tf_gdal_cnn-oil.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/treetest.py" afterPath="$PROJECT_DIR$/treetest.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bare.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/black.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mat2tiff.py" afterPath="$PROJECT_DIR$/mat2tiff.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/treetest.py" afterPath="$PROJECT_DIR$/treetest.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/self_tf_gdal_cnn-oil.py" afterPath="$PROJECT_DIR$/self_tf_gdal_cnn-oil.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -44,41 +44,95 @@
       <file leaf-file-name="self_read_position_excel.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/self_read_position_excel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+            <state relative-caret-position="396">
+              <caret line="28" column="61" lean-forward="false" selection-start-line="28" selection-start-column="61" selection-end-line="28" selection-end-column="61" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#3534#3575#0" expanded="false" />
+                <marker date="1529080678180" expanded="true" signature="116:118" ph="..." />
+                <marker date="1529080678180" expanded="true" signature="1720:1722" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="self_tf_gdal_2Dcnn-oil.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/self_tf_gdal_2Dcnn-oil.py">
+      <file leaf-file-name="GDAL_3D_DEM.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GDAL_3D_DEM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1179">
-              <caret line="125" column="113" lean-forward="false" selection-start-line="125" selection-start-column="113" selection-end-line="125" selection-end-column="113" />
+            <state relative-caret-position="216">
+              <caret line="12" column="29" lean-forward="false" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+              <folding>
+                <element signature="e#22#61#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mat2excel.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mat2excel.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#20#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="self_bandmath.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/self_bandmath.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="585">
+              <caret line="50" column="112" lean-forward="false" selection-start-line="50" selection-start-column="90" selection-end-line="50" selection-end-column="112" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
-                <element signature="e#4735#5397#0" expanded="false" />
-                <element signature="e#5002#5044#0" expanded="false" />
-                <element signature="e#5580#7582#0" expanded="false" />
-                <element signature="e#6939#6959#0" expanded="false" />
-                <element signature="e#7583#7623#0" expanded="false" />
-                <element signature="e#8788#10569#0" expanded="false" />
-                <element signature="e#10691#11887#0" expanded="false" />
-                <element signature="e#10691#10696#0" expanded="false" />
-                <element signature="e#11933#15027#0" expanded="false" />
-                <element signature="e#14101#14524#0" expanded="false" />
-                <element signature="e#15081#15099#0" expanded="false" />
-                <element signature="e#15356#15426#0" expanded="false" />
-                <element signature="e#15521#15585#0" expanded="false" />
-                <element signature="e#15716#15753#0" expanded="false" />
-                <element signature="e#15980#16245#1" expanded="false" />
-                <element signature="e#16295#16356#0" expanded="false" />
-                <element signature="e#17030#20720#0" expanded="false" />
-                <element signature="e#17030#17109#0" expanded="false" />
-                <element signature="e#19844#19889#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mat2tiff.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mat2tiff.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="351">
+              <caret line="53" column="107" lean-forward="false" selection-start-line="53" selection-start-column="107" selection-end-line="53" selection-end-column="107" />
+              <folding>
+                <element signature="e#0#20#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="self_mrmr_discritise.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/self_mrmr_discritise.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="454">
+              <caret line="75" column="78" lean-forward="false" selection-start-line="75" selection-start-column="78" selection-end-line="75" selection-end-column="78" />
+              <folding>
+                <element signature="e#926#944#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="self_tf_1DCNN-formuanuscript.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/self_tf_1DCNN-formuanuscript.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="436">
+              <caret line="88" column="29" lean-forward="false" selection-start-line="88" selection-start-column="29" selection-end-line="88" selection-end-column="29" />
+              <folding>
+                <element signature="e#0#22#0" expanded="true" />
+                <element signature="e#4919#4965#0" expanded="false" />
+                <element signature="e#5183#5905#0" expanded="false" />
+                <element signature="e#5954#6913#0" expanded="false" />
+                <element signature="e#6990#8653#0" expanded="false" />
+                <element signature="e#8737#10035#0" expanded="false" />
+                <element signature="e#10118#11214#0" expanded="false" />
+                <element signature="e#11280#14736#0" expanded="false" />
+                <element signature="e#21228#21273#0" expanded="false" />
+                <element signature="e#23297#23308#0" expanded="false" />
+                <element signature="e#25411#27309#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -87,67 +141,22 @@
       <file leaf-file-name="self_tf_1DCNN.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/self_tf_1DCNN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="404" column="22" lean-forward="true" selection-start-line="404" selection-start-column="22" selection-end-line="404" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#22#0" expanded="true" />
-                <element signature="e#387#467#0" expanded="false" />
-                <element signature="e#1352#1388#0" expanded="false" />
-                <element signature="e#5183#5905#0" expanded="false" />
-                <element signature="e#5455#5498#0" expanded="false" />
-                <element signature="e#5954#6913#0" expanded="false" />
-                <element signature="e#6990#8653#0" expanded="false" />
-                <element signature="e#7491#7541#0" expanded="false" />
-                <element signature="e#8317#8364#0" expanded="false" />
-                <element signature="e#8737#8743#0" expanded="false" />
-                <element signature="e#12865#12922#0" expanded="false" />
-                <element signature="e#14718#14737#0" expanded="false" />
-                <element signature="e#20924#20969#0" expanded="false" />
-                <element signature="e#22993#23004#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="svm_test.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/svm_test.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="132" column="35" lean-forward="false" selection-start-line="132" selection-start-column="35" selection-end-line="132" selection-end-column="35" />
-              <folding>
-                <element signature="e#533#564#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CNN-SVM.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../CNN-SVM/CNN-SVM.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3035">
+            <state relative-caret-position="-7452">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="self_strech_img.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/self_strech_img.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2425">
-              <caret line="100" column="22" lean-forward="true" selection-start-line="100" selection-start-column="22" selection-end-line="100" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="treetest.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/treetest.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="50">
-              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="16" selection-end-column="8" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tf_firstNet.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tf_firstNet.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#333#370#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -170,10 +179,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/course15.py" />
-        <option value="$PROJECT_DIR$/course015.py" />
-        <option value="$PROJECT_DIR$/psw2.py" />
-        <option value="$PROJECT_DIR$/psw.py" />
         <option value="$PROJECT_DIR$/course021.py" />
         <option value="$PROJECT_DIR$/course022.py" />
         <option value="$PROJECT_DIR$/course023.py" />
@@ -200,7 +205,6 @@
         <option value="$PROJECT_DIR$/tf_AE.py" />
         <option value="G:/快盘/论文/原始稿件/50、DL机载高光谱数据溢油信息反演-投international journal of applied earth observation或remote sensing/CNN/CNN/read_CNN_data.py" />
         <option value="$PROJECT_DIR$/linear_stretch.py" />
-        <option value="$PROJECT_DIR$/GDAL_read_show.py" />
         <option value="G:/快盘/论文/原始稿件/50、DL机载高光谱数据溢油信息反演-投international journal of applied earth observation或remote sensing/CNN/CNN/CNNmodel2-1.py" />
         <option value="$PROJECT_DIR$/read_CNN_data.py" />
         <option value="$PROJECT_DIR$/CNNmodel2-1.py" />
@@ -212,15 +216,20 @@
         <option value="$PROJECT_DIR$/tf_firstNet.py" />
         <option value="$PROJECT_DIR$/mat2txt.py" />
         <option value="$PROJECT_DIR$/mat2excel.py" />
-        <option value="$PROJECT_DIR$/mat2tiff.py" />
         <option value="$PROJECT_DIR$/self_tf_gdal_cnn-oil.py" />
-        <option value="$PROJECT_DIR$/self_tf_gdal_2Dcnn-oil.py" />
         <option value="$PROJECT_DIR$/treetest.py" />
-        <option value="$PROJECT_DIR$/self_read_position_excel.py" />
         <option value="$PROJECT_DIR$/self_tf_1DCNN_randomsamples.py" />
         <option value="$PROJECT_DIR$/self_strech_img.py" />
-        <option value="$PROJECT_DIR$/self_tf_1DCNN.py" />
         <option value="$PROJECT_DIR$/svm_test.py" />
+        <option value="$PROJECT_DIR$/self_tf_1DCNN.py" />
+        <option value="$PROJECT_DIR$/self_tf_gdal_2Dcnn-oil.py" />
+        <option value="$PROJECT_DIR$/self_bandmath.py" />
+        <option value="$PROJECT_DIR$/GDAL_read_show.py" />
+        <option value="$PROJECT_DIR$/peiqi.py" />
+        <option value="$PROJECT_DIR$/mat2tiff.py" />
+        <option value="$PROJECT_DIR$/self_tf_1DCNN-formuanuscript.py" />
+        <option value="$PROJECT_DIR$/self_read_position_excel.py" />
+        <option value="$PROJECT_DIR$/self_mrmr_discritise.py" />
       </list>
     </option>
   </component>
@@ -231,10 +240,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1376" />
-    <option name="height" value="744" />
+    <option name="x" value="1494" />
+    <option name="y" value="71" />
+    <option name="width" value="1378" />
+    <option name="height" value="733" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -290,6 +299,36 @@
               <item name="Root" type="cbb8eebc:String" user="Root" />
               <item name="fishc" type="cbb8eebc:String" user="fishc" />
             </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="External Dependencies" type="cbb8eebc:String" user="External Dependencies" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="External Dependencies" type="cbb8eebc:String" user="External Dependencies" />
+              <item name="C:" type="cbb8eebc:String" user="C:" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="External Dependencies" type="cbb8eebc:String" user="External Dependencies" />
+              <item name="C:" type="cbb8eebc:String" user="C:" />
+              <item name="python363" type="cbb8eebc:String" user="python363" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="External Dependencies" type="cbb8eebc:String" user="External Dependencies" />
+              <item name="C:" type="cbb8eebc:String" user="C:" />
+              <item name="python363" type="cbb8eebc:String" user="python363" />
+              <item name="Lib" type="cbb8eebc:String" user="Lib" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="External Dependencies" type="cbb8eebc:String" user="External Dependencies" />
+              <item name="C:" type="cbb8eebc:String" user="C:" />
+              <item name="python363" type="cbb8eebc:String" user="python363" />
+              <item name="Lib" type="cbb8eebc:String" user="Lib" />
+              <item name="site-packages" type="cbb8eebc:String" user="site-packages" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -297,9 +336,10 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.CommitDialog" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/CNNmodel2-1.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.splitter.proportion" value="0.2627451" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -318,8 +358,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.svm_test">
-    <configuration name="self_tf_1DCNN (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.self_mrmr_discritise">
+    <configuration name="GDAL_3D_DEM" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -331,12 +371,12 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="fishc" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/self_tf_1DCNN.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GDAL_3D_DEM.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="self_tf_1DCNN" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="GDAL_read_show" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -348,12 +388,12 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="fishc" />
-      <option name="SCRIPT_NAME" value="F:\Python\workshop\fishc\self_tf_1DCNN_randomsamples.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GDAL_read_show.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="self_tf_1DCNN_randomsamples" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="peiqi" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -365,12 +405,12 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="fishc" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/self_tf_1DCNN_randomsamples.py" />
+      <option name="SCRIPT_NAME" value="F:\Python\workshop\fishc\self_mrmr_discritise.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="svm_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="self_mrmr_discritise" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -382,12 +422,12 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="fishc" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/svm_test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/self_mrmr_discritise.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="treetest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="self_tf_1DCNN-formuanuscript" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -399,25 +439,25 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="fishc" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/treetest.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/self_tf_1DCNN-formuanuscript.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.treetest" />
-      <item index="1" class="java.lang.String" itemvalue="Python.self_tf_1DCNN" />
-      <item index="2" class="java.lang.String" itemvalue="Python.self_tf_1DCNN (1)" />
-      <item index="3" class="java.lang.String" itemvalue="Python.self_tf_1DCNN_randomsamples" />
-      <item index="4" class="java.lang.String" itemvalue="Python.svm_test" />
+      <item index="0" class="java.lang.String" itemvalue="Python.peiqi" />
+      <item index="1" class="java.lang.String" itemvalue="Python.GDAL_read_show" />
+      <item index="2" class="java.lang.String" itemvalue="Python.GDAL_3D_DEM" />
+      <item index="3" class="java.lang.String" itemvalue="Python.self_mrmr_discritise" />
+      <item index="4" class="java.lang.String" itemvalue="Python.self_tf_1DCNN-formuanuscript" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.svm_test" />
-        <item index="1" class="java.lang.String" itemvalue="Python.self_tf_1DCNN (1)" />
-        <item index="2" class="java.lang.String" itemvalue="Python.self_tf_1DCNN_randomsamples" />
-        <item index="3" class="java.lang.String" itemvalue="Python.self_tf_1DCNN" />
-        <item index="4" class="java.lang.String" itemvalue="Python.treetest" />
+        <item index="0" class="java.lang.String" itemvalue="Python.self_mrmr_discritise" />
+        <item index="1" class="java.lang.String" itemvalue="Python.self_tf_1DCNN-formuanuscript" />
+        <item index="2" class="java.lang.String" itemvalue="Python.peiqi" />
+        <item index="3" class="java.lang.String" itemvalue="Python.GDAL_3D_DEM" />
+        <item index="4" class="java.lang.String" itemvalue="Python.GDAL_read_show" />
       </list>
     </recent_temporary>
   </component>
@@ -469,18 +509,19 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
+    <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2325228" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17004265" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32826087" sideWeight="0.4978678" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21653971" sideWeight="0.5154584" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3347826" sideWeight="0.21588486" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3347826" sideWeight="0.78411514" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.21653971" sideWeight="0.48454157" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16847827" sideWeight="0.4978678" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37828946" sideWeight="0.771855" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15031983" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28695652" sideWeight="0.48933902" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15031983" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32173914" sideWeight="0.4969605" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11304348" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4022082" sideWeight="0.4941435" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1704142" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -545,42 +586,7 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tf_classification.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pycharm_matplotlib_backend/backend_interagg.py" />
-    <entry file="file://$PROJECT_DIR$/imgshow_color_differ.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/matplotlib_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://G:/快盘/论文/原始稿件/50、DL机载高光谱数据溢油信息反演-投international journal of applied earth observation或remote sensing/AE/小强/code/SAEmodel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6875">
-          <caret line="294" column="60" lean-forward="false" selection-start-line="294" selection-start-column="60" selection-end-line="294" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/tensorflow/python/ops/gen_nn_ops.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14925">
-          <caret line="611" column="4" lean-forward="false" selection-start-line="611" selection-start-column="4" selection-end-line="611" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/ops/gen_nn_ops.py" />
     <entry file="file://$PROJECT_DIR$/linear_stretch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1075">
@@ -595,55 +601,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/xlrd/sheet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="412" column="18" lean-forward="false" selection-start-line="412" selection-start-column="8" selection-end-line="412" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="165" column="6" lean-forward="false" selection-start-line="165" selection-start-column="6" selection-end-line="165" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://G:/快盘/论文/原始稿件/50、DL机载高光谱数据溢油信息反演-投international journal of applied earth observation或remote sensing/CNN/CNN/read_CNN_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="12" column="4" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://G:/快盘/论文/原始稿件/50、DL机载高光谱数据溢油信息反演-投international journal of applied earth observation或remote sensing/CNN/CNN/CNNmodel2-1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1750">
-          <caret line="134" column="4" lean-forward="true" selection-start-line="134" selection-start-column="4" selection-end-line="134" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GDAL_read_show.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/tensorflow/python/framework/errors_impl.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12600">
-          <caret line="515" column="0" lean-forward="false" selection-start-line="515" selection-start-column="0" selection-end-line="515" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/matplotlib/image.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="652" column="0" lean-forward="false" selection-start-line="652" selection-start-column="0" selection-end-line="652" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/python363/Lib/site-packages/xlrd/sheet.py" />
+    <entry file="file://C:/python363/Lib/site-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py" />
+    <entry file="file://G:/快盘/论文/原始稿件/50、DL机载高光谱数据溢油信息反演-投international journal of applied earth observation或remote sensing/CNN/CNN/read_CNN_data.py" />
+    <entry file="file://G:/快盘/论文/原始稿件/50、DL机载高光谱数据溢油信息反演-投international journal of applied earth observation或remote sensing/CNN/CNN/CNNmodel2-1.py" />
+    <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/framework/errors_impl.py" />
+    <entry file="file://C:/python363/Lib/site-packages/matplotlib/image.py" />
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
@@ -679,13 +642,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/digitalnumber.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="158" column="74" lean-forward="true" selection-start-line="158" selection-start-column="74" selection-end-line="158" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/self_img_read2txt.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="545">
@@ -693,104 +649,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tf_firstNet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1550">
-          <caret line="65" column="27" lean-forward="false" selection-start-line="65" selection-start-column="27" selection-end-line="65" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/xlwt/Worksheet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27025">
-          <caret line="1087" column="0" lean-forward="false" selection-start-line="1087" selection-start-column="0" selection-end-line="1087" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/xlwt/Row.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="700">
-          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mat2excel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="750">
-          <caret line="34" column="43" lean-forward="false" selection-start-line="34" selection-start-column="43" selection-end-line="34" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/read_CNN_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2625">
-          <caret line="108" column="4" lean-forward="false" selection-start-line="108" selection-start-column="4" selection-end-line="108" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mat2tiff.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="26" column="60" lean-forward="false" selection-start-line="26" selection-start-column="60" selection-end-line="26" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/tensorflow/python/ops/array_ops.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="142" column="4" lean-forward="false" selection-start-line="142" selection-start-column="4" selection-end-line="142" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/numpy/lib/function_base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="4702" column="4" lean-forward="false" selection-start-line="4702" selection-start-column="4" selection-end-line="4702" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/tensorflow/python/ops/gen_math_ops.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="3090" column="0" lean-forward="false" selection-start-line="3090" selection-start-column="0" selection-end-line="3090" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/tensorflow/python/ops/math_ops.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="933" column="0" lean-forward="false" selection-start-line="933" selection-start-column="0" selection-end-line="933" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/tensorflow/python/ops/nn_ops.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="58650">
-          <caret line="2371" column="16" lean-forward="false" selection-start-line="2371" selection-start-column="16" selection-end-line="2371" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CNNmodel2-1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="200" column="36" lean-forward="true" selection-start-line="200" selection-start-column="36" selection-end-line="200" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/osgeo/gdal.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="1939" column="36" lean-forward="false" selection-start-line="1939" selection-start-column="36" selection-end-line="1939" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/tensorflow/python/layers/pooling.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="195" column="17" lean-forward="false" selection-start-line="195" selection-start-column="17" selection-end-line="195" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/Python363/Lib/site-packages/xlwt/Worksheet.py" />
+    <entry file="file://C:/Python363/Lib/site-packages/xlwt/Row.py" />
+    <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/ops/array_ops.py" />
+    <entry file="file://C:/python363/Lib/site-packages/numpy/lib/function_base.py" />
+    <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/ops/gen_math_ops.py" />
+    <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/ops/math_ops.py" />
+    <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/ops/nn_ops.py" />
+    <entry file="file://C:/python363/Lib/site-packages/osgeo/gdal.py" />
+    <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/layers/pooling.py" />
     <entry file="file://$PROJECT_DIR$/tf_test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -798,65 +665,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/osgeo/gdal_array.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="241" column="4" lean-forward="false" selection-start-line="241" selection-start-column="4" selection-end-line="241" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/tensorflow/python/training/saver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="846" column="0" lean-forward="false" selection-start-line="846" selection-start-column="0" selection-end-line="846" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/tensorflow/python/ops/gen_io_ops.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="1112" column="0" lean-forward="false" selection-start-line="1112" selection-start-column="0" selection-end-line="1112" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/tensorflow/python/framework/op_def_library.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="786" column="0" lean-forward="false" selection-start-line="786" selection-start-column="0" selection-end-line="786" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/tensorflow/python/framework/ops.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="3270" column="0" lean-forward="false" selection-start-line="3270" selection-start-column="0" selection-end-line="3270" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python363/Lib/site-packages/tensorflow/python/client/session.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="904" column="0" lean-forward="false" selection-start-line="904" selection-start-column="0" selection-end-line="904" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/python363/Lib/site-packages/osgeo/gdal_array.py" />
+    <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/training/saver.py" />
+    <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/ops/gen_io_ops.py" />
+    <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/framework/op_def_library.py" />
+    <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/framework/ops.py" />
+    <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/client/session.py" />
     <entry file="file://$PROJECT_DIR$/treetest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
+        <state relative-caret-position="38">
           <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="16" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/self_read_position_excel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -867,83 +685,197 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/self_strech_img.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1862">
+          <caret line="100" column="22" lean-forward="false" selection-start-line="100" selection-start-column="22" selection-end-line="100" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../CNN-SVM/CNN-SVM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2774">
+          <caret line="150" column="24" lean-forward="false" selection-start-line="150" selection-start-column="24" selection-end-line="150" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/svm_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1805">
+          <caret line="112" column="0" lean-forward="false" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/self_tf_gdal_2Dcnn-oil.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1179">
-          <caret line="125" column="113" lean-forward="false" selection-start-line="125" selection-start-column="113" selection-end-line="125" selection-end-column="113" />
+        <state relative-caret-position="0">
+          <caret line="27" column="61" lean-forward="false" selection-start-line="26" selection-start-column="40" selection-end-line="27" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/dist/pip-10.0.1/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#13#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/read_CNN_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/digitalnumber.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#22#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CNNmodel2-1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tf_firstNet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#333#370#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GDAL_3D_DEM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="29" lean-forward="false" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+          <folding>
+            <element signature="e#22#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GDAL_read_show.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="10" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#22#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/self_bandmath.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="585">
+          <caret line="50" column="112" lean-forward="false" selection-start-line="50" selection-start-column="90" selection-end-line="50" selection-end-column="112" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <element signature="e#4735#5397#0" expanded="false" />
-            <element signature="e#5002#5044#0" expanded="false" />
-            <element signature="e#5580#7582#0" expanded="false" />
-            <element signature="e#6939#6959#0" expanded="false" />
-            <element signature="e#7583#7623#0" expanded="false" />
-            <element signature="e#8788#10569#0" expanded="false" />
-            <element signature="e#10691#11887#0" expanded="false" />
-            <element signature="e#10691#10696#0" expanded="false" />
-            <element signature="e#11933#15027#0" expanded="false" />
-            <element signature="e#14101#14524#0" expanded="false" />
-            <element signature="e#15081#15099#0" expanded="false" />
-            <element signature="e#15356#15426#0" expanded="false" />
-            <element signature="e#15521#15585#0" expanded="false" />
-            <element signature="e#15716#15753#0" expanded="false" />
-            <element signature="e#15980#16245#1" expanded="false" />
-            <element signature="e#16295#16356#0" expanded="false" />
-            <element signature="e#17030#20720#0" expanded="false" />
-            <element signature="e#17030#17109#0" expanded="false" />
-            <element signature="e#19844#19889#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mat2tiff.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="53" column="107" lean-forward="false" selection-start-line="53" selection-start-column="107" selection-end-line="53" selection-end-column="107" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mat2excel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/self_tf_1DCNN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="404" column="22" lean-forward="true" selection-start-line="404" selection-start-column="22" selection-end-line="404" selection-end-column="22" />
+        <state relative-caret-position="-7452">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <element signature="e#387#467#0" expanded="false" />
-            <element signature="e#1352#1388#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/self_tf_1DCNN-formuanuscript.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="88" column="29" lean-forward="false" selection-start-line="88" selection-start-column="29" selection-end-line="88" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#4919#4965#0" expanded="false" />
             <element signature="e#5183#5905#0" expanded="false" />
-            <element signature="e#5455#5498#0" expanded="false" />
             <element signature="e#5954#6913#0" expanded="false" />
             <element signature="e#6990#8653#0" expanded="false" />
-            <element signature="e#7491#7541#0" expanded="false" />
-            <element signature="e#8317#8364#0" expanded="false" />
-            <element signature="e#8737#8743#0" expanded="false" />
-            <element signature="e#12865#12922#0" expanded="false" />
-            <element signature="e#14718#14737#0" expanded="false" />
-            <element signature="e#20924#20969#0" expanded="false" />
-            <element signature="e#22993#23004#0" expanded="false" />
+            <element signature="e#8737#10035#0" expanded="false" />
+            <element signature="e#10118#11214#0" expanded="false" />
+            <element signature="e#11280#14736#0" expanded="false" />
+            <element signature="e#21228#21273#0" expanded="false" />
+            <element signature="e#23297#23308#0" expanded="false" />
+            <element signature="e#25411#27309#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/self_strech_img.py">
+    <entry file="file://$PROJECT_DIR$/self_read_position_excel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2425">
-          <caret line="100" column="22" lean-forward="true" selection-start-line="100" selection-start-column="22" selection-end-line="100" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../CNN-SVM/CNN-SVM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3035">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/svm_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="132" column="35" lean-forward="false" selection-start-line="132" selection-start-column="35" selection-end-line="132" selection-end-column="35" />
+        <state relative-caret-position="396">
+          <caret line="28" column="61" lean-forward="false" selection-start-line="28" selection-start-column="61" selection-end-line="28" selection-end-column="61" />
           <folding>
-            <element signature="e#533#564#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#3534#3575#0" expanded="false" />
+            <marker date="1529080678180" expanded="true" signature="116:118" ph="..." />
+            <marker date="1529080678180" expanded="true" signature="1720:1722" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/self_mrmr_discritise.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="454">
+          <caret line="75" column="78" lean-forward="false" selection-start-line="75" selection-start-column="78" selection-end-line="75" selection-end-column="78" />
+          <folding>
+            <element signature="e#926#944#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>

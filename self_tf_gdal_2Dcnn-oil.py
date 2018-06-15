@@ -142,7 +142,7 @@ def get_app_data_batch(app_data_path,sample_height,sample_width,sample_step_row,
     app_xs = [] #分别用于存储每一个batch的数据，及其行、列数
     x_num = 0#int((x_end - x_start)/sample_step_col)
     y_num = 0#int((y_end - y_start)/sample_step_row)
-    for y_i in range(y_start,y_end,sample_step_row):
+    for y_i in range(y_start,y_end,sample_step_row):    #在此处，相当于把图像的边切掉，防止边缘一圈像素计算时出错
         x_num=0
         for x_i in range(x_start,x_end,sample_step_col):
             x_left_upper = x_i - int(sample_width / 2)
