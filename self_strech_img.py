@@ -154,16 +154,16 @@ if __name__ == "__main__":
     temp1[:, :, 2] = linearstretching(temp1[:, :, 2], b_minvalue, b_maxvalue)
 
    #temp2 = temp1.astype(np.uint8)  # 利用数组转换，然后再imshow时，注意数据的类型，要转换为uint8
-    temp1[0:100,:,0] =255
-    temp1[0:100,:,1] =0
-    temp1[0:100,:,2] =0
+    # temp1[0:100,:,0] =255
+    # temp1[0:100,:,1] =0
+    # temp1[0:100,:,2] =0
     temp1 = temp1.astype(np.uint8)
     #print(temp2[:,:,0])
-    plt.figure(figsize=(4, 4))
-    plt.subplot(1, 2, 1)
+    # plt.figure(figsize=(4, 4))
+    # plt.subplot(1, 2, 1)
     plt.imshow(temp1)
     # plt.show()
-    plt.subplot(1, 2, 2)
-    plt.imshow(temp)
+    # plt.subplot(1, 2, 2)
+    # plt.imshow(temp)
 
     plt.show()

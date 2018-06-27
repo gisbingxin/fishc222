@@ -6,7 +6,8 @@ import tensorflow as tf
 
 #raster = gdal.Open('C:\\test.jpg')
 
-raster = gdal.Open('C:\\can_tmr.img')
+#raster = gdal.Open('C:\\can_tmr.img')
+raster = gdal.Open('e:\\bhdemsub11.img')
 #raster = gdal.Open('C:\\2008-10-16_13-17-33_DATA.BSQ')
 raster_array = raster.ReadAsArray()
 '''raster_ts = tf.convert_to_tensor(raster_array)

@@ -4,9 +4,9 @@
     <list default="true" id="6f4d8cb8-9d5e-44c2-b646-569bb6f7972f" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mat2excel.py" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/road.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/green.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bare.txt" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/black.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bare.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/green.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mat2tiff.py" afterPath="$PROJECT_DIR$/mat2tiff.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/treetest.py" afterPath="$PROJECT_DIR$/treetest.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/self_tf_gdal_cnn-oil.py" afterPath="$PROJECT_DIR$/self_tf_gdal_cnn-oil.py" />
@@ -44,73 +44,40 @@
       <file leaf-file-name="self_read_position_excel.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/self_read_position_excel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="28" column="61" lean-forward="false" selection-start-line="28" selection-start-column="61" selection-end-line="28" selection-end-column="61" />
+            <state relative-caret-position="270">
+              <caret line="17" column="41" lean-forward="false" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
-                <element signature="e#3534#3575#0" expanded="false" />
-                <marker date="1529080678180" expanded="true" signature="116:118" ph="..." />
-                <marker date="1529080678180" expanded="true" signature="1720:1722" ph="..." />
+                <element signature="e#3623#3664#0" expanded="false" />
+                <marker date="1529502791478" expanded="true" signature="116:118" ph="..." />
+                <marker date="1529502791478" expanded="true" signature="1809:1811" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GDAL_3D_DEM.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GDAL_3D_DEM.py">
+      <file leaf-file-name="self_mrmr_discretise.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/self_mrmr_discretise.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="12" column="29" lean-forward="false" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+            <state relative-caret-position="108">
+              <caret line="58" column="31" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="105" selection-end-column="44" />
               <folding>
-                <element signature="e#22#61#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mat2excel.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mat2excel.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#20#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="self_bandmath.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/self_bandmath.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="50" column="112" lean-forward="false" selection-start-line="50" selection-start-column="90" selection-end-line="50" selection-end-column="112" />
-              <folding>
-                <element signature="e#0#22#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mat2tiff.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mat2tiff.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="53" column="107" lean-forward="false" selection-start-line="53" selection-start-column="107" selection-end-line="53" selection-end-column="107" />
-              <folding>
-                <element signature="e#0#20#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="self_mrmr_discritise.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/self_mrmr_discritise.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="454">
-              <caret line="75" column="78" lean-forward="false" selection-start-line="75" selection-start-column="78" selection-end-line="75" selection-end-column="78" />
-              <folding>
+                <element signature="n#!!doc" expanded="false" />
                 <element signature="e#926#944#0" expanded="true" />
+                <element signature="e#2430#2449#0" expanded="false" />
+                <element signature="e#4386#4868#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="self_mrmr.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/self_mrmr.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="36">
+              <caret line="3" column="19" lean-forward="false" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -119,30 +86,45 @@
       <file leaf-file-name="self_tf_1DCNN-formuanuscript.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/self_tf_1DCNN-formuanuscript.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="436">
-              <caret line="88" column="29" lean-forward="false" selection-start-line="88" selection-start-column="29" selection-end-line="88" selection-end-column="29" />
+            <state relative-caret-position="339">
+              <caret line="219" column="0" lean-forward="false" selection-start-line="219" selection-start-column="0" selection-end-line="220" selection-end-column="0" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
-                <element signature="e#4919#4965#0" expanded="false" />
-                <element signature="e#5183#5905#0" expanded="false" />
-                <element signature="e#5954#6913#0" expanded="false" />
-                <element signature="e#6990#8653#0" expanded="false" />
-                <element signature="e#8737#10035#0" expanded="false" />
-                <element signature="e#10118#11214#0" expanded="false" />
-                <element signature="e#11280#14736#0" expanded="false" />
-                <element signature="e#21228#21273#0" expanded="false" />
-                <element signature="e#23297#23308#0" expanded="false" />
-                <element signature="e#25411#27309#0" expanded="false" />
+                <element signature="e#2277#2278#0" expanded="false" />
+                <element signature="e#2414#2726#0" expanded="false" />
+                <element signature="e#5119#5165#0" expanded="false" />
+                <element signature="e#5383#6105#0" expanded="false" />
+                <element signature="e#7233#8896#0" expanded="false" />
+                <element signature="e#10361#11457#0" expanded="false" />
+                <element signature="e#11523#15028#0" expanded="false" />
+                <element signature="e#17616#17701#0" expanded="false" />
+                <element signature="e#18190#23487#0" expanded="false" />
+                <element signature="e#20504#23487#0" expanded="false" />
+                <element signature="e#21751#21796#0" expanded="false" />
+                <element signature="e#23957#23968#0" expanded="false" />
+                <element signature="e#26062#27960#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="self_tf_1DCNN.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/self_tf_1DCNN.py">
+      <file leaf-file-name="tf_classification.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tf_classification.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-7452">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="324">
+              <caret line="20" column="72" lean-forward="false" selection-start-line="20" selection-start-column="72" selection-end-line="20" selection-end-column="72" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="self_bandmath.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/self_bandmath.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="457">
+              <caret line="112" column="73" lean-forward="false" selection-start-line="112" selection-start-column="73" selection-end-line="112" selection-end-column="73" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
               </folding>
@@ -150,13 +132,51 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tf_firstNet.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tf_firstNet.py">
+      <file leaf-file-name="self_wavelet_test.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/self_wavelet_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="66" column="19" lean-forward="true" selection-start-line="66" selection-start-column="19" selection-end-line="66" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+                <element signature="e#999#1038#0" expanded="false" />
+                <element signature="e#1223#1257#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gdal.py" pinned="false" current-in-tab="false">
+        <entry file="file://C:/python363/Lib/site-packages/osgeo/gdal.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="27414">
+              <caret line="1523" column="75" lean-forward="false" selection-start-line="1523" selection-start-column="75" selection-end-line="1523" selection-end-column="75" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="self_strech_img.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/self_strech_img.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <element signature="e#333#370#0" expanded="true" />
+                <element signature="e#0#22#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="img2excel.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/img2excel.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1944">
+              <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#20#0" expanded="true" />
+                <element signature="e#1190#1191#0" expanded="false" />
+                <element signature="e#1327#1639#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -179,13 +199,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/course021.py" />
-        <option value="$PROJECT_DIR$/course022.py" />
-        <option value="$PROJECT_DIR$/course023.py" />
-        <option value="$PROJECT_DIR$/course024.py" />
-        <option value="$PROJECT_DIR$/course028.py" />
-        <option value="$PROJECT_DIR$/course031.py" />
-        <option value="$PROJECT_DIR$/course029.py" />
         <option value="$PROJECT_DIR$/course035.py" />
         <option value="$PROJECT_DIR$/tree.py" />
         <option value="$PROJECT_DIR$/imgshow_color_differ.py" />
@@ -197,7 +210,6 @@
         <option value="$PROJECT_DIR$/multiprocess_pool.py" />
         <option value="$PROJECT_DIR$/GDAL_3D_DEM.py" />
         <option value="$PROJECT_DIR$/GDAL3D_multipro.py" />
-        <option value="$PROJECT_DIR$/tf_test.py" />
         <option value="$PROJECT_DIR$/tfplaceholder.py" />
         <option value="$PROJECT_DIR$/tf_classification.py" />
         <option value="$PROJECT_DIR$/tf_dropout.py" />
@@ -219,17 +231,25 @@
         <option value="$PROJECT_DIR$/self_tf_gdal_cnn-oil.py" />
         <option value="$PROJECT_DIR$/treetest.py" />
         <option value="$PROJECT_DIR$/self_tf_1DCNN_randomsamples.py" />
-        <option value="$PROJECT_DIR$/self_strech_img.py" />
-        <option value="$PROJECT_DIR$/svm_test.py" />
         <option value="$PROJECT_DIR$/self_tf_1DCNN.py" />
         <option value="$PROJECT_DIR$/self_tf_gdal_2Dcnn-oil.py" />
-        <option value="$PROJECT_DIR$/self_bandmath.py" />
-        <option value="$PROJECT_DIR$/GDAL_read_show.py" />
         <option value="$PROJECT_DIR$/peiqi.py" />
         <option value="$PROJECT_DIR$/mat2tiff.py" />
-        <option value="$PROJECT_DIR$/self_tf_1DCNN-formuanuscript.py" />
-        <option value="$PROJECT_DIR$/self_read_position_excel.py" />
         <option value="$PROJECT_DIR$/self_mrmr_discritise.py" />
+        <option value="$PROJECT_DIR$/self_strech_img.py" />
+        <option value="$PROJECT_DIR$/GDAL_read_show.py" />
+        <option value="$PROJECT_DIR$/self_read_position_excel.py" />
+        <option value="$PROJECT_DIR$/svm_test.py" />
+        <option value="$PROJECT_DIR$/self_dwt.py" />
+        <option value="$PROJECT_DIR$/img2excel.py" />
+        <option value="$PROJECT_DIR$/self_mrmr.py" />
+        <option value="$PROJECT_DIR$/self_tf_1DCNN-formuanuscript.py" />
+        <option value="$PROJECT_DIR$/wrcoef.py" />
+        <option value="$PROJECT_DIR$/tf_test.py" />
+        <option value="$PROJECT_DIR$/self_bandmath.py" />
+        <option value="$PROJECT_DIR$/tf_wavelet_test.py" />
+        <option value="$PROJECT_DIR$/self_mrmr_discretise.py" />
+        <option value="$PROJECT_DIR$/self_wavelet_test.py" />
       </list>
     </option>
   </component>
@@ -239,11 +259,11 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1494" />
-    <option name="y" value="71" />
-    <option name="width" value="1378" />
-    <option name="height" value="733" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -281,17 +301,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="fishc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fishc" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="Scope">
         <subPane subId="Project Files">
           <expand>
@@ -299,35 +308,16 @@
               <item name="Root" type="cbb8eebc:String" user="Root" />
               <item name="fishc" type="cbb8eebc:String" user="fishc" />
             </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
             <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="External Dependencies" type="cbb8eebc:String" user="External Dependencies" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="External Dependencies" type="cbb8eebc:String" user="External Dependencies" />
-              <item name="C:" type="cbb8eebc:String" user="C:" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="External Dependencies" type="cbb8eebc:String" user="External Dependencies" />
-              <item name="C:" type="cbb8eebc:String" user="C:" />
-              <item name="python363" type="cbb8eebc:String" user="python363" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="External Dependencies" type="cbb8eebc:String" user="External Dependencies" />
-              <item name="C:" type="cbb8eebc:String" user="C:" />
-              <item name="python363" type="cbb8eebc:String" user="python363" />
-              <item name="Lib" type="cbb8eebc:String" user="Lib" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="External Dependencies" type="cbb8eebc:String" user="External Dependencies" />
-              <item name="C:" type="cbb8eebc:String" user="C:" />
-              <item name="python363" type="cbb8eebc:String" user="python363" />
-              <item name="Lib" type="cbb8eebc:String" user="Lib" />
-              <item name="site-packages" type="cbb8eebc:String" user="site-packages" />
+              <item name="fishc" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fishc" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -358,8 +348,26 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.self_mrmr_discritise">
-    <configuration name="GDAL_3D_DEM" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.self_wavelet_test">
+    <configuration name="Doctests in wrcoef" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="fishc" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/wrcoef.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+    </configuration>
+    <configuration name="self_bandmath" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -371,12 +379,12 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="fishc" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GDAL_3D_DEM.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/self_bandmath.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="GDAL_read_show" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="self_wavelet_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -388,12 +396,12 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="fishc" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GDAL_read_show.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/self_wavelet_test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="peiqi" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="tf_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -405,12 +413,12 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="fishc" />
-      <option name="SCRIPT_NAME" value="F:\Python\workshop\fishc\self_mrmr_discritise.py" />
+      <option name="SCRIPT_NAME" value="F:\Python\workshop\fishc\self_wavelet_test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="self_mrmr_discritise" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="tf_wavelet_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -422,42 +430,25 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="fishc" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/self_mrmr_discritise.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
-    <configuration name="self_tf_1DCNN-formuanuscript" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="fishc" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/self_tf_1DCNN-formuanuscript.py" />
+      <option name="SCRIPT_NAME" value="F:\Python\workshop\fishc\self_wavelet_test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.peiqi" />
-      <item index="1" class="java.lang.String" itemvalue="Python.GDAL_read_show" />
-      <item index="2" class="java.lang.String" itemvalue="Python.GDAL_3D_DEM" />
-      <item index="3" class="java.lang.String" itemvalue="Python.self_mrmr_discritise" />
-      <item index="4" class="java.lang.String" itemvalue="Python.self_tf_1DCNN-formuanuscript" />
+      <item index="0" class="java.lang.String" itemvalue="Python.tf_test" />
+      <item index="1" class="java.lang.String" itemvalue="Python tests.Doctests in wrcoef" />
+      <item index="2" class="java.lang.String" itemvalue="Python.tf_wavelet_test" />
+      <item index="3" class="java.lang.String" itemvalue="Python.self_bandmath" />
+      <item index="4" class="java.lang.String" itemvalue="Python.self_wavelet_test" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.self_mrmr_discritise" />
-        <item index="1" class="java.lang.String" itemvalue="Python.self_tf_1DCNN-formuanuscript" />
-        <item index="2" class="java.lang.String" itemvalue="Python.peiqi" />
-        <item index="3" class="java.lang.String" itemvalue="Python.GDAL_3D_DEM" />
-        <item index="4" class="java.lang.String" itemvalue="Python.GDAL_read_show" />
+        <item index="0" class="java.lang.String" itemvalue="Python.self_wavelet_test" />
+        <item index="1" class="java.lang.String" itemvalue="Python.self_bandmath" />
+        <item index="2" class="java.lang.String" itemvalue="Python.tf_wavelet_test" />
+        <item index="3" class="java.lang.String" itemvalue="Python.tf_test" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Doctests in wrcoef" />
       </list>
     </recent_temporary>
   </component>
@@ -499,6 +490,14 @@
     <option name="localTasksCounter" value="4" />
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="Doctests_in_wrcoef - 2018.06.26 at 12h 26m 17s.xml">
+      <configuration name="Doctests in wrcoef" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_wrcoef - 2018.06.26 at 12h 28m 55s.xml">
+      <configuration name="Doctests in wrcoef" configurationId="tests" />
+    </history-entry>
+  </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
@@ -509,19 +508,19 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17004265" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1732224" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32826087" sideWeight="0.4978678" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3347826" sideWeight="0.21588486" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3347826" sideWeight="0.78411514" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37171054" sideWeight="0.25945538" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.21653971" sideWeight="0.48454157" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28695652" sideWeight="0.48933902" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1118421" sideWeight="0.79425114" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37171054" sideWeight="0.7405446" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15031983" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32173914" sideWeight="0.4969605" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4022082" sideWeight="0.4941435" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32173914" sideWeight="0.49253732" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4022082" sideWeight="0.4941435" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1704142" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -581,28 +580,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="11" />
+      <option name="time" value="15" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/ops/gen_nn_ops.py" />
-    <entry file="file://$PROJECT_DIR$/linear_stretch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1075">
-          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tree.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="58" column="26" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/python363/Lib/site-packages/xlrd/sheet.py" />
-    <entry file="file://C:/python363/Lib/site-packages/tensorflow/contrib/learn/python/learn/datasets/mnist.py" />
     <entry file="file://G:/快盘/论文/原始稿件/50、DL机载高光谱数据溢油信息反演-投international journal of applied earth observation或remote sensing/CNN/CNN/read_CNN_data.py" />
     <entry file="file://G:/快盘/论文/原始稿件/50、DL机载高光谱数据溢油信息反演-投international journal of applied earth observation或remote sensing/CNN/CNN/CNNmodel2-1.py" />
     <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/framework/errors_impl.py" />
@@ -656,15 +638,7 @@
     <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/ops/gen_math_ops.py" />
     <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/ops/math_ops.py" />
     <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/ops/nn_ops.py" />
-    <entry file="file://C:/python363/Lib/site-packages/osgeo/gdal.py" />
     <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/layers/pooling.py" />
-    <entry file="file://$PROJECT_DIR$/tf_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/python363/Lib/site-packages/osgeo/gdal_array.py" />
     <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/training/saver.py" />
     <entry file="file://C:/python363/Lib/site-packages/tensorflow/python/ops/gen_io_ops.py" />
@@ -685,24 +659,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/self_strech_img.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1862">
-          <caret line="100" column="22" lean-forward="false" selection-start-line="100" selection-start-column="22" selection-end-line="100" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../CNN-SVM/CNN-SVM.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2774">
           <caret line="150" column="24" lean-forward="false" selection-start-line="150" selection-start-column="24" selection-end-line="150" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/svm_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1805">
-          <caret line="112" column="0" lean-forward="false" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -713,21 +673,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Downloads/dist/pip-10.0.1/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#13#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Downloads/dist/pip-10.0.1/setup.py" />
     <entry file="file://$PROJECT_DIR$/read_CNN_data.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -735,9 +685,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#22#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -745,7 +692,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -753,9 +699,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#333#370#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -763,49 +706,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="12" column="29" lean-forward="false" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
-          <folding>
-            <element signature="e#22#61#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GDAL_read_show.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="10" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#22#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/self_bandmath.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="50" column="112" lean-forward="false" selection-start-line="50" selection-start-column="90" selection-end-line="50" selection-end-column="112" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mat2tiff.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="53" column="107" lean-forward="false" selection-start-line="53" selection-start-column="107" selection-end-line="53" selection-end-column="107" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mat2excel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -813,6 +713,121 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-7452">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mat2tiff.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="26" column="4" lean-forward="false" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GDAL_read_show.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="11" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/python363/Lib/site-packages/pywt/_dwt.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-841">
+          <caret line="238" column="4" lean-forward="false" selection-start-line="238" selection-start-column="4" selection-end-line="238" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mat2excel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="684">
+          <caret line="42" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#20#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/python363/Lib/site-packages/matlab/engine/fevalfuture.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="81" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/self_read_position_excel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="17" column="41" lean-forward="false" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#3623#3664#0" expanded="false" />
+            <marker date="1529502791478" expanded="true" signature="116:118" ph="..." />
+            <marker date="1529502791478" expanded="true" signature="1809:1811" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/self_strech_img.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img2excel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1944">
+          <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+            <element signature="e#1190#1191#0" expanded="false" />
+            <element signature="e#1327#1639#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/self_mrmr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="3" column="19" lean-forward="false" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wrcoef.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1872">
+          <caret line="55" column="42" lean-forward="true" selection-start-line="55" selection-start-column="42" selection-end-line="55" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tf_classification.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="20" column="72" lean-forward="false" selection-start-line="20" selection-start-column="72" selection-end-line="20" selection-end-column="72" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/python363/Lib/site-packages/osgeo/gdal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27414">
+          <caret line="1523" column="75" lean-forward="false" selection-start-line="1523" selection-start-column="75" selection-end-line="1523" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/self_bandmath.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="457">
+          <caret line="112" column="73" lean-forward="false" selection-start-line="112" selection-start-column="73" selection-end-line="112" selection-end-column="73" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
           </folding>
@@ -821,43 +836,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/self_tf_1DCNN-formuanuscript.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="88" column="29" lean-forward="false" selection-start-line="88" selection-start-column="29" selection-end-line="88" selection-end-column="29" />
+        <state relative-caret-position="339">
+          <caret line="219" column="0" lean-forward="false" selection-start-line="219" selection-start-column="0" selection-end-line="220" selection-end-column="0" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <element signature="e#4919#4965#0" expanded="false" />
-            <element signature="e#5183#5905#0" expanded="false" />
-            <element signature="e#5954#6913#0" expanded="false" />
-            <element signature="e#6990#8653#0" expanded="false" />
-            <element signature="e#8737#10035#0" expanded="false" />
-            <element signature="e#10118#11214#0" expanded="false" />
-            <element signature="e#11280#14736#0" expanded="false" />
-            <element signature="e#21228#21273#0" expanded="false" />
-            <element signature="e#23297#23308#0" expanded="false" />
-            <element signature="e#25411#27309#0" expanded="false" />
+            <element signature="e#2277#2278#0" expanded="false" />
+            <element signature="e#2414#2726#0" expanded="false" />
+            <element signature="e#5119#5165#0" expanded="false" />
+            <element signature="e#5383#6105#0" expanded="false" />
+            <element signature="e#7233#8896#0" expanded="false" />
+            <element signature="e#10361#11457#0" expanded="false" />
+            <element signature="e#11523#15028#0" expanded="false" />
+            <element signature="e#17616#17701#0" expanded="false" />
+            <element signature="e#18190#23487#0" expanded="false" />
+            <element signature="e#20504#23487#0" expanded="false" />
+            <element signature="e#21751#21796#0" expanded="false" />
+            <element signature="e#23957#23968#0" expanded="false" />
+            <element signature="e#26062#27960#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/self_read_position_excel.py">
+    <entry file="file://$PROJECT_DIR$/self_mrmr_discretise.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="28" column="61" lean-forward="false" selection-start-line="28" selection-start-column="61" selection-end-line="28" selection-end-column="61" />
+        <state relative-caret-position="108">
+          <caret line="58" column="31" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="105" selection-end-column="44" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#3534#3575#0" expanded="false" />
-            <marker date="1529080678180" expanded="true" signature="116:118" ph="..." />
-            <marker date="1529080678180" expanded="true" signature="1720:1722" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/self_mrmr_discritise.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="454">
-          <caret line="75" column="78" lean-forward="false" selection-start-line="75" selection-start-column="78" selection-end-line="75" selection-end-column="78" />
-          <folding>
+            <element signature="n#!!doc" expanded="false" />
             <element signature="e#926#944#0" expanded="true" />
+            <element signature="e#2430#2449#0" expanded="false" />
+            <element signature="e#4386#4868#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/self_wavelet_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="66" column="19" lean-forward="true" selection-start-line="66" selection-start-column="19" selection-end-line="66" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#999#1038#0" expanded="false" />
+            <element signature="e#1223#1257#0" expanded="false" />
           </folding>
         </state>
       </provider>

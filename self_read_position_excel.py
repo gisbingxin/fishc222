@@ -23,10 +23,12 @@ def read_sample_position(excel_name,sheet_num,start_row,start_col,end_row,end_co
         sample_temp = np.empty([row_num[sheet_id], col_num], dtype=int)
         for i in range(0,row_num[sheet_id]):
             for j in range(0,col_num):
-                print(i,j)
+                print(i,j,type(start_row))
                 #sample_temp[i-1,j] = sheet2.cell(i, j).value
-                #sample_temp[i, j] = sheet2.cell(i + start_row[sheet_id], j + start_col).value  #适用于起始行不同时
-                sample_temp[i, j] = sheet2.cell(i + start_row, j + start_col).value
+                if type(start_row) == list:
+                    sample_temp[i, j] = sheet2.cell(i + start_row[sheet_id], j + start_col).value  #适用于起始行不同时
+                else:
+                    sample_temp[i, j] = sheet2.cell(i + start_row, j + start_col).value
             #sample[sheet_num,:,:] = sample_temp
         sheet_id += 1
         sample_temp2 = np.concatenate((sample_temp2,sample_temp),axis=0)

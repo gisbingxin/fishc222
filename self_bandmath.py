@@ -37,6 +37,47 @@ def writeTiff(im_data,im_width,im_height,im_bands,save_path,im_geotrans='NONE',i
     del dataset
     print('writeTiff ends')
 
+def writeEnvi(im_data,im_width,im_height,im_bands,save_path,im_geotrans='NONE',im_proj='NONE'):
+
+    #print(im_data.dtype)
+    print('writeEnvi starts')
+    if 'int8' in im_data.dtype.name:
+        datatype = gdal.GDT_Byte
+    elif 'int16' in im_data.dtype.name:
+        datatype = gdal.GDT_UInt16
+    else:
+        datatype = gdal.GDT_Float32
+
+    print('max in writENVI',np.max(im_data))
+    # im_data.reshape(im_bands,im_width,im_height)
+    # print('im_data0',im_data[0,:,:])
+        #创建文件
+    dataset = gdal.GetDriverByName('ENVI').Create(save_path,im_width, im_height, im_bands ,datatype) #, options=['INTERLEAVE=BIP'])
+    if dataset!=None:
+        if im_geotrans !='NONE':
+            dataset.SetGeoTransform(im_geotrans)
+        else:
+            pass
+        if im_proj !='NONE':
+            dataset.SetProjection(im_proj)
+        else:
+            pass
+    if im_bands > 1:
+        for i in range(im_bands):  #无论interval是BSQ还是BIP,都利用此进行写入数据
+            dataset.GetRasterBand(i+1).WriteArray(im_data[i,:,:])
+            print(i)
+        # for row_id in range(im_height):
+        #     for col_id in range(im_width):
+        #         for band_id in range(im_bands):
+        #             dataset.GetRasterBand(band_id+1).WriteArray(im_data[band_id,col_id,row_id])
+
+    else:
+        dataset.GetRasterBand(1).WriteArray(im_data)
+    del dataset
+    print('writeEnvi ends')
+
+
+
 def readIMG(data_path):
     print('readIMG starts')
     raster =gdal.Open(data_path)#('G:\data for manuscripts\AVIRIS20100517\\f100517t01p00r10\\'
@@ -68,10 +109,9 @@ def aviris2radiance(im_data,im_width,im_height,im_bands):
     return im_data
 
 if __name__ == '__main__':
-    data_in_path ='G:\data for manuscripts\AVIRIS20100517\\f100517t01p00r10\\' \
-               'f100517t01p00r10rdn_b\\f100517t01p00r10rdn_b_sc01_ort_img_resized.img'
-    data_out_path = 'G:\data for manuscripts\AVIRIS20100517\\f100517t01p00r10\\' \
-               'f100517t01p00r10rdn_b\\f100517t01p00r10rdn_b_sc01_ort_img_resized2radiance.tif'
+    data_in_path ='G:\data for manuscripts\\aviris2010070910\\r2\\test'
+    data_out_path = 'G:\data for manuscripts\\aviris2010070910\\r2\\test3.img'
     im_data,im_width,im_height,im_bands,im_GeoTrans,im_proj = readIMG(data_in_path)
     im_data = aviris2radiance(im_data,im_width,im_height,im_bands)
-    writeTiff(im_data,im_width,im_height,im_bands,data_out_path,im_GeoTrans,im_proj)
+    #writeTiff(im_data,im_width,im_height,im_bands,data_out_path,im_GeoTrans,im_proj)
+    writeEnvi(im_data,im_width,im_height,im_bands,data_out_path,im_GeoTrans,im_proj)

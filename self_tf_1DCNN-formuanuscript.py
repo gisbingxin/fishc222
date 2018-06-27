@@ -47,6 +47,9 @@ def read_show_img(image_name, show_img=False):
     xsize = raster.RasterXSize  # RasterXSize是图像宽
     ysize = raster.RasterYSize  # RasterYSize是图像的高
     band_num = raster.RasterCount  # RasterCount是图像的波段数
+    im_GeoTrans = raster.GetGeoTransform() #仿射矩阵，左上角像素的大地坐标和像素分辨率
+                        # (左上角x, x分辨率，仿射变换，左上角y坐标，y分辨率，仿射变换)
+    im_proj = raster.GetProjection() #地图投影信息，字符串表示
     print('in read and show x,y', xsize, ysize)
 
     # 获取rgb对应波段数值，传递给拉伸显示模块
@@ -74,7 +77,7 @@ def read_show_img(image_name, show_img=False):
         if show_img:
             strechimg_pan(xsize, ysize, img_data)
             # print()
-    return raster, raster_array, xsize, ysize, band_num
+    return raster, raster_array, xsize, ysize, band_num, im_GeoTrans, im_proj
 
 
 # 获取采样点的数据，输入图像读取后的raster和波段数，输出x_data,y_data。分别是采样点位置及其数据、该点的类别数组
@@ -147,7 +150,7 @@ def get_next_batch(x_data, y_data, batch_size=20):
 
 def get_1D_app_data_batch(app_data_path):
     # x表示宽，y表示高
-    raster, raster_array, xsize, ysize, band_num = read_show_img(app_data_path)
+    raster, raster_array, xsize, ysize, band_num, im_geotrans, im_proj = read_show_img(app_data_path)
     # print('xsize,ysize',xsize,ysize)
     img_height = ysize
     img_width = xsize
@@ -167,7 +170,7 @@ def get_1D_app_data_batch(app_data_path):
             x_num += 1
         y_num += 1
     # print('app_xs shape in get 1D app data',np.shape(app_xs))
-    return app_xs, img_width, img_height, band_num
+    return app_xs, img_width, img_height, band_num, im_geotrans,im_proj
 
 
 def create_1D_cnn(xs, class_num, band_num, win_size_X, channel_1D=1):
@@ -316,8 +319,8 @@ def train_cnn(win_size_X, win_size_Y, cnn_model='simple'):
     acc90 = 0
     eighty=True
     seventy=True
-    selected_class = 400  # 每次学习量
-    for step in range(25000):  # 学习的次数是，每次学习量是batch(类数*batch_size)
+    selected_class = 50  # 每次学习量
+    for step in range(8000):  # 学习的次数是，每次学习量是batch(类数*batch_size)
         # batch_xs, batch_ys = mnist.train.next_batch(60)
         batch_xs, batch_ys = get_next_batch(x_data, y_data, selected_class)
         # off_set = num_per_class,batch_size = selected_per_class
@@ -337,18 +340,18 @@ def train_cnn(win_size_X, win_size_Y, cnn_model='simple'):
             if 0.8 >= acc > 0.7 and seventy:
                 if acc >= acc70:
                     acc70=acc
-                    saver.save(sess, "G:\data for manuscripts\AVIRIS20100517\CNN\MNF_simp\simp0.ckpt", global_step=step)
+                    saver.save(sess, "G:\data for manuscripts\AVIRIS20100517\\all_new\CNN\\f10trainning\si\simp0.ckpt", global_step=step)
             if 0.9 >= acc > 0.8 and eighty:
                 seventy=False
                 if acc >= acc80:
                     acc80 = acc
-                    saver.save(sess, "G:\data for manuscripts\AVIRIS20100517\CNN\MNF_simp\simp1.ckpt", global_step=step)
+                    saver.save(sess, "G:\data for manuscripts\AVIRIS20100517\\all_new\CNN\\f10trainning\si\simp1.ckpt", global_step=step)
                     # break
             if acc > 0.9:
                 eighty=False
                 if acc >= acc90:
                     acc90 = acc
-                    saver.save(sess, "G:\data for manuscripts\AVIRIS20100517\CNN\MNF_simp\simp2.ckpt", global_step=step)
+                    saver.save(sess, "G:\data for manuscripts\AVIRIS20100517\\all_new\CNN\\f10trainning\si\simp2.ckpt", global_step=step)
                 high_acc_num += 1
                 # if high_acc_num >=5:
                 #      break
@@ -373,7 +376,7 @@ def test_cnn(test_xs, win_size_X, win_size_Y, cnn_model='simple', batch_i=0):
     saver = tf.train.Saver()
 
     with tf.Session() as sess:
-        saver.restore(sess, "G:\\data for manuscripts\\aviris_oil\\org\\simp\\simp2.ckpt-24000")
+        saver.restore(sess, "G:\\data for manuscripts\\AVIRIS20100517\\CNN\\SI_simp\\simp2.ckpt-7500")
         label_position = tf.argmax(prediction, 1)
 
         if total_size >1000:
@@ -400,7 +403,7 @@ if __name__ == '__main__':
     # image_name = 'F:\遥感相关\墨西哥AVIRIS\\f100709t01p00r11\\f100709t01p00r11rdn_b\\f100709t01p00r11rdn_b_sc01_ort_img_QUAC'
     train = False
     test = False
-    random_sample = True  # 用于flag是否随机采样
+    random_sample = False  # 用于flag是否随机采样
     test_all = True  # 用于flag是否利用所有数据进行验证，如果是FALSE，则只对采样数据进行验证。
     #cnn_model='HU'
     cnn_model = 'simple'
@@ -419,18 +422,20 @@ if __name__ == '__main__':
     ys = tf.placeholder(tf.float32, [None, class_num])
     keep_prob = tf.placeholder(tf.float32)
 
-    image_name = 'G:\data for manuscripts\AVIRIS20100517\\f100517t01p00r10' \
-                 '\\f100517t01p00r10rdn_b\\f100517t01p00r10rdn_b_sc01_ort_img_resized2radiance_resized2_flaashed'
-    excel_name = 'G:\data for manuscripts\AVIRIS20100517\\fig_thickness_resized_roated_class_resize_ROIs\ROIs.xlsx'
+    # image_name = 'G:\data for manuscripts\AVIRIS20100517\\f100517t01p00r10 For CNN\\' \
+    #              'f100517t01p00r10rdn_b_sc01_ort_img_resized2radiance_resized2_flaashed_lt0eq0-nob123'
+    image_name = 'G:\data for manuscripts\AVIRIS20100517\\f100517t01p00r10 For CNN\\f100517t01p00r10rdn_b_sc01_ort_img_resized2radiance_resized2_flaashed_deletebands_eq0.img'
+    excel_name = 'G:\data for manuscripts\AVIRIS20100517\\all_new\ROIs\ROIs.xlsx'
     #train_excel_name = 'F:\Python\workshop\data\hydata\mannual_samp\Pavia_sample_manual.xlsx'
 
     if train or test:
         #训练样本位置和测试样本位置存在同一个Excel中，前num_per_class是training samples
         #  从第num_per_class + 1之后的数据是test samples
         # 通常样本选择不是随机的，而是人工选择
-        num_per_class = np.array([200, 700, 400, 400, 200, 200])  # 训练数据中，每一类的采样点个数
+        #num_per_class = np.array([49, 100, 49, 50, 49, 49,50])  # 训练数据中，每一类的采样点个数
         # num_per_class = np.array([6431, 18449, 1899, 2864, 1145, 4829, 1130, 3482, 747])
-        total_per_class = np.array([29345, 356713, 81948, 28845, 1547, 802])
+        num_per_class =np.array([196, 201, 195, 276, 196, 199,179])
+        total_per_class = np.array([196, 201, 195, 276, 196, 199,179])
 
         sample_num = np.sum(num_per_class)  # class_num * num_per_class  #训练数据中，所有类采样点的总数。对应后面的batch
 
@@ -444,7 +449,7 @@ if __name__ == '__main__':
         sheet_num = class_num  # 表示Excel中sheet的数目，必须与类别数量一致
 
         show_img = False  # 用于判断是否对图像进行显示
-        raster, raster_array, xsize, ysize, band_num = read_show_img(image_name, show_img)  # 读取遥感影像
+        raster, raster_array, xsize, ysize, band_num,im_geotrans, im_proj = read_show_img(image_name, show_img)  # 读取遥感影像
 
         # sample_size_X = 46  #训练数据的宽
         # sample_size_Y = 80  #训练数据的高
@@ -470,7 +475,7 @@ if __name__ == '__main__':
                 test_num_per_class = total_per_class - num_per_class
                 sample_num = np.sum(test_num_per_class)
                 #start_row = [1,1,1,1,1,1]#1# + num_per_class  # 表示记录采样点数据的Excel中，数据开始的行，0表示第一行
-                start_row = [201, 701, 401, 401, 201, 201]
+                start_row = [50, 101, 50, 51, 50, 50,51]
                 end_row = start_row + test_num_per_class - 1
                 print('test_num_per,start_row,end_row',test_num_per_class,start_row,end_row)
                 start_col = 1  # 表示记录采样点数据的Excel中，数据开始的列，0表示第一列
@@ -524,8 +529,9 @@ if __name__ == '__main__':
 
     else:
         part_data = False
-        app_data_path = image_name  # 'F:\Python\workshop\data\hydata\Pavia_MNF'
-        app_xs, x_num, y_num, band_num = get_1D_app_data_batch(app_data_path)
+        #app_data_path = image_name  # 'F:\Python\workshop\data\hydata\Pavia_MNF'
+        app_data_path ='G:\data for manuscripts\AVIRIS20100517\\f100517t01p00r10 For TEST\SI\\f10_si_fortest.img'
+        app_xs, x_num, y_num, band_num, im_geotrans, im_proj = get_1D_app_data_batch(app_data_path)
         print('shape of app_xs:', np.shape(app_xs)[0])
         xs = tf.placeholder(tf.float32, [None, band_num, channel_1D])  #
         # # 2l = []
@@ -566,7 +572,7 @@ if __name__ == '__main__':
         label = np.reshape(predicted_label, (y_num, x_num))
         label = label + 1
         ttt = np.zeros((y_num, x_num))
-        out_tif='G:\\data for manuscripts\\AVIRIS20100517\\CNN\\org_simp\\org_simp_othertrained.tif'
+        out_tif='G:\data for manuscripts\AVIRIS20100517\CNN\\test\\f10\\f10_si_fortest.tif'
         if part_data: #用在Pivia校园数据的情况，即：整个图像上，有一部分数据是没参与训练和分类的，
             # 在输出时，应当只对参与计算了的像素进行赋值
             num_per_class = np.array([3691, 427, 3905, 3942, 4035, 3788, 3504])  # 训练数据中，每一类的采样点个数
@@ -605,6 +611,6 @@ if __name__ == '__main__':
         else:
             ttt = label
             #       print(np.shape(label))
-            writeTiff(ttt, x_num, y_num, 1, out_tif)
+            writeTiff(ttt, x_num, y_num, 1, out_tif, im_geotrans,im_proj)
         plt.imshow(ttt)
         plt.show()
