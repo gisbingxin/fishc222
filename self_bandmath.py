@@ -52,7 +52,7 @@ def writeEnvi(im_data,im_width,im_height,im_bands,save_path,im_geotrans='NONE',i
     # im_data.reshape(im_bands,im_width,im_height)
     # print('im_data0',im_data[0,:,:])
         #创建文件
-    dataset = gdal.GetDriverByName('ENVI').Create(save_path,im_width, im_height, im_bands ,datatype) #, options=['INTERLEAVE=BIP'])
+    dataset = gdal.GetDriverByName('ENVI').Create(save_path,im_width, im_height, im_bands ,datatype, options=['INTERLEAVE=BIP'])
     if dataset!=None:
         if im_geotrans !='NONE':
             dataset.SetGeoTransform(im_geotrans)
@@ -109,9 +109,9 @@ def aviris2radiance(im_data,im_width,im_height,im_bands):
     return im_data
 
 if __name__ == '__main__':
-    data_in_path ='G:\data for manuscripts\\aviris2010070910\\r2\\test'
-    data_out_path = 'G:\data for manuscripts\\aviris2010070910\\r2\\test3.img'
+    data_in_path ='G:\data for manuscripts\\aviris2010070910\\r3\\r3.img'
+    data_out_path = 'G:\data for manuscripts\\aviris2010070910\\r3\\r3_radiance.img'
     im_data,im_width,im_height,im_bands,im_GeoTrans,im_proj = readIMG(data_in_path)
     im_data = aviris2radiance(im_data,im_width,im_height,im_bands)
-    #writeTiff(im_data,im_width,im_height,im_bands,data_out_path,im_GeoTrans,im_proj)
-    writeEnvi(im_data,im_width,im_height,im_bands,data_out_path,im_GeoTrans,im_proj)
+    writeTiff(im_data,im_width,im_height,im_bands,data_out_path,im_GeoTrans,im_proj)
+    #writeEnvi(im_data,im_width,im_height,im_bands,data_out_path,im_GeoTrans,im_proj)

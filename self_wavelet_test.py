@@ -40,25 +40,28 @@ if __name__ == '__main__':
     # print(np.shape(cC))
 #
 
-    db1=wt.Wavelet('db4')
+    wv=wt.Wavelet('db4')
+    wv_str='db4'
 # #print(wt.swt_max_level(len(a)))
 # #aA2,aD2,aD1\
 # cA2,cD2,cD1=wt.wavedec(xdata[200],db1,level=2)
 #
-    c,l=wavedec(xdata,db1,level=2)
+    level=3
+    c,l=wavedec(xdata,wv,level=level)
     print('c in pywr',c)
     print('l in pywr',l)
 
     a2=eng.wrcoef('a',matlab.double(c[:].tolist())  #利用matlab对概要系数进行重构
-                  ,matlab.double(l[:]),'db4',2)
+                  ,matlab.double(l[:]),wv_str,level)
 
     a2=np.squeeze(np.array(a2._data))#从matlab返回来的概要系数类型是mlarray，需要转换为numpy.array格式
     #print(type())
+    eng.quit()
     print('a2 shape,a shape',np.shape(a2),np.shape(xdata))
 
     d=[]
     for n in range(len(l)-2):   #利用python版本的wrcoef进行细节系数重构
-        D =wrcoef(c,l,wavelet=db1,level=n+1)
+        D =wrcoef(c,l,wavelet=wv,level=n+1)
         print(n)
         d.append(D)
 
